@@ -1,0 +1,124 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    height: 100px;
+    display: block;
+    background-color: #101010;
+}
+.inner-header {
+    width: 1000px;
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+    /*background-color: yellow;*/
+}
+
+.logo-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+    /*background-color: green;*/
+}
+
+.img-book {
+    width: 75px;
+    height: 75px;  
+}
+
+.logo-name {
+    width: 35%;
+    height: 10px;
+    text-align: center;
+    color: white;
+    /*background-color: white;*/
+    padding-top: 40px;
+    padding-bottom: 60px;;
+}
+
+.logo-name-name { 
+    color: white;
+}
+
+.navigation {
+    float: right;
+    height: 100%;
+    /*background-color: blue;*/
+    padding: -50px
+}
+
+.navigation li {
+    height: 100%;
+    display: table;
+    float: left;
+    padding: 0px 20px;
+}
+
+.navigation li a {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    color: white;
+    font-size: 16px;
+}
+
+.signup-form {
+    padding-top: 120px;
+    width: 1000px;
+    margin: 0 auto;
+    /*padding: 0px 200px;*/
+    /*background-color: red;*/
+}
+.signup-form h2{
+    /*padding: 0px 200px;*/
+    /*background-color: green;*/
+}
+.signup-form-form input, label, select, button{
+    height: fit-content;
+    display: block;
+    margin: auto;
+    padding: 3px;
+    float: left;
+}
+.message {
+    padding-top: 100px;
+    padding-right: 700px;
+    float: right;
+    color: red;
+}
+/*
+.signup-form-form select{
+    /*background-color: purple;*
+*/
+
+.login-form {
+    padding-top: 120px;
+    width: fit-content;
+    display: block;
+    margin: auto;
+    /*background-color: purple; width: 1000px;
+    margin: 0 auto;*/
+}
+
+.login-form input{
+    padding: 3px;
+    float: left;
+}
+.login-form button{
+    float: left;
+}
+
+.loggedin {
+    padding-top: 105px;
+    padding-left: 180px;
+    margin: auto;
+    
+}
