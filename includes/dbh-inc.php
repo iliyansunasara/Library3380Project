@@ -1,8 +1,8 @@
 <?php
 
-$serverName = "localhost";
-$dBUsername = "root";
-$dBPassword = "";
+$serverName = "libraryprojserv.mysql.database.azure.com"; //localhost
+$dBUsername = "adminuser"; //root
+$dBPassword = "22TYRRL8A8V31810$ "; /""
 $dBName = "library";
 
 $conn = mysqli_connect($serverName, $dBUsername, $dBPassword, $dBName);
