@@ -10,7 +10,7 @@
             header("location: ../login.php?error=emptyinput");
             exit();
         }
-        loginUser($conn, $UnivID, $Pass);
+        loginUser($con, $UnivID, $Pass);
     }
     else {
         header("location: ../login.php");

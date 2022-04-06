@@ -27,13 +27,13 @@ if (isset($_POST["submit"])) {
         header("location: ../signup.php?error=invalidemail");
         exit();
     }
-    if (uidExists($conn, $UnivID) !== false) {
+    if (uidExists($con, $UnivID) !== false) {
         header("location: ../signup.php?error=uidtaken");
         exit();
     }
     /*PASSWORD LENGTH MAYBE????*/
     //echo "It Works";
-    createUser($conn, $UnivID, $Pass, $First, $Mid, $Last, $Stat, $Email, $DOB, $Tele, $Addr);
+    createUser($con, $UnivID, $Pass, $First, $Mid, $Last, $Stat, $Email, $DOB, $Tele, $Addr);
 
 }
 else {
