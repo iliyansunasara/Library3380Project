@@ -2,13 +2,13 @@
 
 $serverName = "libraryprojserv.mysql.database.azure.com"; //localhost
 $dBUsername = "adminuser"; //root
-$dBPassword = "22TYRRL8A8V31810$ "; /""
+$dBPassword = "22TYRRL8A8V31810$";
 $dBName = "library";
 
 $conn = mysqli_connect($serverName, $dBUsername, $dBPassword, $dBName);
 
 if (!$conn) {
-   die("Connection failed: " . mysqli_connect_error()); 
+   die("Connection failed: ".mysqli_connect_error()); 
 }
 
 ?>
