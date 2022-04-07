@@ -1,23 +1,16 @@
+@font-face {
+    src: url("../fonts/minecraft.ttf");
+    font-family: "MC";
+}
+
+
 *{
     margin: 0;
     padding: 0;
     list-style: none;
     text-decoration: none;
-}
-
-.header {
-    position: fixed;
-    width: 100%;
-    height: 100px;
-    display: block;
-    background-color: #101010;
-}
-.inner-header {
-    width: 1000px;
-    height: 100%;
-    display: block;
-    margin: 0 auto;
-    /*background-color: yellow;*/
+    font-family: "MC";
+    
 }
 
 .logo-container {
@@ -35,39 +28,15 @@
 }
 
 .logo-name {
-    width: 35%;
-    height: 10px;
-    text-align: center;
-    color: white;
-    /*background-color: white;*/
-    padding-top: 40px;
-    padding-bottom: 60px;;
+    text-shadow: 2px 2px 2px black;
+    font-size: 14px; /*not here*/
+    float: left;
+    padding: 35px 14px;
+   
 }
 
 .logo-name-name { 
     color: white;
-}
-
-.navigation {
-    float: right;
-    height: 100%;
-    /*background-color: blue;*/
-    padding: -50px
-}
-
-.navigation li {
-    height: 100%;
-    display: table;
-    float: left;
-    padding: 0px 20px;
-}
-
-.navigation li a {
-    display: table-cell;
-    vertical-align: middle;
-    height: 100%;
-    color: white;
-    font-size: 16px;
 }
 
 .signup-form {
@@ -109,7 +78,7 @@
 }
 
 .login-form input{
-    padding: 3px;
+    padding: 3px; /* 3px*/
     float: left;
 }
 .login-form button{
@@ -117,8 +86,103 @@
 }
 
 .loggedin {
-    padding-top: 105px;
-    padding-left: 180px;
-    margin: auto;
+    color: white;
+    font-size: 15px; /*18px*/
+    text-shadow: 2px 2px 2px black;
+    padding: 42px 20px 0px 65px; /*80=100*/
     
+    float: left;
+}
+
+nav{
+    width: 100%;
+    height: 100px;
+    /*background-color: #101010;*/
+}
+
+.img-for-logo {
+    float: left;
+    padding: 12px 20px 0px 20px;
+}
+
+nav ul {
+    float: right;
+}
+
+nav ul li {
+    float: left;
+    list-style: none;
+    position: relative;
+}
+
+nav ul li a{
+    display: block;
+    color: white;
+    font-size: 20px; /*24px*/
+    text-shadow: 2px 2px 2px black;
+    padding: 38px 20px; /*35px 20px*/
+    text-decoration: none;
+}
+
+nav ul li ul{
+    display: none;
+    position: absolute;
+    background: url("../img/cobbled_deep_slate.png");
+    /*background-color: #101010;*/
+    padding: 10px;
+    border-radius: 0px 0px 8px 8px;
+}
+
+nav ul li:hover ul{
+    display: block;
+    
+}
+
+nav ul li ul li{
+    width: 200px;
+}
+
+nav ul li ul li a{
+    padding: 12px 14px;
+}
+
+nav ul li ul li a:hover{
+    background: url("../img/gold_block.png");
+    /*background-color: green*/
+}
+
+
+.header-final {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.bar {
+    width: 100%;
+    height: 100px;
+    background: url("../img/bookshelf.png");
+    /*background-color: #101010;*/
+}
+
+.prof {
+    width: 100%;
+    height: 100px;
+}
+
+.prof ul {
+    width: fit-content;
+    margin: auto;
+}
+
+.prof ul li{
+    
+    float: left;
+    padding: 40px;
+    /*background-color: yellow;*/
+}
+
+.prof ul li a{
+    color: black;
+    
+    /*background-color: yellow;*/
 }
