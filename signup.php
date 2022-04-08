@@ -11,7 +11,7 @@
                 <input type="text" name="lname" placeholder="*Last Name...">
                 <label for="mi">Middle Initial (if applicable):</label>
                 <select name="minit" id="mi">
-                    <option value="abc">None</option>
+                    <option value="-">None</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
                     <option value="C">C</option>

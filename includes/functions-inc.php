@@ -56,7 +56,8 @@
     }
 
     function createUser($con, $UnivID, $Pass, $First, $Mid, $Last, $Stat, $Email, $DOB, $Tele, $Addr) {
-        $sql = "INSERT INTO USERS (University_id, Password, Fname, Minit, Lname, Status, Email, BDate, Phone_num, Address, Created_at, Last_updated) VALUES (?,?,?,?,?,?,?,?,?,?,now(),now());";
+        $sql = "INSERT INTO USERS (University_id, Password, Fname, Minit, Lname, Status, Email, BDate, Phone_num, Address, Created_at, Last_updated, Fines, Num_of_books, Calculator_count, Laptop_count, Headphone_count) VALUES (?,?,?,?,?,?,?,?,?,?,now(),now(),0,0,0,0,0);";
+        
         $stmt = mysqli_stmt_init($con);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             header("location: ../signup.php?error=stmtfailed");
