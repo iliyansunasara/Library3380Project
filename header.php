@@ -26,11 +26,13 @@
                                 $UserID = $_SESSION["University_id"];
                                 require_once 'includes/dbh-inc.php';
                                 //require_once 'dbh-inc.php';
-                                $sql = "SELECT Fname, Lname FROM USERS WHERE 'University_id' = $UserID;";
+                                //$sql = "SELECT Fname, Lname FROM USERS WHERE 'University_id' = $UserID;";
+                                $sql = "SELECT University_id, Fname, Lname FROM USERS WHERE University_id = '$UserID';";
                                 $result = $conn->query($sql);
                                 $row = $result->fetch_assoc();
+                                //echo "<p>Hello there, ". $_SESSION['University_id'] .".</p>";
                                 //echo "<p>Hello there, ".$row['Fname']." ".$row['Lname'].".</p>";
-                                echo "<p>Hello there, ". $_SESSION['University_id'] .".</p>";
+                                echo "Hello there, " . $row["Fname"]. " " . $row["Lname"] . "<br>";
                             }
                             else if (isset($_SESSION["Staff_id"])) {
                                 $UserID = $_SESSION["Staff_id"];
