@@ -33,9 +33,9 @@
         return $result;
     }
 
-    function uidExists($con, $UnivID) {
+    function uidExists($conn, $UnivID) {
         $sql = "SELECT * FROM USERS WHERE University_id = ?;";
-        $stmt = mysqli_stmt_init($con);
+        $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             header("location: ../signup.php?error=stmtfailed");
             exit();
@@ -55,10 +55,10 @@
         mysqli_stmt_close($stmt);
     }
 
-    function createUser($con, $UnivID, $Pass, $First, $Mid, $Last, $Stat, $Email, $DOB, $Tele, $Addr) {
+    function createUser($conn, $UnivID, $Pass, $First, $Mid, $Last, $Stat, $Email, $DOB, $Tele, $Addr) {
         $sql = "INSERT INTO USERS (University_id, Password, Fname, Minit, Lname, Status, Email, BDate, Phone_num, Address, Created_at, Last_updated, Fines, Num_of_books, Calculator_count, Laptop_count, Headphone_count) VALUES (?,?,?,?,?,?,?,?,?,?,now(),now(),0,0,0,0,0);";
         
-        $stmt = mysqli_stmt_init($con);
+        $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             header("location: ../signup.php?error=stmtfailed");
             exit();
@@ -82,8 +82,8 @@
         }
         return $result;
     }
-    function loginUser($con, $UnivID, $Pass) {
-        $uidExists =  uidExists($con, $UnivID);
+    function loginUser($conn, $UnivID, $Pass) {
+        $uidExists =  uidExists($conn, $UnivID);
         if ($uidExists === false) {
             header("location: ../login.php?error=wronglogin");
             exit();
