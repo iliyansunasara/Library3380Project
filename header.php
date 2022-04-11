@@ -24,8 +24,8 @@
                         <?php
                             if(isset($_SESSION["University_id"])) {
                                 $UserID = $_SESSION["University_id"];
-                                //require_once 'includes/dbh-inc.php';
-                                require_once 'dbh-inc.php';
+                                require_once 'includes/dbh-inc.php';
+                                //require_once 'dbh-inc.php';
                                 $sql = "SELECT Fname, Lname FROM USERS WHERE 'University_id' = $UserID;";
                                 $result = $conn->query($sql);
                                 $row = $result->fetch_assoc();
