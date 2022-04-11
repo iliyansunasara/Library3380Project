@@ -3,16 +3,12 @@
 ?>
         <div class="prof">
             <ul>
-                <li><a href='#'>My Books</a></li>
-                <li><a href='#'>Requests</a></li>
-                <li><a href='#'>Fines</a></li>
-                <li><a href='#'>Edit Profile</a></li>
+                <li><a href='checkouts.php'>Checkouts</a></li>
+                <li><a href='requests.php'>Requests</a></li>
+                <li><a href='fines.php'>Fines</a></li>
+                <li><a href='editprofile.php'>Edit Profile</a></li>
             </ul>
         </div>
-            
-    </body>
-
-</html>
     
 <?php
     include_once 'footer.php';

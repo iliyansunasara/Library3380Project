@@ -23,7 +23,21 @@
                     <div class="loggedin">
                         <?php
                             if(isset($_SESSION["University_id"])) {
-                                echo "<p>Hello there, ". $_SESSION["University_id"] .".</p>";
+                                $UserID = $_SESSION["University_id"];
+                                require_once "includes/dbh-inc.php";
+                                $sql = "SELECT Fname, Lname FROM USERS WHERE `University_id` = $UserID;";
+                                $result = $conn->query($sql);
+                                $row = $result->fetch_assoc();
+                                echo "<p>Hello there, ".$row['Fname']." ".$row['Lname'].".</p>";
+                                
+                            }
+                            else if (isset($_SESSION["Staff_id"])) {
+                                $UserID = $_SESSION["Staff_id"];
+                                require_once "includes/dbh-inc.php";
+                                $sql = "SELECT Fname, Lname FROM STAFF WHERE `Staff_id` = $UserID;";
+                                $result = $conn->query($sql);
+                                $row = $result->fetch_assoc();
+                                echo "<p>Hello there, ".$row['Fname']." ".$row['Lname'].".</p>";
                             }
                         ?>
                     </div>
@@ -34,19 +48,35 @@
                                     echo "<li><a href='profile.php'>Profile</a>";
                                     echo "<ul>";
                                                     
-                                                        echo "<li><a href='#'>My Books</a></li>";
+                                                        echo "<li><a href='checkouts.php'>Checkouts</a></li>";
                                                 
                                                     
-                                                        echo "<li><a href='#'>Requests</a></li>";
+                                                        echo "<li><a href='requests.php'>Requests</a></li>";
                                                 
                                                     
-                                                        echo "<li><a href='#'>Fines</a></li>";
+                                                        echo "<li><a href='fines.php'>Fines</a></li>";
                                                 
                 
-                                                        echo "<li><a href='#'>Edit Profile</a></li>";
+                                                        echo "<li><a href='editprofile.php'>Edit Profile</a></li>";
                                                 echo "</ul>";
-                                    
-                                    
+                                    echo "</li>";
+                                    echo "<li><a href='includes/logout-inc.php'>Logout</a></li>";
+                                }
+                                else if (isset($_SESSION["Staff_id"])) {
+                                    echo "<li><a href='profile.php'>Profile</a>";
+                                    echo "<ul>";
+                                                    
+                                                        echo "<li><a href='checkouts.php'>Checkouts</a></li>";
+                                                
+                                                    
+                                                        echo "<li><a href='requests.php'>Requests</a></li>";
+                                                
+                                                    
+                                                        echo "<li><a href='fines.php'>Fines</a></li>";
+                                                
+                
+                                                        echo "<li><a href='editprofile.php'>Edit Profile</a></li>";
+                                                echo "</ul>";
                                     echo "</li>";
                                     echo "<li><a href='includes/logout-inc.php'>Logout</a></li>";
                                 }
@@ -59,5 +89,7 @@
                 </nav>
             </div>
         </div>
+        <div class = background_wrapper>
+            <div class = middle_wrapper>
         
         

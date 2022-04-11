@@ -9,9 +9,9 @@
                 <input type="password" name="pwd" placeholder="*Password...">
                 <input type="text" name="fname" placeholder="*First Name...">
                 <input type="text" name="lname" placeholder="*Last Name...">
-                <label for="mi">Middle Initial (if applicable):</label>
+                <label for="mi">Middle Initial (if available):</label>
                 <select name="minit" id="mi">
-                    <option value="-">None</option>
+                    <option value="">None</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
                     <option value="C">C</option>

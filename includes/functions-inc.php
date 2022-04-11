@@ -1,4 +1,69 @@
 <?php
+
+    function checkCondition($temp) {
+        if ($temp == "E") {
+            $cond = "Excellent";
+        }
+        else if ($temp == "G") {
+            $cond = "Good";
+        }
+        else if ($temp == "W") {
+            $cond = "Worn";
+        }
+        else if ($temp == "D") {
+            $cond = "Damaged";
+        }
+        else {
+            $cond = "Unknown";
+        }
+        return $cond;
+    }
+    function itemType($temp) {
+        if ($temp == "C") {
+            $itemType = "Calculator";
+        }
+        else if ($temp == "L") {
+            $itemType = "Laptop";
+        }
+        else if ($temp == "H") {
+            $itemType = "Headphones";
+        }
+        else {
+            $itemType = "Unknown";
+        }
+        return $itemType;
+    }
+
+    function checkAgeGroup($temp) {
+        if ($temp == "C") {
+            $ageGroup = "Children";
+        }
+        else if ($temp == "T") {
+            $ageGroup = "Teen";
+        }
+        else if ($temp == "A"){
+            $ageGroup = "Adult";
+        }
+        else {
+            $ageGroup = "Unknown";
+        }
+        return $ageGroup;
+    }
+
+    function checkFiction($temp) {
+        if ($temp == 1) {
+            $isFiction = "Yes";
+        }
+        else if ($temp == 0){
+            $isFiction = "No";
+        }
+        else {
+            $isFiction = "Unknown";
+        }
+        return $isFiction;
+
+    }
+
     function emptyInputSignup($UnivID, $Pass, $First, $Last, $Stat, $Email, $DOB, $Tele, $Addr) {
         $result;
         if(empty($UnivID) || empty($Pass) || empty($First) || empty($Last) || empty($Stat) || empty($Email)
@@ -55,6 +120,28 @@
         mysqli_stmt_close($stmt);
     }
 
+    function sidExists($conn, $StaffID) {
+        $sql = "SELECT * FROM STAFF WHERE Staff_id = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("location: ../login.php?error=stmtfailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "s", $StaffID);
+        mysqli_stmt_execute($stmt);
+        
+        $resultData = mysqli_stmt_get_result($stmt);
+
+        if($row = mysqli_fetch_assoc($resultData)) {
+            return $row;
+        }
+        else {
+            $result = false;
+            return $result;
+        }
+        mysqli_stmt_close($stmt);
+    }
+
     function createUser($conn, $UnivID, $Pass, $First, $Mid, $Last, $Stat, $Email, $DOB, $Tele, $Addr) {
         $sql = "INSERT INTO USERS (University_id, Password, Fname, Minit, Lname, Status, Email, BDate, Phone_num, Address, Created_at, Last_updated, Fines, Num_of_books, Calculator_count, Laptop_count, Headphone_count) VALUES (?,?,?,?,?,?,?,?,?,?,now(),now(),0,0,0,0,0);";
         
@@ -82,6 +169,19 @@
         }
         return $result;
     }
+
+    function emptyInputUpdateProfile($First, $Last, $Email, $Tele, $Addr) {
+        $result;
+        if(empty($First) || empty($Last) || empty($Email) 
+            || empty($Tele)|| empty($Addr)) {
+            $result = true;
+        }
+        else {
+            $result = false;
+        }
+        return $result;
+    }
+
     function loginUser($conn, $UnivID, $Pass) {
         $uidExists =  uidExists($conn, $UnivID);
         if ($uidExists === false) {
@@ -100,7 +200,577 @@
             header("location: ../index.php");
             exit();
         }
-
     }
 
+
+    function loginStaff($conn, $StaffID, $Pass) {
+        $sidExists = sidExists($conn, $StaffID);
+        if ($sidExists === false) {
+            header("location: ../login.php?error=wrongloginstaff");
+            exit();
+        }
+        $pwdHashed = $sidExists["Password"];
+        $checkPwd = password_verify($Pass, $pwdHashed);
+        if($checkPwd === false) {
+            header("location: ../login.php?error=wrongloginstaff");
+            exit();
+        }
+        else if ($checkPwd === true) {
+            session_start();
+            $_SESSION["Staff_id"] = $sidExists["Staff_id"];
+            header("location: ../index.php");
+            exit();
+        }
+    }
+
+    function updateUser($conn, $UnivID, $First, $Mid, $Last, $Email, $Tele, $Addr) {
+        $sql = "UPDATE `users` SET `Fname`='$First',`Minit`='$Mid',`Lname`='$Last',`Email`='$Email',`Phone_num`='$Tele',`Address`='$Addr', `Last_updated` = now() WHERE `University_id`= $UnivID;";
+        if (mysqli_query($conn, $sql)) {
+            header("location: ../editprofile.php?error=none");
+            exit();
+        }
+        else {
+            header("location: ../editprofile.php?error=sql");
+            exit();
+        }
+    }
+
+
+    function updateStaff($conn, $StaffID, $First, $Mid, $Last, $Email, $Tele, $Addr) {
+        $sql = "UPDATE `staff` SET `Fname`='$First',`Minit`='$Mid',`Lname`='$Last',`Email`='$Email',`Phone_num`='$Tele',`Address`='$Addr', `Last_updated` = now() WHERE `Staff_id`= $StaffID;";
+        if (mysqli_query($conn, $sql)) {
+            header("location: ../editprofile.php?error=none");
+            exit();
+        }
+        else {
+            header("location: ../editprofile.php?error=sql");
+            exit();
+        }
+    }
+
+    function createBookTable($conn, $UnivID){
+        $sql = "SELECT * FROM CHECK_OUT_BOOK AS COB, BOOK AS B, STAFF AS S
+            WHERE COB.University_id = $UnivID
+                AND COB.Book_id = B.Book_id AND COB.Staff_id = S.Staff_id;";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0) {
+        ?>
+            <div class="COtable">
+                <table border="1px" style="width:1000px; line-height:30px;">
+                    <tr>
+                        <th colspan="8"><h2>Books</h2></th>
+                    </tr>
+                    <t>
+                    <th>Book ID </th>
+                    <th>Title </th>
+                    <th>Author </th>
+                    <th>Genre </th>
+                    <th>Age Group</th>
+                    <th>Fiction?</th>
+                    <th>Condition</th>
+                    <th>Checked out</th>
+                </t>
+            <?php
+            while($row = $result->fetch_assoc()) {
+            ?> 
+                <tr>
+                    <td><?php echo $row['Book_id']; ?></td>
+                    <td><?php echo $row['Title']; ?></td>
+                    <td><?php echo $row['Author']; ?></td>
+                    <td><?php echo $row['Genre']; ?></td>
+                    <?php
+                    $ageGroup = checkAgeGroup($row['Age_group']);
+                    ?>
+                    <td><?php echo $ageGroup; ?></td>
+                    <?php
+                    $isFiction = checkFiction($row['Fiction']);
+                    ?>
+                    <td><?php echo $isFiction; ?></td>
+                    <?php
+                    $cond = checkCondition($row['Condition']);
+                    ?>
+                    <td><?php echo $cond; ?></td>
+                    <td><?php echo $row['Checked_out_date']; ?></td>
+                </tr>
+        <?php
+            }
+        }
+        else {
+        ?>
+            <div class="noCO">
+                <p>You have not checked out any books!</p>
+            </div>
+        <?php
+        }
+        ?>
+                </table>
+            </div>
+    <?php
+    }
+
+    function createItemTable($conn, $UnivID){
+        $sql = "SELECT *
+                FROM CHECK_OUT_ITEM AS COI, ITEM AS I
+                WHERE COI.University_id = $UnivID
+                    AND COI.Item_id = I.Item_id;";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0) {
+        ?>
+            <div class="COtable">
+                <table border="1px" style="width:1000px; line-height:30px;">
+                    <tr>
+                        <th colspan="4"><h2>Items</h2></th>
+                    </tr>
+                    <t>
+                    <th>Item ID</th>
+                    <th>Item Type</th>
+                    <th>Condition</th>
+                    <th>Checked out</th>
+                </t>
+            <?php
+            while($row = $result->fetch_assoc()) {
+            ?> 
+                <tr>
+                    <td><?php echo $row['Item_id']; ?></td>
+                    <?php
+                    $itemType = itemType($row['Item_type']);
+                    ?>
+                    <td><?php echo $itemType; ?></td>
+                    <?php
+                    $cond = checkCondition($row['Condition']);
+                    ?>
+                    <td><?php echo $cond; ?></td>
+                    <td><?php echo $row['Checked_out_date']; ?></td>
+                </tr>
+        <?php
+            }
+        }
+        else {
+        ?>
+            <div class="noCO">
+                <p>You have not checked out any items!</p>
+            </div>
+        <?php
+        }
+        ?>
+                </table>
+            </div>
+    <?php
+    }
+
+
+    function createFineTable($conn, $UnivID){
+        $sql = "SELECT *
+                FROM USERS AS U
+                WHERE U.University_id = $UnivID;";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        if($row['Fines'] > 0) {
+        ?>
+            <div class="COtable">
+                <table border="1px">
+                    <tr>
+                        <th colspan="1"><h2>Fines</h2></th>
+                    </tr>
+                    <t>
+                    <!--<th>Fines</th>-->
+                </t>
+            
+                <tr>
+                    <td><?php echo '$'.$row['Fines']; ?></td>
+                </tr>
+        <?php
+        }
+        else {
+        ?>
+            <div class="noCO">
+                <p>You have no fines!</p>
+            </div>
+        <?php
+        }
+        ?>
+                </table>
+            </div>
+    <?php
+    }
+
+    function createBookReqTable($conn, $UnivID){
+        $sql = "SELECT *
+                FROM REQUEST_BOOK AS RB, BOOK AS B
+                WHERE RB.University_id = $UnivID
+                    AND RB.Book_id = B.Book_id;";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0) {
+        ?>
+            <div class="COtable">
+                <table border="1px">
+                    <tr>
+                        <th colspan="8"><h2>Requested Books</h2></th>
+                    </tr>
+                    <t>
+                    <th>Book ID </th>
+                    <th>Title </th>
+                    <th>Author </th>
+                    <th>Genre </th>
+                    <th>Age Group</th>
+                    <th>Fiction?</th>
+                    <th>Condition</th>
+                    <th>Request Date</th>
+                </t>
+            <?php
+            while($row = $result->fetch_assoc()) {
+            ?> 
+                <tr>
+                    <td><?php echo $row['Book_id']; ?></td>
+                    <td><?php echo $row['Title']; ?></td>
+                    <td><?php echo $row['Author']; ?></td>
+                    <td><?php echo $row['Genre']; ?></td>
+                    <?php
+                    $ageGroup = checkAgeGroup($row['Age_group']);
+                    ?>
+                    <td><?php echo $ageGroup; ?></td>
+                    <?php
+                    $isFiction = checkFiction($row['Fiction']);
+                    ?>
+                    <td><?php echo $isFiction; ?></td>
+                    <?php
+                    $cond = checkCondition($row['Condition']);
+                    ?>
+                    <td><?php echo $cond; ?></td>
+                    <td><?php echo $row['Request_date']; ?></td>
+                </tr>
+        <?php
+            }
+        }
+        else {
+        ?>
+            <div class="noCO">
+                <p>You have not requested any books!</p>
+            </div>
+        <?php
+        }
+        ?>
+                </table>
+            </div>
+    <?php
+    }
+
+    function createItemReqTable($conn, $UnivID){
+        $sql = "SELECT *
+                FROM REQUEST_ITEM AS RI, ITEM AS I
+                WHERE RI.University_id = $UnivID
+                    AND RI.Item_id = I.Item_id;";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0) {
+        ?>
+            <div class="COtable">
+                <table border="1px">
+                    <tr>
+                        <th colspan="4"><h2>Requested Items</h2></th>
+                    </tr>
+                    <t>
+                    <th>Item ID</th>
+                    <th>Item Type</th>
+                    <th>Condition</th>
+                    <th>Request Date</th>
+                </t>
+            <?php
+            while($row = $result->fetch_assoc()) {
+            ?> 
+                <tr>
+                    <td><?php echo $row['Item_id']; ?></td>
+                    <?php
+                    $itemType = itemType($row['Item_type']);
+                    ?>
+                    <td><?php echo $itemType; ?></td>
+                    <?php
+                    $cond = checkCondition($row['Condition']);
+                    ?>
+                    <td><?php echo $cond; ?></td>
+                    <td><?php echo $row['Request_date']; ?></td>
+                </tr>
+        <?php
+            }
+        }
+        else {
+        ?>
+            <div class="noCO">
+                <p>You have not requested any items!</p>
+            </div>
+        <?php
+        }
+        ?>
+                </table>
+            </div>
+    <?php
+    }
+    function createUserBookTable($conn, $StaffID){
+        $sql = "SELECT * FROM CHECK_OUT_BOOK AS COB, BOOK AS B, USERS as U
+            WHERE COB.Staff_id = $StaffID
+                AND COB.Book_id = B.Book_id AND COB.University_id = U.University_id;";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0) {
+        ?>
+            <div class="COtable">
+                <table border="1px">
+                    <tr>
+                        <th colspan="9"><h2>Users Books Checked Out</h2></th>
+                    </tr>
+                    <t>
+                        <th>Univeristy ID </th>
+                        <th>Status </th>
+                        <th>First Name </th>
+                        <th>Last name </th>
+                        <th>Book ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Condition</th>
+                        <th>Checked out</th>
+                    </t>
+            <?php
+            while($row = $result->fetch_assoc()) {
+            ?> 
+                <tr>
+                    <td><?php echo $row['University_id']; ?></td>
+                    <td><?php echo $row['Status']; ?></td>
+                    <td><?php echo $row['Fname']; ?></td>
+                    <td><?php echo $row['Lname']; ?></td>
+                    <td><?php echo $row['Book_id']; ?></td>
+                    <td><?php echo $row['Title']; ?></td>
+                    <td><?php echo $row['Author']; ?></td>
+                    <?php
+                    $cond = checkCondition($row['Condition']);
+                    ?>
+                    <td><?php echo $cond; ?></td>
+                    <td><?php echo $row['Checked_out_date']; ?></td>
+                </tr>
+        <?php
+            }
+        }
+        else {
+        ?>
+            <div class="noCO">
+                <p>You have not checked out any books for users!</p>
+            </div>
+        <?php
+        }
+        ?>
+                </table>
+            </div>
+    <?php
+    }
+
+    function createUserItemTable($conn, $StaffID){
+        $sql = "SELECT * FROM CHECK_OUT_ITEM AS COI, ITEM AS I, USERS as U
+            WHERE COI.Staff_id = $StaffID
+                AND COI.Item_id = I.Item_id AND COI.University_id = U.University_id;";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0) {
+        ?>
+            <div class="COtable">
+                <table border="1px">
+                    <tr>
+                        <th colspan="8"><h2>Users Items Checked Out</h2></th>
+                    </tr>
+                    <t>
+                        <th>Univeristy ID </th>
+                        <th>Status </th>
+                        <th>First Name </th>
+                        <th>Last name </th>
+                        <th>Item ID</th>
+                        <th>Item Type</th>
+                        <th>Condition</th>
+                        <th>Checked out</th>
+                    </t>
+            <?php
+            while($row = $result->fetch_assoc()) {
+            ?> 
+                <tr>
+                    <td><?php echo $row['University_id']; ?></td>
+                    <td><?php echo $row['Status']; ?></td>
+                    <td><?php echo $row['Fname']; ?></td>
+                    <td><?php echo $row['Lname']; ?></td>
+                    <td><?php echo $row['Item_id']; ?></td>
+                    <?php
+                    $itemType = itemType($row['Item_type']);
+                    ?>
+                    <td><?php echo $itemType; ?></td>
+                    <?php
+                    $cond = checkCondition($row['Condition']);
+                    ?>
+                    <td><?php echo $cond; ?></td>
+                    <td><?php echo $row['Checked_out_date']; ?></td>
+                </tr>
+        <?php
+            }
+        }
+        else {
+        ?>
+            <div class="noCO">
+                <p>You have not checked out any items for users!</p>
+            </div>
+        <?php
+        }
+        ?>
+                </table>
+            </div>
+    <?php
+    }
+    function createUserBookReqTable($conn, $StaffID){
+        $sql = "SELECT *
+                FROM REQUEST_BOOK AS RB, BOOK AS B, USERS AS U
+                WHERE RB.Staff_id = $StaffID AND RB.Book_id = B.Book_id
+                    AND RB.University_id = U.University_id;";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0) {
+            ?>
+                <div class="COtable">
+                    <table border="1px">
+                        <tr>
+                            <th colspan="9"><h2>Users Requested Books</h2></th>
+                        </tr>
+                        <t>
+                            <th>Univeristy ID </th>
+                            <th>Status </th>
+                            <th>First Name </th>
+                            <th>Last name </th>
+                            <th>Book ID</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Condition</th>
+                            <th>Request Date</th>
+                        </t>
+                <?php
+                while($row = $result->fetch_assoc()) {
+                ?> 
+                    <tr>
+                        <td><?php echo $row['University_id']; ?></td>
+                        <td><?php echo $row['Status']; ?></td>
+                        <td><?php echo $row['Fname']; ?></td>
+                        <td><?php echo $row['Lname']; ?></td>
+                        <td><?php echo $row['Book_id']; ?></td>
+                        <td><?php echo $row['Title']; ?></td>
+                        <td><?php echo $row['Author']; ?></td>
+                        <?php
+                        $cond = checkCondition($row['Condition']);
+                        ?>
+                        <td><?php echo $cond; ?></td>
+                        <td><?php echo $row['Request_date']; ?></td>
+                    </tr>
+            <?php
+                }
+            }
+            else {
+            ?>
+                <div class="noCO">
+                    <p>You have not requested any books for users!</p>
+                </div>
+            <?php
+            }
+            ?>
+                    </table>
+                </div>
+        <?php
+    }
+    function createUserItemReqTable($conn, $StaffID){
+        $sql = "SELECT *
+        FROM REQUEST_ITEM AS RI, ITEM AS I, USERS AS U
+        WHERE RI.Staff_id = $StaffID AND RI.Item_id = I.Item_id
+            AND RI.University_id = U.University_id;";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0) {
+        ?>
+            <div class="COtable">
+                <table border="1px">
+                    <tr>
+                        <th colspan="9"><h2>Users Requested Items</h2></th>
+                    </tr>
+                    <t>
+                        <th>Univeristy ID </th>
+                        <th>Status </th>
+                        <th>First Name </th>
+                        <th>Last name </th>
+                        <th>Item ID</th>
+                        <th>Item Type</th>
+                        <th>Condition</th>
+                        <th>Request Date</th>
+                    </t>
+                <?php
+            while($row = $result->fetch_assoc()) {
+            ?> 
+                <tr>
+                    <td><?php echo $row['University_id']; ?></td>
+                    <td><?php echo $row['Status']; ?></td>
+                    <td><?php echo $row['Fname']; ?></td>
+                    <td><?php echo $row['Lname']; ?></td>
+                    <td><?php echo $row['Item_id']; ?></td>
+                    <?php
+                    $itemType = itemType($row['Item_type']);
+                    ?>
+                    <td><?php echo $itemType; ?></td>
+                    <?php
+                    $cond = checkCondition($row['Condition']);
+                    ?>
+                    <td><?php echo $cond; ?></td>
+                    <td><?php echo $row['Request_date']; ?></td>
+                </tr>
+            <?php
+            }
+        }
+        else {
+        ?>
+            <div class="noCO">
+                <p>You have not requested any books for users!</p>
+            </div>
+        <?php
+        }
+        ?>
+                </table>
+            </div>
+    <?php
+    }
+    function createUsersFineTable($conn){
+        $sql = "SELECT *
+                FROM USERS AS U
+                WHERE U.Fines > 0;";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0) {
+            ?>
+                <div class="COtable">
+                    <table border="1px">
+                        <tr>
+                            <th colspan="5"><h2>Users Fines</h2></th>
+                        </tr>
+                        <t>
+                            <th>Univeristy ID</th>
+                            <th>Status </th>
+                            <th>First Name </th>
+                            <th>Last name </th>
+                            <th>Fines </th>
+                        </t>
+                <?php
+                while($row = $result->fetch_assoc()) {
+                ?> 
+                    <tr>
+                        <td><?php echo $row['University_id']; ?></td>
+                        <td><?php echo $row['Status']; ?></td>
+                        <td><?php echo $row['Fname']; ?></td>
+                        <td><?php echo $row['Lname']; ?></td>
+                        <td><?php echo $row['Fines']; ?></td>
+                    </tr>
+            <?php
+                }
+            }
+            else {
+            ?>
+                <div class="noCO">
+                    <p>No users have fines!</p>
+                </div>
+            <?php
+            }
+            ?>
+                    </table>
+                </div>
+        <?php
+    }
 ?>
