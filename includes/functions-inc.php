@@ -197,7 +197,9 @@
         else if ($checkPwd === true){
             session_start();
             $_SESSION["University_id"] = $uidExists["University_id"];
-            header("location: ../index.php?error=none");
+            echo "<h2>$_SESSION["University_id"]</h2>";
+            header("location: ../index.php");
+            echo "<h2>$_SESSION["University_id"]</h2>";
             exit();
         }
     }
