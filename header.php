@@ -25,34 +25,30 @@
                             if(isset($_SESSION["University_id"])) {
                                 $UserID = $_SESSION["University_id"];
                                 require_once 'includes/dbh-inc.php';
-                                //require_once 'dbh-inc.php';
                                 //$sql = "SELECT Fname, Lname FROM USERS WHERE 'University_id' = $UserID;";
                                 $sql = "SELECT University_id, Fname, Lname FROM USERS WHERE University_id = '$UserID';";
                                 $result = $conn->query($sql);
                                 $row = $result->fetch_assoc();
                                 //echo "<p>Hello there, ". $_SESSION['University_id'] .".</p>";
-                                //echo "<p>Hello there, ".$row['Fname']." ".$row['Lname'].".</p>";
                                 echo "Hello there, " . $row["Fname"]. " " . $row["Lname"] . "<br>";
                             }
                             else if (isset($_SESSION["Staff_id"])) {
                                 $UserID = $_SESSION["Staff_id"];
-                                //require_once 'includes/dbh-inc.php';
-                                require_once 'dbh-inc.php';
+                                require_once 'includes/dbh-inc.php';
                                 $sql = "SELECT Fname, Lname FROM STAFF WHERE `Staff_id` = $UserID;";
                                 $result = $conn->query($sql);
                                 $row = $result->fetch_assoc();
-                                //echo "<p>Hello there, ".$row['Fname']." ".$row['Lname'].".</p>";
-                                echo "<p>Hello there, ". $_SESSION['Staff_id'] .".</p>";
+                                //echo "<p>Hello there, ". $_SESSION['Staff_id'] .".</p>";
+                                echo "Hello there, " . $row["Fname"]. " " . $row["Lname"] . "<br>";
                             }
                             else if (isset($_SESSION["Admin_id"])) {
                                 $UserID = $_SESSION["Admin_id"];
-                                //require_once 'includes/dbh-inc.php';
-                                require_once 'dbh-inc.php';
+                                require_once 'includes/dbh-inc.php';
                                 $sql = "SELECT Fname, Lname FROM LIBRARIAN WHERE `Admin_id` = $UserID;";
                                 $result = $conn->query($sql);
                                 $row = $result->fetch_assoc();
-                                //echo "<p>Hello there, ".$row['Fname']." ".$row['Lname'].".</p>";
-                                echo "<p>Hello there, ". $_SESSION['Admin_id'] .".</p>";
+                                //echo "<p>Hello there, ". $_SESSION['Admin_id'] .".</p>";
+                                echo "Hello there, " . $row["Fname"]. " " . $row["Lname"] . "<br>";
                             }
                         ?>
                     </div>
@@ -99,13 +95,13 @@
                                     echo "<li><a href='profile.php'>Profile</a>";
                                     echo "<ul>";
                                                     
-                                                        //echo "<li><a href='checkouts.php'>Checkouts</a></li>";
+                                                        echo "<li><a href='checkouts.php'>Checkouts</a></li>";
                                                 
                                                     
-                                                        //echo "<li><a href='requests.php'>Requests</a></li>";
+                                                        echo "<li><a href='requests.php'>Requests</a></li>";
                                                 
                                                     
-                                                        //echo "<li><a href='fines.php'>Fines</a></li>";
+                                                        echo "<li><a href='fines.php'>Fines</a></li>";
                                                 
                 
                                                         echo "<li><a href='editprofile.php'>Edit Profile</a></li>";
