@@ -142,28 +142,6 @@
         mysqli_stmt_close($stmt);
     }
 
-    function adminidExists($conn, $AdminID) {
-        $sql = "SELECT * FROM LIBRARIAN WHERE Admin_id = ?;";
-        $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("location: ../login.php?error=stmtfailed");
-            exit();
-        }
-        mysqli_stmt_bind_param($stmt, "s", $AdminID);
-        mysqli_stmt_execute($stmt);
-        
-        $resultData = mysqli_stmt_get_result($stmt);
-
-        if($row = mysqli_fetch_assoc($resultData)) {
-            return $row;
-        }
-        else {
-            $result = false;
-            return $result;
-        }
-        mysqli_stmt_close($stmt);
-    }
-
     function createUser($conn, $UnivID, $Pass, $First, $Mid, $Last, $Stat, $Email, $DOB, $Tele, $Addr) {
         $sql = "INSERT INTO USERS (University_id, Password, Fname, Minit, Lname, Status, Email, BDate, Phone_num, Address, Created_at, Last_updated, Fines, Num_of_books, Calculator_count, Laptop_count, Headphone_count) VALUES (?,?,?,?,?,?,?,?,?,?,now(),now(),0,0,0,0,0);";
         
@@ -240,26 +218,6 @@
         else if ($checkPwd === true) {
             session_start();
             $_SESSION["Staff_id"] = $sidExists["Staff_id"];
-            header("location: ../index.php");
-            exit();
-        }
-    }
-
-    function loginAdmin($conn, $AdminID, $Pass) {
-        $adminidExists = adminidExists($conn, $AdminID);
-        if ($adminidExists === false) {
-            header("location: ../login.php?error=wrongloginadmin");
-            exit();
-        }
-        $pwdHashed = $adminidExists["Password"];
-        $checkPwd = password_verify($Pass, $pwdHashed);
-        if($checkPwd === false) {
-            header("location: ../login.php?error=wrongloginadmin");
-            exit();
-        }
-        else if ($checkPwd === true) {
-            session_start();
-            $_SESSION["Admin_id"] = $sidExists["Admin_id"];
             header("location: ../index.php");
             exit();
         }
