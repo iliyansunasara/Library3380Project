@@ -25,7 +25,6 @@
                             if(isset($_SESSION["University_id"])) {
                                 $UserID = $_SESSION["University_id"];
                                 require_once 'includes/dbh-inc.php';
-                                //$sql = "SELECT Fname, Lname FROM USERS WHERE 'University_id' = $UserID;";
                                 $sql = "SELECT University_id, Fname, Lname FROM USERS WHERE University_id = '$UserID';";
                                 $result = $conn->query($sql);
                                 $row = $result->fetch_assoc();
@@ -35,7 +34,7 @@
                             else if (isset($_SESSION["Staff_id"])) {
                                 $UserID = $_SESSION["Staff_id"];
                                 require_once 'includes/dbh-inc.php';
-                                $sql = "SELECT Fname, Lname FROM STAFF WHERE `Staff_id` = $UserID;";
+                                $sql = "SELECT Staff_id, Fname, Lname FROM STAFF WHERE Staff_id = '$UserID';";
                                 $result = $conn->query($sql);
                                 $row = $result->fetch_assoc();
                                 //echo "<p>Hello there, ". $_SESSION['Staff_id'] .".</p>";
@@ -44,7 +43,7 @@
                             else if (isset($_SESSION["Admin_id"])) {
                                 $UserID = $_SESSION["Admin_id"];
                                 require_once 'includes/dbh-inc.php';
-                                $sql = "SELECT Fname, Lname FROM LIBRARIAN WHERE `Admin_id` = $UserID;";
+                                $sql = "SELECT Admin_id, Fname, Lname FROM LIBRARIAN WHERE Admin_id = '$UserID';";
                                 $result = $conn->query($sql);
                                 $row = $result->fetch_assoc();
                                 //echo "<p>Hello there, ". $_SESSION['Admin_id'] .".</p>";
