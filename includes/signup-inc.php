@@ -23,6 +23,10 @@ if (isset($_POST["submit"])) {
         header("location: ../signup.php?error=invaliduid");
         exit();
     }
+    if (strlen($UnivID) != 7) {
+        header("location: ../signup.php?error=invaliduid");
+        exit();
+    }
     if (invalidEmail($Email) !== false) {
         header("location: ../signup.php?error=invalidemail");
         exit();
