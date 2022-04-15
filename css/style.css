@@ -253,3 +253,64 @@ nav ul li ul li a:hover{
 .updategood {
     color: green;
 }
+
+.search-form {
+    padding-top: 45px;
+    width: fit-content;
+    display: block;
+    margin: auto;
+    /*background-color: purple; width: 1000px;
+    margin: 0 auto;*/
+}
+
+.search-form input{
+    padding: 3px; /* 3px*/
+    float: left;
+}
+
+.search-form button {
+    float: left;
+}
+
+.books-container {
+    float: left;
+    padding-top: 45px;
+    width: 1000px;
+    display: block;
+    margin: auto;
+    /*background-color: purple; width: 1000px;
+    margin: 0 auto;*/
+
+}
+
+.book {
+    float: left;
+    width: fit-content;
+    margin: auto;
+    padding: 50px;
+}
+
+.noresult {
+    width: fit-content;
+    margin: auto;
+    color: red;
+}
+
+.tobookinfo:visited {
+    text-decoration: none;
+    color: black;
+}
+
+.tobookinfo:hover {
+    text-decoration: none;
+    color: purple;
+}
+
+.bookinfo {
+    line-height: 1.8;
+    word-spacing: 5px;
+    float: left;
+    width: fit-content;
+    margin: auto;
+    padding: 50px;
+}
