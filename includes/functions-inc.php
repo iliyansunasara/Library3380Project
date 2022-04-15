@@ -64,6 +64,20 @@
 
     }
 
+    function displayFiction($temp) {
+        if ($temp == 1) {
+            $isFiction = "Fiction";
+        }
+        else if ($temp == 0){
+            $isFiction = "Non-Fiction";
+        }
+        else {
+            $isFiction = "Unknown";
+        }
+        return $isFiction;
+
+    }
+
     function emptyInputSignup($UnivID, $Pass, $First, $Last, $Stat, $Email, $DOB, $Tele, $Addr) {
         $result;
         if(empty($UnivID) || empty($Pass) || empty($First) || empty($Last) || empty($Stat) || empty($Email)
