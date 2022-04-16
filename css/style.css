@@ -300,9 +300,12 @@ nav ul li ul li a:hover{
     color: red;
 }
 
+.tobookinfo {
+    color: inherit;
+}
+
 .tobookinfo:visited {
     text-decoration: none;
-    color: black;
 }
 
 .tobookinfo:hover {
@@ -314,9 +317,16 @@ nav ul li ul li a:hover{
     line-height: 1.8;
     word-spacing: 5px;
     float: left;
-    width: fit-content;
+    width: 100%;
     margin: auto;
     padding: 50px;
+}
+
+.checkout-request-form {
+    float: left;
+    display: block;
+    margin: auto;
+    padding-left: 50px;
 }
 
 .centeredButton {
