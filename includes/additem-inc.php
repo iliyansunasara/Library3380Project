@@ -4,8 +4,8 @@ if (isset($_POST["addItem"])) {
     $ItemID = $_POST["itemid"];
     $Type = $_POST["type"];
     $Condition = $_POST["cond"];
-    $CreatedBy = $_SESSION["Staff_id"];
-    $LastUpdatedBy = $_SESSION["Staff_id"];
+    $CreatedBy = $_SESSION["Admin_id"];
+    $LastUpdatedBy = $_SESSION["Admin_id"];
 
     require_once 'dbh-inc.php';
     require_once 'functions-inc.php';

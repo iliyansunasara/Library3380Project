@@ -19,6 +19,8 @@
                     <option value="Mystery">Mystery</option>
                     <option value="Horror">Horror</option>
                     <option value="Thriller">Thriller</option>
+                    <option value="Comedy">Comedy</option>
+                    <option value="Childrens">Childrens</option>
                 </select><br><br>
                 <label for="isFict">Fiction?</label>
                 <select name="isFict" id="isFict">
@@ -49,23 +51,18 @@
         if(isset($_GET["error"])) {
             if($_GET["error"] == "emptyinput") {
                 echo '<script>alert("Fill in all required fields!")</script>';
-                //echo "<p class=\"message\">Fill in all required fields!</p>";
             }
             else if($_GET["error"] == "invalidBookID") {
                 echo '<script>alert("Enter a proper Book ID!")</script>';
-                //echo "<p class=\"message\">Enter a proper Book ID!</p>";
             }
             else if($_GET["error"] == "bookIDtaken") {
                 echo '<script>alert("Book ID already Exists!")</script>';
-                //echo "<p class=\"message\">Book ID already Exists!</p>";
             }
             else if($_GET["error"] == "stmtfailed") {
                 echo '<script>alert("Something went wrong, please try again!")</script>';
-                //echo "<p class=\"message\">Something went wrong, please try again!</p>";
             }
             else if($_GET["error"] == "none") {
                 echo '<script>alert("You have successfully added a book!")</script>';
-                //echo "<p class=\"message\">You have successfully added a book!</p>";
             }
         }
     ?>
