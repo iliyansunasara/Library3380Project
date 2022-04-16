@@ -77,7 +77,7 @@
         return $isFiction;
 
     }
-
+    
     function emptyInputSignup($UnivID, $Pass, $First, $Last, $Stat, $Email, $DOB, $Tele, $Addr) {
         $result;
         if(empty($UnivID) || empty($Pass) || empty($First) || empty($Last) || empty($Stat) || empty($Email)
@@ -786,5 +786,124 @@
                     </table>
                 </div>
         <?php
+    }
+
+    function emptyInputAddbook($BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $CreatedBy, $LastUpdatedBy) {
+        $result;
+        if(empty($BookID) || empty($Title) || empty($Author) || empty($Genre) || empty($AgeGroup) || ($Fiction !== "0" && $Fiction !== "1")
+        || empty($Condition) || empty($CreatedBy) || empty($LastUpdatedBy)) {
+            $result = true;
+        }
+        else {
+            $result = false;
+        }
+        return $result;
+    }
+
+    function invalidBookID($BookID) {
+        $result;
+        if(!(preg_match("/^[0-9]*$/", $BookID) || !(strlen($BookID) == 12))) {
+            $result = true;
+        }
+        else {
+            $result = false;
+        }
+        return $result;
+    }
+
+    function bookIDExists($conn, $BookID) {
+        $sql = "SELECT * FROM BOOK WHERE Book_id = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("location: ../addbook.php?error=stmtfailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "s", $BookID);
+        mysqli_stmt_execute($stmt);
+        
+        $resultData = mysqli_stmt_get_result($stmt);
+
+        if($row = mysqli_fetch_assoc($resultData)) {
+            return $row;
+        }
+        else {
+            $result = false;
+            return $result;
+        }
+        mysqli_stmt_close($stmt);
+    }
+
+    // function addBook($conn, $BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $CreatedBy, $LastUpdatedBy) {
+    //     $sql = "INSERT INTO BOOK (Book_id, Title, Author, Cover, Genre, Age_group, Fiction, Condition, Created_at, Last_updated, Created_by, Last_updated_by) VALUES (?,?,?,null,?,?,?,?,now(),now(),?,?);";
+        
+    //     $stmt = mysqli_stmt_init($conn);
+    //     if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //         header("location: ../addbook.php?error=stmtfailed");
+    //         exit();
+    //     }
+
+    //     mysqli_stmt_bind_param($stmt, "sssssssss", $BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $CreatedBy, $LastUpdatedBy);
+    //     mysqli_stmt_execute($stmt);
+    //     mysqli_stmt_close($stmt);
+    //     header("location: ../addbook.php?error=none");
+    //     exit();
+    // }
+
+    function addBook($conn, $BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $CreatedBy, $LastUpdatedBy) {
+        $sql = "INSERT INTO `book`(`Book_id`, `Title`, `Author`, `Cover`, `Genre`, `Age_group`, `Fiction`, `Condition`, `Created_at`, `Last_updated`, `Created_by`, `Last_updated_by`) VALUES ('$BookID','$Title','$Author',NULL,'$Genre','$AgeGroup', '$Fiction' ,'$Condition',now(),now(),'$CreatedBy','$LastUpdatedBy');";
+        $conn->query($sql);
+        header("location: ../addbook.php?error=none");
+        exit();
+    }
+
+    function emptyInputAdditem($ItemID, $Type, $Condition, $CreatedBy, $LastUpdatedBy) {
+        $result;
+        if(empty($ItemID) || empty($Type) || empty($Condition) || empty($CreatedBy) || empty($LastUpdatedBy)) {
+            $result = true;
+        }
+        else {
+            $result = false;
+        }
+        return $result;
+    }
+
+    function itemBookID($ItemID) {
+        $result;
+        if(!(preg_match("/^[0-9]*$/", $ItemID) || !(strlen($ItemID) == 12))) {
+            $result = true;
+        }
+        else {
+            $result = false;
+        }
+        return $result;
+    }
+
+    function itemIDExists($conn, $ItemID) {
+        $sql = "SELECT * FROM ITEM WHERE Item_id = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("location: ../additem.php?error=stmtfailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "s", $ItemID);
+        mysqli_stmt_execute($stmt);
+        
+        $resultData = mysqli_stmt_get_result($stmt);
+
+        if($row = mysqli_fetch_assoc($resultData)) {
+            return $row;
+        }
+        else {
+            $result = false;
+            return $result;
+        }
+        mysqli_stmt_close($stmt);
+    }
+
+    function addItem($conn, $ItemID, $Type, $Condition, $CreatedBy, $LastUpdatedBy) {
+        $sql = "INSERT INTO `item`(`Item_id`, `Item_type`, `Condition`, `Created_at`, `Last_updated`, `Created_by`, `Last_updated_by`) VALUES ('$ItemID','$Type','$Condition',now(),now(),'$CreatedBy','$LastUpdatedBy');";
+        $conn->query($sql);
+        header("location: ../additem.php?error=none");
+        exit();
     }
 ?>
