@@ -1,13 +1,8 @@
 <?php
 session_start();
-if (isset($_POST["addBook"])) {
-    $BookID = $_POST["bookid"];
-    $Title = $_POST["title"];
-    $Author = $_POST["author"];
-    // $Cover = $_POST["coverAddy"];
-    $Genre = $_POST["genre"];
-    $AgeGroup = $_POST["ageG"];
-    $Fiction = $_POST["isFict"];
+if (isset($_POST["addItem"])) {
+    $ItemID = $_POST["itemid"];
+    $Type = $_POST["type"];
     $Condition = $_POST["cond"];
     $CreatedBy = $_SESSION["Staff_id"];
     $LastUpdatedBy = $_SESSION["Staff_id"];
@@ -15,26 +10,26 @@ if (isset($_POST["addBook"])) {
     require_once 'dbh-inc.php';
     require_once 'functions-inc.php';
 
-    if (emptyInputAddbook($BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $CreatedBy, $LastUpdatedBy) !== false) {
-        header("location: ../addbook.php?error=emptyinput");
+    if (emptyInputAdditem($ItemID, $Type, $Condition, $CreatedBy, $LastUpdatedBy) !== false) {
+        header("location: ../additem.php?error=emptyinput");
         exit();
     }
-    if (invalidBookID($BookID) !== false) {
-        header("location: ../addbook.php?error=invalidBookID");
+    if (invalidItemID($ItemID) !== false) {
+        header("location: ../additem.php?error=invalidItemID");
         exit();
     }
-    if (strlen($BookID) != 12) {
-        header("location: ../addbook.php?error=invalidBookID");
+    if (strlen($ItemID) != 12) {
+        header("location: ../additem.php?error=invalidItemID");
         exit();
     }
-    if (bookIDExists($conn, $BookID) !== false) {
-        header("location: ../addbook.php?error=bookIDtaken");
+    if (itemIDExists($conn, $ItemID) !== false) {
+        header("location: ../additem.php?error=itemIDtaken");
         exit();
     }
-    addBook($conn, $BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $CreatedBy, $LastUpdatedBy);
+    addItem($conn, $ItemID, $Type, $Condition, $CreatedBy, $LastUpdatedBy);
 }
 else {
-    header("location: ../addbook.php");
+    header("location: ../additem.php");
     exit();
 }
 

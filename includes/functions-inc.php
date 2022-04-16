@@ -883,7 +883,7 @@
         return $result;
     }
 
-    function itemBookID($ItemID) {
+    function invalidItemID($ItemID) {
         $result;
         if(!(preg_match("/^[0-9]*$/", $ItemID) || !(strlen($ItemID) == 12))) {
             $result = true;
