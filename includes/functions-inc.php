@@ -816,7 +816,7 @@
         return $result;
     }
 
-    function invalidItemID($BookID) {
+    function invalidBookID($BookID) {
         $result;
         if(!(preg_match("/^[0-9]*$/", $BookID) || !(strlen($BookID) == 12))) {
             $result = true;
@@ -920,6 +920,46 @@
         $sql = "INSERT INTO `item`(`Item_id`, `Item_type`, `Condition`, `Created_at`, `Last_updated`, `Created_by`, `Last_updated_by`) VALUES ('$ItemID','$Type','$Condition',now(),now(),'$CreatedBy','$LastUpdatedBy');";
         $conn->query($sql);
         header("location: ../additem.php?error=none");
+        exit();
+    }
+
+    function invalidSid($StaffID) {
+        $result;
+        if(!(preg_match("/^[0-9]*$/", $StaffID) || !(strlen($StaffID)==8))) {
+            $result = true;
+        }
+        else {
+            $result = false;
+        }
+        return $result;
+    }
+
+    function emptyInputAddStaff($StaffID, $Pass, $First, $Last, $DOB, $Salary, $Email, $Tele, $Addr, $Stat) {
+        $result;
+        if(empty($StaffID) || empty($Pass) || empty($First) || empty($Last) || empty($DOB) || ($Stat !== "0" && $Stat !== "1")
+        || empty($Salary) || empty($Email) || empty($Tele) || empty($Addr)) {
+            $result = true;
+        }
+        else {
+            $result = false;
+        }
+        return $result;
+    }
+
+    function addStaff($conn, $StaffID, $Pass, $First, $Mid, $Last, $DOB, $Salary, $Email, $Tele, $Addr, $Stat) {
+        $sql = "INSERT INTO STAFF (Staff_id, Password, Fname, Minit, Lname, BDate, Salary, Email, Phone_num, Address, Created_at, Last_updated, Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now(), now(), ?);";
+        
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("location: ../addstaff.php?error=stmtfailed");
+            exit();
+        }
+        $hashedPwd = password_hash($Pass, PASSWORD_DEFAULT);
+
+        mysqli_stmt_bind_param($stmt, "sssssssssss", $StaffID, $Pass, $First, $Mid, $Last, $DOB, $Salary, $Email, $Tele, $Addr, $Stat);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        header("location: ../addstaff.php?error=none");
         exit();
     }
 ?>
