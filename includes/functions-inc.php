@@ -196,42 +196,58 @@
         return $result;
     }
 
-    function loginUser($conn, $UnivID, $Pass) {
-        $uidExists =  uidExists($conn, $UnivID);
-        if ($uidExists === false) {
+
+    function loginPerson($conn, $ID, $Pass) {
+        $sidExists = false;
+        $uidExists = false;
+        $role = "";
+        $pwdHashed = "";
+        $checkPwd = "";
+        if (strlen($ID) == 7) {
+            $uidExists =  uidExists($conn, $ID);
+        }
+        else if (strlen($ID) == 8){
+            $sidExists = sidExists($conn, $ID);
+        }
+        if ($uidExists !=  false) { 
+            $role = "user";
+            $pwdHashed = $uidExists["Password"];
+            $checkPwd = password_verify($Pass, $pwdHashed);
+        }
+        else if ($sidExists != false) {
+            if($sidExists['Status'] == "0") {
+                $role = "staff";
+            }
+            else if($sidExists['Status'] == "1")  {
+                $role = "admin";
+            }
+            $pwdHashed = $sidExists["Password"];
+            $checkPwd = password_verify($Pass, $pwdHashed);
+        }
+        else {
             header("location: ../login.php?error=wronglogin");
             exit();
         }
-        $pwdHashed = $uidExists["Password"];
-        $checkPwd = password_verify($Pass, $pwdHashed);
+
         if($checkPwd === false) {
             header("location: ../login.php?error=wronglogin");
             exit();
         }
-        else if ($checkPwd === true){
+        else if ($checkPwd === true && $role === "user"){
             session_start();
             $_SESSION["University_id"] = $uidExists["University_id"];
             header("location: ../index.php");
             exit();
         }
-    }
-
-
-    function loginStaff($conn, $StaffID, $Pass) {
-        $sidExists = sidExists($conn, $StaffID);
-        if ($sidExists === false) {
-            header("location: ../login.php?error=wrongloginstaff");
-            exit();
-        }
-        $pwdHashed = $sidExists["Password"];
-        $checkPwd = password_verify($Pass, $pwdHashed);
-        if($checkPwd === false) {
-            header("location: ../login.php?error=wrongloginstaff");
-            exit();
-        }
-        else if ($checkPwd === true) {
+        else if ($checkPwd === true && $role === "staff"){
             session_start();
             $_SESSION["Staff_id"] = $sidExists["Staff_id"];
+            header("location: ../index.php");
+            exit();
+        }
+        else if ($checkPwd === true && $role === "admin"){
+            session_start();
+            $_SESSION["Admin_id"] = $sidExists["Staff_id"];
             header("location: ../index.php");
             exit();
         }
@@ -800,7 +816,7 @@
         return $result;
     }
 
-    function invalidBookID($BookID) {
+    function invalidItemID($BookID) {
         $result;
         if(!(preg_match("/^[0-9]*$/", $BookID) || !(strlen($BookID) == 12))) {
             $result = true;

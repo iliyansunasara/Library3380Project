@@ -7,7 +7,7 @@
             require_once 'includes/functions-inc.php';
             createFineTable($conn, $_SESSION["University_id"]);
         }
-        else if(isset($_SESSION["Staff_id"])){
+        else if(isset($_SESSION["Staff_id"]) || isset($_SESSION["Admin_id"])){
             require_once 'includes/dbh-inc.php';
             require_once 'includes/functions-inc.php';
             createUsersFineTable($conn);

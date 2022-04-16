@@ -2,22 +2,13 @@
     include_once 'header.php';
 ?>
     <section class="login-form">
-        <h2>Student/Faculty Login</h2>
+        <h2>Login</h2>
         <form action="includes/login-inc.php" method="post">
-            <input type="text" name="uni" placeholder="University ID...">
-            <input type="password" name="pwd" placeholder="Password...">
+            <input type="text" name="id" placeholder="Univeristy/Staff ID..."><br><br>
+            <input type="password" name="pwd" placeholder="Password..."><br><br>
             <button type="submit" name="submit">Login</button>
         </form>
     </section>
-    <section class="login-form">
-        <h2>Staff Login</h2>
-        <form action="includes/staff-login-inc.php" method="post">
-            <input type="text" name="sid" placeholder="Staff ID...">
-            <input type="password" name="spwd" placeholder="Password...">
-            <button type="submit" name="submit">Login</button>
-        </form>
-    </section>
-
     <?php
         if(isset($_GET["error"])) {
             if($_GET["error"] == "emptyinput") {

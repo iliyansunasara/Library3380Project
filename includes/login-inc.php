@@ -1,16 +1,16 @@
 <?php
     if (isset($_POST["submit"])) {
-        $UnivID = $_POST["uni"];
+        $ID = $_POST["id"];
         $Pass = $_POST["pwd"];
 
         require_once 'dbh-inc.php';
         require_once 'functions-inc.php';
 
-        if (emptyInputLogin($UnivID, $Pass) !== false) {
+        if (emptyInputLogin($ID, $Pass) !== false) {
             header("location: ../login.php?error=emptyinput");
             exit();
         }
-        loginUser($conn, $UnivID, $Pass);
+        loginPerson($conn, $ID, $Pass);
     }
     else {
         header("location: ../login.php");
