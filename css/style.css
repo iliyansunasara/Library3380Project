@@ -57,7 +57,7 @@
 }
 
 .signup-form {
-    padding-top: 120px;
+    padding-top: 60px;
     width: 1000px;
     margin: 0 auto;
     text-align: center;
@@ -65,16 +65,36 @@
     /*background-color: red;*/
 }
 .signup-form h2{
+    font-size: 25px;
     /*padding: 0px 200px;*/
     /*background-color: green;*/
 }
-.signup-form-form input, label, select, button{
+.signup-form-form {
+    padding-top: 35px;
+    width: 390px;
+    margin: auto;
+}
+.signup-form-form h3{
+    float: left;
+}
+.signup-form-form input, label, button{
     height: fit-content;
+    width:200px;
     display: block;
     margin: auto;
     padding: 3px;
-    float: left;
+    float: right;
 }
+
+.signup-form-form button{
+    width:390px;
+}
+
+.signup-form-form select{
+    float:right;
+    width: 210px;
+}
+
 .message {
     padding-top: 100px;
     padding-right: 700px;

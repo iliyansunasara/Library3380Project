@@ -5,11 +5,16 @@
         <h2>To signup fill out fields below: * indicates required fields</h2>
         <div class="signup-form-form">
             <form action="includes/signup-inc.php" method="post">
-                <input type="text" name="uni" placeholder="*University ID...">
-                <input type="password" name="pwd" placeholder="*Password...">
-                <input type="text" name="fname" placeholder="*First Name...">
-                <input type="text" name="lname" placeholder="*Last Name...">
-                <label for="mi">Middle Initial (if available):</label>
+                <h3>*University ID:</h3>
+                <input type="text" name="uni" placeholder="University ID..."><br><br>
+                <h3>*Password: </h3>
+                <input type="password" name="pwd" placeholder="Password..."><br><br>
+                <h3>*First Name: </h3>
+                <input type="text" name="fname" placeholder="First Name..."><br><br>
+                <h3>*Last Name:</h3>
+                <input type="text" name="lname" placeholder="Last Name..."><br><br>
+                <h3>Middle Initial:</h3>
+                <!--<label for="mi">Middle Initial (if available):</label>-->
                 <select name="minit" id="mi">
                     <option value="">None</option>
                     <option value="A">A</option>
@@ -38,18 +43,23 @@
                     <option value="X">Y</option>
                     <option value="Y">X</option>
                     <option value="Z">Z</option>
-                </select>
-                <label for="status">*Status:</label>
-                <select name="status" id="status">
+                </select> <br><br>
+                <h3>*Status: </h3>
+                <!--<label for="status">Status:</label>-->
+                <select name="status" id="status"> <br><br>
                     <option value="N">None</option>
                     <option value="S">Student</option>
                     <option value="F">Faculty</option>
-                </select>
-                <input type="text" name="email" placeholder="*Email...">
-                <label for=dobF">*Date of Birth:</label>
-                    <input id="dobF" type="date" name="dob" placeholder="*Date of Birth...">
-                <input type="tel" name="tele" placeholder="*Phone Number...">
-                <input type="text" name="addy" placeholder="*House# Street, City, State">
+                </select> <br><br>
+                <h3>*Email: </h3>
+                <input type="text" name="email" placeholder="Email..."><br><br>
+                <h3>*Date of Birth:</h3>
+                <!--<label for=dobF">*Date of Birth:</label>-->
+                    <input id="dobF" type="date" name="dob" placeholder="Date of Birth..."> <br><br>
+                <h3>*Phone Number:</h3>
+                <input type="tel" name="tele" placeholder="Phone Number..."> <br><br>
+                <h3>*Address:</h3>
+                <input type="text" name="addy" placeholder="House# Street, City, State"> <br><br> <br>
                 <button type="submit" name="submit">Sign Up</button>
             </form>
             
