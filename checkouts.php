@@ -18,8 +18,16 @@
         else if(isset($_SESSION["Admin_id"])) {
             require_once 'includes/dbh-inc.php';
             require_once 'includes/functions-inc.php';
-            createUserBookTable($conn, $_SESSION["Admin_id"]);
-            createUserItemTable($conn, $_SESSION["Admin_id"]);
+            ?>
+            <div class="search-form">
+                <form>
+                    <input type = 'text' name = 'search' placeholder="Checkout Search...">
+                    <button type="submit" name="search-submit">Search</button>
+                </form>
+            </div>
+            <?php
+            createAllUserBookTable($conn);
+            //createAllUserItemTable($conn);
         }
         else {
             header("location: login.php");
