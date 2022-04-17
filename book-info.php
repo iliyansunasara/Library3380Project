@@ -52,7 +52,7 @@
     </div>
 <?php
     }
-    else {
+    else if (isset($_SESSION["University_id"]) || isset($_SESSION["Staff_id"]) || isset($_SESSION["Admin_id"])) {
 ?>
     <div class="checkout-request-form">
         <form action="includes/user-check-inc.php" method="POST">
@@ -62,6 +62,10 @@
     </div>
 
 <?php
+    }
+    else {
+        header("Location: login.php?error=mustlogin");
+        exit();
     }
 ?>
 
