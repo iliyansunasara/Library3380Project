@@ -849,22 +849,6 @@
         mysqli_stmt_close($stmt);
     }
 
-    // function addBook($conn, $BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $CreatedBy, $LastUpdatedBy) {
-    //     $sql = "INSERT INTO BOOK (Book_id, Title, Author, Cover, Genre, Age_group, Fiction, Condition, Created_at, Last_updated, Created_by, Last_updated_by) VALUES (?,?,?,null,?,?,?,?,now(),now(),?,?);";
-        
-    //     $stmt = mysqli_stmt_init($conn);
-    //     if (!mysqli_stmt_prepare($stmt, $sql)) {
-    //         header("location: ../addbook.php?error=stmtfailed");
-    //         exit();
-    //     }
-
-    //     mysqli_stmt_bind_param($stmt, "sssssssss", $BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $CreatedBy, $LastUpdatedBy);
-    //     mysqli_stmt_execute($stmt);
-    //     mysqli_stmt_close($stmt);
-    //     header("location: ../addbook.php?error=none");
-    //     exit();
-    // }
-
     function addBook($conn, $BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $CreatedBy, $LastUpdatedBy) {
         $sql = "INSERT INTO `book`(`Book_id`, `Title`, `Author`, `Cover`, `Genre`, `Age_group`, `Fiction`, `Condition`, `Created_at`, `Last_updated`, `Created_by`, `Last_updated_by`) VALUES ('$BookID','$Title','$Author',NULL,'$Genre','$AgeGroup', '$Fiction' ,'$Condition',now(),now(),'$CreatedBy','$LastUpdatedBy');";
         $conn->query($sql);
@@ -975,9 +959,9 @@
     }
 
     function updateBook($conn, $BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $LastUpdatedBy) {
-        $sql = "UPDATE 'book' SET 'Title'='$Title', 'Author'='$Author', 'Genre'='$Genre', 'Age_group'='$AgeGroup', 'Fiction'='$Fiction', 'Condition'='$Condition', 'Last_updated'=now(), 'Last_updated_by'='$LastUpdatedBy' WHERE 'Book_id'='$BookID';";
+        $sql = "UPDATE `book` SET `Title`='$Title', `Author`='$Author', `Genre`='$Genre', `Age_group`='$AgeGroup', `Fiction`='$Fiction', `Condition`='$Condition', `Last_updated`=now(), `Last_updated_by`='$LastUpdatedBy' WHERE `Book_id`='$BookID';";
         $conn->query($sql);
-        header("location: ../addbook.php?error=none");
+        header("location: ../editbook.php?error=none");
         exit();
     }
 

@@ -61,15 +61,15 @@
                 </select><br><br>
                 <h3>Fiction? :</h3>
                 <select name="isFict" id="isFict">
-                    <?php
+                <?php
                     if($Fiction == 1) {
                     ?>
-                        <option value="<?php echo "Yes";?>"><?php echo "Yes";?></option>
+                        <option value="0"><?php echo "Yes";?></option>
                     <?php
                     }
                     else {
                     ?>
-                        <option value="<?php echo "No";?>"><?php echo "No";?></option>
+                        <option value="1"><?php echo "No";?></option>
                     <?php
                     }
                     ?>
@@ -89,10 +89,10 @@
         </div>
     <?php
     }
-    else {
-        echo '<script>alert("Book ID not Present!")</script>';
-        header("location:index.php");
-    }
+    // else {
+    //     echo '<script>alert("Book ID not Present!")</script>';
+    //     header("location:index.php");
+    // }
     ?>
 
     <?php
@@ -100,16 +100,12 @@
         {
             if($_GET["error"] == "none") {
                 echo '<script>alert("Book Updated Successfully!")</script>';
-                // echo '<p class="error">Book Updated Successfully!</p>';
-                // echo "<p class=\"updategood\">Successfully Updated Book!</p>";
             }
             else if($_GET["error"] == "emptyinput") {
                 echo '<script>alert("Empty Input!")</script>';
-                // echo "<p class=\"updatebad\">Empty Input!</p>";
             }
             else if($_GET["error"] == "sql") {
                 echo '<script>alert("Error occurred! Please try again!")</script>';
-                // echo "<p class=\"updatebad\">Error occurred! Please try again!</p>";
             }
         }
     ?>

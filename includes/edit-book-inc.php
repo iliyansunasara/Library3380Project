@@ -20,8 +20,7 @@
         updateBook($conn, $BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $LastUpdatedBy);
     }
     else {
-        echo '<script>alert("Something went wrong, please try again!")</script>';
-        header("location: ../index.php");
+        header("location: ../editbook.php");
         exit();
     }
 ?>
