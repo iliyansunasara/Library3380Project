@@ -3,7 +3,6 @@
     font-family: "MC";
 }
 
-
 *{
     margin: 0;
     padding: 0;
@@ -308,11 +307,14 @@ nav ul li ul li a:hover{
 }
 
 .book {
+    width: 100%;
+    float: left;
+    padding-left: 50px;
     /* float: left;
     width: fit-content;
     margin: auto;
     padding: 50px; */
-
+    /*
     float:left;
     display: block;
     width: 100%;
@@ -325,7 +327,12 @@ nav ul li ul li a:hover{
 
     height: 275px;
     width: 175px;
+    */
 
+}
+
+.book a{
+    float: left;
 }
 
 .noresult {

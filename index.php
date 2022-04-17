@@ -19,17 +19,19 @@
                     FROM book
                     WHERE book.Title LIKE '%$search%'
                             OR book.Author LIKE '%$search%'
-                            OR book.Genre LIKE '%$search%'";
+                            OR book.Genre LIKE '%$search%'
+                            OR book.Book_id LIKE '%$search%';";
             $result = mysqli_query($conn, $sql);
             $q_results = mysqli_num_rows($result);
 
             if($q_results > 0) {
                 while($data = mysqli_fetch_assoc($result)) {
-                    echo "<a class=tobookinfo href='book-info.php?bookid=".$data['Book_id']."'><div class='book'>
-                            <h3>$data[Title]</h3>
-                            <!-- $data[Cover] -->
-                            <p>by: ".$data['Author']."</p>
-                            </div></a>";
+                    echo "<a class =tobookinfo href='book-info.php?bookid=".$data['Book_id']."'>";
+                    echo "<div class='book'>";
+                    echo "<img src = '{$data['Cover']}' width = '10%' height = '10%'>";
+                    echo "<h3>$data[Title]</h3>";
+                    echo "<p>by: ".$data['Author']."</p>";
+                    echo "</div></a>";
                 }
             }
             else {
@@ -42,11 +44,12 @@
             $q_results = mysqli_num_rows($result);
     
             while($data = mysqli_fetch_assoc($result)) {
-                echo "<a class =tobookinfo href='book-info.php?bookid=".$data['Book_id']."'><div class='book'>
-                        <h3>$data[Title]</h3>
-                        <!-- $data[Cover] -->
-                        <p>by: ".$data['Author']."</p>
-                        </div></a>";
+                echo "<a class =tobookinfo href='book-info.php?bookid=".$data['Book_id']."'>";
+                echo "<div class='book'>";
+                echo "<img src = '{$data['Cover']}' width = '10%' height = '10%'>";
+                echo "<h3>$data[Title]</h3>";
+                echo "<p>by: ".$data['Author']."</p>";
+                echo "</div></a>";
             }
         }
     ?>

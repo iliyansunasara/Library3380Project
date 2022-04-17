@@ -4,14 +4,15 @@
     <section class="signup-form">
         <h2>To add book fill out all fields below:</h2>
         <div class="signup-form-form">
-            <form action="includes/addBook-inc.php" method="post">
+            <form action="includes/addBook-inc.php" method="post" enctype="multipart/form-data">
                 <h3>Book ID:</h3>
                 <input type="text" name="bookid" placeholder="Book ID..."><br><br>
                 <h3>Title:</h3>
                 <input type="text" name="title" placeholder="Title..."><br><br>
                 <h3>Author:</h3>
                 <input type="text" name="author" placeholder="Author..."><br><br>
-                <!-- <input type="text" name="lname" placeholder="*Cover..."> -->
+                <h3>Cover:</h3>
+                <input type="file" name="cover"><br><br> 
                 <h3>Genre:</h3>
                 <select name="genre" id="genre">
                     <option value=>-</option>
@@ -54,6 +55,8 @@
 
     <?php
         if(isset($_GET["error"])) {
+            $var = $_GET["error"];
+            echo "<script>alert(".$var.")</script>";
             if($_GET["error"] == "emptyinput") {
                 echo '<script>alert("Fill in all required fields!")</script>';
             }
