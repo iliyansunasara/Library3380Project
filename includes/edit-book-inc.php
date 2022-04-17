@@ -24,7 +24,7 @@
                     // $fileNameNew = uniqid('', true).".".$fileActualExt;
                     $fileDestination = '../covers/'.$_POST["bookIDD"].'.'.$fileActualExt;
                     // $fileDestination = '../covers/'.$fileNameNew; //FIX MAYBE
-                    copy($fileTmpName, $fileDestination);
+                    move_uploaded_file($fileTmpName, $fileDestination);
                     // copy($_FILES[$file][$fileTmpName], $fileDestination);
                 }
                 else {
