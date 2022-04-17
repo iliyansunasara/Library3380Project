@@ -1000,4 +1000,150 @@
         }
         mysqli_stmt_close($stmt);
     }
+    function createAllUserBookTable($conn) {
+        if(isset($_GET['search-submit'])) {
+            $search = mysqli_real_escape_string($conn, $_GET['search']);
+            $sql1 = "SELECT * 
+                    FROM check_out_book AS COB
+                    WHERE COB.University_id LIKE '%$search%'
+                            OR COB.Staff_id LIKE '%$search%'
+                            OR COB.Book_id LIKE '%$search%'
+                            OR COB.Checked_out_date LIKE '%$search%';";
+            $sql2 = "SELECT * 
+                    FROM check_out_item AS COI
+                    WHERE COI.University_id LIKE '%$search%'
+                        OR COI.Staff_id LIKE '%$search%'
+                        OR COI.Item_id LIKE '%$search%'
+                        OR COI.Checked_out_date LIKE '%$search%';";
+            $result1 = mysqli_query($conn, $sql1);
+            $qb_results = mysqli_num_rows($result1);
+            $result2 = mysqli_query($conn, $sql2);
+            $qi_results = mysqli_num_rows($result2);
+            if($qb_results > 0) {
+                ?>
+                <div class="COtable">
+                    <table>
+                        <tr>
+                            <th colspan="8"><h2>Books Checked Out</h2></th>
+                        </tr>
+                        <t>
+                            <th>Staff ID </th>
+                            <th>Univeristy ID </th>
+                            <th>Book ID</th>
+                            <th>Checked out</th>
+                        </t>
+                <?php
+                while($row = mysqli_fetch_assoc($result1)) {
+                    ?> 
+                    <tr>
+                        <td><?php echo $row['Staff_id']; ?></td>
+                        <td><?php echo $row['University_id']; ?></td>
+                        <td><?php echo $row['Book_id']; ?></td>
+                        <td><?php echo $row['Checked_out_date']; ?></td>
+                    </tr>
+                <?php
+                }
+            }
+            if ($qi_results > 0) {
+                ?>
+                <div class="COtable">
+                    <table>
+                        <tr>
+                            <th colspan="8"><h2>Items Checked Out</h2></th>
+                        </tr>
+                        <t>
+                            <th>Staff ID </th>
+                            <th>Univeristy ID </th>
+                            <th>Item ID</th>
+                            <th>Checked out</th>
+                        </t>
+                <?php
+                while($row = mysqli_fetch_assoc($result2)) {
+                    ?> 
+                    <tr>
+                        <td><?php echo $row['Staff_id']; ?></td>
+                        <td><?php echo $row['University_id']; ?></td>
+                        <td><?php echo $row['Item_id']; ?></td>
+                        <td><?php echo $row['Checked_out_date']; ?></td>
+                    </tr>
+                <?php
+                }
+            }
+            else if ($qb_results === 0 && $qi_results === 0){
+                echo "<p class='noresult'>No results matched your search!</p>";
+            }
+        }
+        else {
+            $sql1 = "SELECT *
+                FROM check_out_book";
+            $result1 = mysqli_query($conn, $sql1);
+            $qb_results = mysqli_num_rows($result1);
+            if($qb_results > 0) {
+            ?>
+                <div class="COtable">
+                    <table>
+                        <tr>
+                            <th colspan="8"><h2>Books Checked Out</h2></th>
+                        </tr>
+                        <t>
+                            <th>Staff ID </th>
+                            <th>Univeristy ID </th>
+                            <th>Book ID</th>
+                            <th>Checked out</th>
+                        </t>
+                <?php
+                while($row = $result1->fetch_assoc()) {
+                ?> 
+                    <tr>
+                        <td><?php echo $row['Staff_id']; ?></td>
+                        <td><?php echo $row['University_id']; ?></td>
+                        <td><?php echo $row['Book_id']; ?></td>
+                        <td><?php echo $row['Checked_out_date']; ?></td>
+                    </tr>
+            <?php
+                }
+            }
+            else {
+            ?>
+                <div class="noCO">
+                    <p>No one has checked out books!</p>
+                </div>
+            <?php
+            }
+            ?>
+                    </table>
+                </div>
+        <?php
+            $sql2 = "SELECT *
+                    FROM check_out_item";
+            $result2 = mysqli_query($conn, $sql2);
+            $qi_results = mysqli_num_rows($result2);
+            if($qi_results > 0) {
+            ?>
+            <div class="COtable">
+                <table>
+                    <tr>
+                        <th colspan="8"><h2>Books Checked Out</h2></th>
+                    </tr>
+                    <t>
+                        <th>Staff ID </th>
+                        <th>Univeristy ID </th>
+                        <th>Item ID</th>
+                        <th>Checked out</th>
+                    </t>
+            <?php
+                while($row = $result2->fetch_assoc()) {
+            ?> 
+                <tr>
+                    <td><?php echo $row['Staff_id']; ?></td>
+                    <td><?php echo $row['University_id']; ?></td>
+                    <td><?php echo $row['Item_id']; ?></td>
+                    <td><?php echo $row['Checked_out_date']; ?></td>
+                </tr>
+            <?php
+                }
+
+            }
+        }
+    }
 ?>
