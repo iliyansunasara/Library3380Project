@@ -57,10 +57,10 @@
 <?php
     if(isset($_GET["error"])) {
         if($_GET["error"] == "stud_exceed") {
-            echo '<script>alert("You already have 5 books checked out!")</script>';
+            echo '<script>alert("You already have 2 books checked out!")</script>';
         }
         else if($_GET["error"] == "fac_exceed") {
-            echo '<script>alert("You already have 7 books checked out!")</script>';
+            echo '<script>alert("You already have 3 books checked out!")</script>';
         }
         else if($_GET["error"] == "request_error1") {
             echo '<script>alert("You already have this book!")</script>';

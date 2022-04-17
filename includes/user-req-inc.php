@@ -21,16 +21,16 @@
                 $num_of_books = $data['Num_of_books'];
             }
             
-            if($status == "S" && $num_of_books >= 5)
+            if($status == "S" && $num_of_books >= 2)
             {
-                //echo "You already have 5 books checked out!"
+                //echo "You already have 2 books checked out!"
                 header("location: ../index.php?error=stud_exceed");
                 exit();
             }
             
-            if($status == "F" && $num_of_books >= 7)
+            if($status == "F" && $num_of_books >= 3)
             {
-                //echo "You already have 7 books checked out!";
+                //echo "You already have 3 books checked out!";
                 header("location: ../index.php?error=fac_exceed");
                 exit();
             }
