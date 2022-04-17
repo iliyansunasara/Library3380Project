@@ -962,4 +962,23 @@
         header("location: ../addstaff.php?error=none");
         exit();
     }
+
+    function emptyInputUpdateBook($Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $LastUpdatedBy) {
+        $result;
+        if(empty($Title) || empty($Author) || empty($Genre) || empty($AgeGroup) || ($Fiction !== "0" && $Fiction !== "1") || empty($Condition) || empty($LastUpdatedBy)) {
+            $result = true;
+        }
+        else {
+            $result = false;
+        }
+        return $result;
+    }
+
+    function updateBook($conn, $BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $LastUpdatedBy) {
+        $sql = "UPDATE 'book' SET 'Title'='$Title', 'Author'='$Author', 'Genre'='$Genre', 'Age_group'='$AgeGroup', 'Fiction'='$Fiction', 'Condition'='$Condition', 'Last_updated'=now(), 'Last_updated_by'='$LastUpdatedBy' WHERE 'Book_id'='$BookID';";
+        $conn->query($sql);
+        header("location: ../addbook.php?error=none");
+        exit();
+    }
+
 ?>

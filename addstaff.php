@@ -1,7 +1,7 @@
 <?php
     include_once 'header.php';
 ?>
-    <section class="signup-form">
+    <section class="addPages-form">
         <h2>To add staff member fill out all fields below:</h2>
         <div class="forms">
             <form action="includes/addStaff-inc.php" method="post">

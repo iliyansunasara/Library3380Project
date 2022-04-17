@@ -365,3 +365,26 @@ nav ul li ul li a:hover{
     cursor: pointer;
     text-align: center;
 }
+
+.addPages-form {
+    padding-top: 120px;
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+    /*padding: 0px 200px;*/
+    /*background-color: red;*/
+}
+
+.addForm {
+    padding-top: 25px;
+    width: 300px;
+    margin: auto;
+}
+
+.addForm-form-form input, label, select, button{
+    height: fit-content;
+    display: block;
+    margin: auto;
+    padding: 3px;
+    float: left;
+}

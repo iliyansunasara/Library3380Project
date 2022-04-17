@@ -1,7 +1,7 @@
 <?php
     include_once 'header.php';
 ?>
-    <section class="signup-form">
+    <section class="addPages-form">
         <h2>To add item fill out all fields below:</h2>
         <div class="forms">
             <form action="includes/addItem-inc.php" method="post">

@@ -1,7 +1,7 @@
 <?php
     include_once 'header.php';
 ?>
-    <section class="signup-form">
+    <section class="addPages-form">
         <h2>To add book fill out all fields below:</h2>
         <div class="forms">
             <form action="includes/addBook-inc.php" method="post">
@@ -21,6 +21,7 @@
                     <option value="Thriller">Thriller</option>
                     <option value="Comedy">Comedy</option>
                     <option value="Childrens">Childrens</option>
+                    <option value="Informative">Informative</option>
                 </select><br><br>
                 <label for="isFict">Fiction?</label>
                 <select name="isFict" id="isFict">
