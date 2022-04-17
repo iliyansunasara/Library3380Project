@@ -38,7 +38,8 @@
                 <h3>Author:</h3>
                 <input type="text" name="author" value="<?php echo $Author;?>"><br><br>
                 <h3>Cover:</h3>
-                <input type="file" name="cover"><br><br> 
+                <input type="hidden" name="cover-old" value="<?php echo $Cover;?>">
+                <input type="file" name="cover" value="<?php echo $Cover;?>"><br><br> 
                 <h3>Genre:</h3>
                 <select name="genre">
                     <option value="<?php echo $Genre;?>"><?php echo $Genre;?></option>
@@ -136,7 +137,8 @@
                     ?>
                 </select><br><br>
                 <input type="hidden" name="bookIDD" value="<?php echo $BookID;?>">
-                <button type="changeBook" name="changeBook">Sumbit Changes</button>
+                <button type="changeBook" name="changeBook">Submit Changes</button><br><br>
+                <button type="deleteBook" name="deleteBook" onclick="return confirm('Are you sure you want to Delete?');">DELETE BOOK</button>
             </form>
         </div>
     <?php
@@ -152,6 +154,9 @@
         {
             if($_GET["error"] == "none") {
                 echo '<script>alert("Book Updated Successfully!")</script>';
+            }
+            else if($_GET["error"] == "noneDeleted") {
+                echo '<script>alert("Book Deleted Successfully!")</script>';
             }
             else if($_GET["error"] == "emptyinput") {
                 echo '<script>alert("Empty Input!")</script>';

@@ -4,7 +4,7 @@
     <section class="login-form">
         <h2>Login</h2>
         <form action="includes/login-inc.php" method="post">
-            <input type="text" name="id" placeholder="Univeristy/Staff ID..."><br><br>
+            <input oninput="this.value=this.value.slice(0,this.maxLength)" type="number" maxlength="8"  name="id" placeholder="Univeristy/Staff ID..."><br><br>
             <input type="password" name="pwd" placeholder="Password..."><br><br>
             <button type="submit" name="submit">Login</button>
         </form>

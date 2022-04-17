@@ -37,8 +37,11 @@
             }
         }
         else {
-            header("Location: ../addbook.php?error=filetype");
-            exit();
+            // header("Location: ../addbook.php?error=filetype");
+            // exit();
+            $fileName = $_POST["cover-old"];
+            $fileExt = explode('.', $fileName);
+            $fileActualExt = strtolower(end($fileExt));
         }
 
         // $Cover = 'covers/'.$fileNameNew;
@@ -57,6 +60,12 @@
             exit();
         }
         updateBook($conn, $BookID, $Title, $Author, $Cover, $Genre, $AgeGroup, $Fiction, $Condition, $LastUpdatedBy);
+    }
+    elseif (isset($_POST["deleteBook"])) {
+        $BookID = $_POST["bookIDD"];
+        require_once 'dbh-inc.php';
+        require_once 'functions-inc.php';
+        deleteBook($conn, $BookID);
     }
     else {
         header("location: ../editbook.php");

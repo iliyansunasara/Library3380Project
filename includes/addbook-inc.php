@@ -40,8 +40,8 @@ if (isset($_POST["addBook"])) {
         }
     }
     else {
-        header("Location: ../addbook.php?error=filetype");
-        exit();
+        // header("Location: ../addbook.php?error=filetype");
+        // exit();
     }
     // $Cover = 'covers/'.$fileNameNew;
     $Cover = 'covers/'.$_POST["bookid"].'.'.$fileActualExt;

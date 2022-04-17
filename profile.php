@@ -11,6 +11,7 @@
                 echo "<li><a href='fines.php' class='buttonTwo'>Fines</a></li>";
                 echo "<li><a href='editprofile.php' class='buttonTwo'>Edit Profile</a></li>";
                 echo "<li><a href='add-to-lib.php' class='buttonTwo'>Add to Library</a></li>";
+                echo "<li><a href='deleteStaff.php' class='buttonTwo'>Delete Staff Member</a></li>";
             echo '</ul>';
         echo '</div>';
     }

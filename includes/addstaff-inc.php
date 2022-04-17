@@ -38,6 +38,20 @@ if (isset($_POST["addStaff"])) {
     }
     addStaff($conn, $StaffID, $Pass, $First, $Mid, $Last, $DOB, $Salary, $Email, $Tele, $Addr, $Stat);
 }
+elseif (isset($_POST["deleteStaff"])) {
+    $StaffID = $_POST["staffid"];
+    require_once 'dbh-inc.php';
+    require_once 'functions-inc.php';
+    if(empty($StaffID)) {
+        header("location: ../deletestaff.php?error=emptyinput");
+        exit();
+    }
+    elseif(noStaff($conn, $StaffID) !== false) {
+        deleteStaff($conn, $StaffID);
+        exit();
+    }
+    header("location: ../deletestaff.php?error=noStaffID");
+}
 else {
     header("location: ../addstaff.php");
     exit();

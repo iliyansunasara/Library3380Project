@@ -28,7 +28,7 @@
                 while($data = mysqli_fetch_assoc($result)) {
                     echo "<a class =tobookinfo href='book-info.php?bookid=".$data['Book_id']."'>";
                     echo "<div class='book'>";
-                    echo "<img src = '{$data['Cover']}' width = '10%' height = '10%'>";
+                    echo "<img src = '{$data['Cover']}' width = '100%' height = '100%'><br><br>";
                     echo "<h3>$data[Title]</h3>";
                     echo "<p>by: ".$data['Author']."</p>";
                     echo "</div></a>";
