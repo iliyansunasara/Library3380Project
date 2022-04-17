@@ -54,34 +54,83 @@
                 <br><br>
                 <h3>Age Group:</h3>
                 <select name="ageG" id="ageG">
-                    <option value="<?php echo $AgeGroup;?>"><?php echo $AgeGroup;?></option>
-                    <option value="E">Everyone</option>
-                    <option value="T">Teen</option>
-                    <option value="A">Adult</option>
+                    <?php
+                    if($AgeGroup == "E") {
+                    ?>
+                        <option value="E"><?php echo "Everyone";?></option>
+                        <option value="T"><?php echo "Teens";?></option>
+                        <option value="A"><?php echo "Adults";?></option>
+                        <option value="C"><?php echo "Children";?></option>
+                    <?php
+                    }
+                    else if($AgeGroup == "T") {
+                    ?>
+                        <option value="T"><?php echo "Teens";?></option>
+                        <option value="E"><?php echo "Everyone";?></option>
+                        <option value="A"><?php echo "Adults";?></option>
+                        <option value="C"><?php echo "Children";?></option>
+                    <?php
+                    }
+                    else if($AgeGroup == "A") {
+                    ?>
+                        <option value="A"><?php echo "Adults";?></option>
+                        <option value="E"><?php echo "Everyone";?></option>
+                        <option value="T"><?php echo "Teens";?></option>
+                        <option value="C"><?php echo "Children";?></option>
+                    <?php
+                    }
+                    else if($AgeGroup == "C") {
+                    ?>
+                        <option value="C"><?php echo "Children";?></option>
+                        <option value="E"><?php echo "Everyone";?></option>
+                        <option value="T"><?php echo "Teens";?></option>
+                        <option value="A"><?php echo "Adults";?></option>
+                    <?php
+                    }
+                    ?>
                 </select><br><br>
                 <h3>Fiction? :</h3>
                 <select name="isFict" id="isFict">
                 <?php
                     if($Fiction == 1) {
                     ?>
-                        <option value="0"><?php echo "Yes";?></option>
+                        <option value="1"><?php echo "Yes";?></option>
+                        <option value="0">No</option>
                     <?php
                     }
                     else {
                     ?>
-                        <option value="1"><?php echo "No";?></option>
+                        <option value="0"><?php echo "No";?></option>
+                        <option value="1">Yes</option>
                     <?php
                     }
                     ?>
-                    <option value="0">No</option>
-                    <option value="1">Yes</option>
                 </select><br><br>
                 <h3>Condition:</h3>
                 <select name="cond" id="cond">
-                    <option value="<?php echo $Condition;?>"><?php echo $Condition;?></option>
-                    <option value="E">Excellent</option>
-                    <option value="G">Good</option>
-                    <option value="W">Worn</option>
+                    <?php
+                        if($Condition == "E") {
+                    ?>
+                        <option value="E"><?php echo "Excellent";?></option>
+                        <option value="G"><?php echo "Good";?></option>
+                        <option value="W"><?php echo "Worn";?></option>
+                    <?php
+                        }
+                        else if($Condition == "G") {
+                    ?>
+                        <option value="G"><?php echo "Good";?></option>
+                        <option value="W"><?php echo "Worn";?></option>
+                        <option value="E"><?php echo "Excellent";?></option>
+                    <?php
+                        }
+                        else if($Condition == "W") {
+                    ?>
+                        <option value="W"><?php echo "Worn";?></option>
+                        <option value="G"><?php echo "Good";?></option>
+                        <option value="E"><?php echo "Excellent";?></option>
+                    <?php
+                        }
+                    ?>
                 </select><br><br>
                 <input type="hidden" name="bookIDD" value="<?php echo $BookID;?>">
                 <button type="changeBook" name="changeBook">Sumbit Changes</button>

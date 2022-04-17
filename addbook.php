@@ -35,6 +35,7 @@
                     <option value="E">Everyone</option>
                     <option value="T">Teen</option>
                     <option value="A">Adult</option>
+                    <option value="C">Children</option>
                 </select><br><br>
                 <label for="cond">Condition:</label>
                 <select name="cond" id="cond">
