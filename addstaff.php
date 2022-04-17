@@ -1,15 +1,19 @@
 <?php
     include_once 'header.php';
 ?>
-    <section class="addPages-form">
+    <section class="signup-form">
         <h2>To add staff member fill out all fields below:</h2>
-        <div class="forms">
+        <div class="signup-form-form">
             <form action="includes/addStaff-inc.php" method="post">
-                <input type="text" name="staffid" placeholder="Staff ID..."><br><br>
-                <input type="password" name="pwd" placeholder="Password..."><br><br>
-                <input type="text" name="fname" placeholder="First Name..."><br><br>
-                <input type="text" name="lname" placeholder="Last Name..."><br><br>
-                <label for="minit">Middle Initial:</label>
+                <h3>Staff ID:</h3>
+                <input type="text" name="staffid" placeholder="-"><br><br>
+                <h3>Password:</h3>
+                <input type="password" name="pwd" placeholder="-"><br><br>
+                <h3>First Name:</h3>
+                <input type="text" name="fname" placeholder="-"><br><br>
+                <h3>Last Name:</h3>
+                <input type="text" name="lname" placeholder="-"><br><br>
+                <h3>Middle Initial:</h3>
                 <select name="minit" id="minit">
                     <option value="">None</option>
                     <option value="A">A</option>
@@ -39,13 +43,17 @@
                     <option value="Y">X</option>
                     <option value="Z">Z</option>
                 </select><br><br><br>
-                <label for="dob">Date of Birth:</label>
-                <input id="dob" type="date" name="dob" placeholder="*Date of Birth..."><br><br>
-                <input type="text" name="salary" placeholder="Salary..."><br><br>
-                <input type="text" name="email" placeholder="Email..."><br><br>
-                <input type="tel" name="tele" placeholder="Phone Number..."><br><br>
+                <h3>Date of Birth:</h3>
+                <input id="dob" type="date" name="dob" placeholder="*-"><br><br>
+                <h3>Salary:</h3>
+                <input type="text" name="salary" placeholder="-"><br><br>
+                <h3>Email:</h3>
+                <input type="text" name="email" placeholder="-"><br><br>
+                <h3>Phone Number:</h3>
+                <input type="tel" name="tele" placeholder="-"><br><br>
+                <h3>Address:</h3>
                 <input type="text" name="addy" placeholder="House# Street, City, State"><br><br>
-                <label for="status">Admin? :</label>
+                <h3>Admin? :</h3>
                 <select name="status" id="status">
                     <option value=>-</option>
                     <option value="0">No</option>

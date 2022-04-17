@@ -6,9 +6,9 @@
         if(isset($_SESSION["Admin_id"])) {
             echo '<div class="prof">';
                 echo '<ul>';
-                    echo "<li><a href='addstaff.php'>Add Staff</a></li>";
-                    echo "<li><a href='addbook.php'>Add Book</a></li>";
-                    echo "<li><a href='additem.php'>Add Item</a></li>";
+                    echo "<li><a href='addstaff.php' class='buttonTwo'>Add Staff</a></li>";
+                    echo "<li><a href='addbook.php' class='buttonTwo'>Add Book</a></li>";
+                    echo "<li><a href='additem.php' class='buttonTwo'>Add Item</a></li>";
             echo '</ul>';
         echo '</div>';
         }

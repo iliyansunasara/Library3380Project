@@ -25,10 +25,10 @@
 
             if($q_results > 0) {
                 while($data = mysqli_fetch_assoc($result)) {
-                    echo "<a class =tobookinfo href='book-info.php?bookid=".$data['Book_id']."'><div class='book'>
+                    echo "<a class=tobookinfo href='book-info.php?bookid=".$data['Book_id']."'><div class='book'>
                             <h3>$data[Title]</h3>
                             <!-- $data[Cover] -->
-                            <p>by ".$data['Author']."</p>
+                            <p>by: ".$data['Author']."</p>
                             </div></a>";
                 }
             }
@@ -45,7 +45,7 @@
                 echo "<a class =tobookinfo href='book-info.php?bookid=".$data['Book_id']."'><div class='book'>
                         <h3>$data[Title]</h3>
                         <!-- $data[Cover] -->
-                        <p>by ".$data['Author']."</p>
+                        <p>by: ".$data['Author']."</p>
                         </div></a>";
             }
         }

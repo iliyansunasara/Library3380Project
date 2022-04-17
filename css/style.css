@@ -308,10 +308,24 @@ nav ul li ul li a:hover{
 }
 
 .book {
-    float: left;
+    /* float: left;
     width: fit-content;
     margin: auto;
-    padding: 50px;
+    padding: 50px; */
+
+    float:left;
+    display: block;
+    width: 100%;
+    border: 3px solid black;
+    background-color: lightgray;
+    padding: 14px 14px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+
+    height: 275px;
+    width: 175px;
+
 }
 
 .noresult {
@@ -322,6 +336,7 @@ nav ul li ul li a:hover{
 
 .tobookinfo {
     color: inherit;
+    /* color: black; */
 }
 
 .tobookinfo:visited {
@@ -367,7 +382,7 @@ nav ul li ul li a:hover{
 }
 
 .addPages-form {
-    padding-top: 120px;
+    padding-top: 60px;
     width: 1000px;
     margin: 0 auto;
     text-align: center;
@@ -387,4 +402,16 @@ nav ul li ul li a:hover{
     margin: auto;
     padding: 3px;
     float: left;
+}
+
+.buttonTwo
+{
+    display: block;
+    width: 100%;
+    border: 3px solid black;
+    background-color: lightgrey;
+    padding: 14px 14px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
 }

@@ -1,20 +1,20 @@
 <?php
     include_once 'header.php';
 ?>
-    <section class="addPages-form">
+    <section class="signup-form">
         <h2>To add item fill out all fields below:</h2>
-        <div class="forms">
+        <div class="signup-form-form">
             <form action="includes/addItem-inc.php" method="post">
-                <label for="itemid">ID:</label>
+                <h3>Item ID:</h3>
                 <input type="text" name="itemid" placeholder="Item ID..."><br><br>
-                <label for="type">Item Type:</label>
+                <h3>Item Type:</h3>
                 <select name="type" id="type">
                     <option value=>-</option>
                     <option value="C">Calculator</option>
                     <option value="L">Laptop</option>
                     <option value="H">Headphones</option>
                 </select><br><br>
-                <label for="cond">Condition:</label>
+                <h3>Condition:</h3>
                 <select name="cond" id="cond">
                     <option value=>-</option>
                     <option value="E">Excellent</option>

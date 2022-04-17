@@ -13,7 +13,7 @@
             $Telephone;
             $Address;
     ?>
-        <div class = "forms">
+        <div class = "signup-form-form">
             <form action="includes/edit-profile-inc.php" method="post">
                 <?php
                     $sql = "SELECT * FROM USERS WHERE University_id = $UnivID;";
@@ -95,7 +95,7 @@
             $Telephone;
             $Address;
         ?>
-        <div class = "forms">
+        <div class = "signup-form-form">
             <form action="includes/edit-staff-profile-inc.php" method="post">
                 <?php
                     $sql = "SELECT * FROM STAFF WHERE Staff_id = $StaffID;";
@@ -177,7 +177,7 @@
             $Telephone;
             $Address;
         ?>
-        <div class = "forms">
+        <div class = "signup-form-form">
             <form action="includes/edit-staff-profile-inc.php" method="post">
                 <?php
                     $sql = "SELECT * FROM STAFF WHERE Staff_id = $AdminID ;";

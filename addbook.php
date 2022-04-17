@@ -1,15 +1,18 @@
 <?php
     include_once 'header.php';
 ?>
-    <section class="addPages-form">
+    <section class="signup-form">
         <h2>To add book fill out all fields below:</h2>
-        <div class="forms">
+        <div class="signup-form-form">
             <form action="includes/addBook-inc.php" method="post">
+                <h3>Book ID:</h3>
                 <input type="text" name="bookid" placeholder="Book ID..."><br><br>
+                <h3>Title:</h3>
                 <input type="text" name="title" placeholder="Title..."><br><br>
+                <h3>Author:</h3>
                 <input type="text" name="author" placeholder="Author..."><br><br>
                 <!-- <input type="text" name="lname" placeholder="*Cover..."> -->
-                <label for="genre">Genre:</label>
+                <h3>Genre:</h3>
                 <select name="genre" id="genre">
                     <option value=>-</option>
                     <option value="Fantasy">Fantasy</option>
@@ -23,13 +26,13 @@
                     <option value="Childrens">Childrens</option>
                     <option value="Informative">Informative</option>
                 </select><br><br>
-                <label for="isFict">Fiction?</label>
+                <h3>Fiction? :</h3>
                 <select name="isFict" id="isFict">
                     <option value=>-</option>
                     <option value="0">No</option>
                     <option value="1">Yes</option>
                 </select><br><br>
-                <label for="ageG">Age Group:</label>
+                <h3>Age Group:</h3>
                 <select name="ageG" id="ageG">
                     <option value=>-</option>
                     <option value="E">Everyone</option>
@@ -37,7 +40,7 @@
                     <option value="A">Adult</option>
                     <option value="C">Children</option>
                 </select><br><br>
-                <label for="cond">Condition:</label>
+                <h3>Condition:</h3>
                 <select name="cond" id="cond">
                     <option value=>-</option>
                     <option value="E">Excellent</option>
