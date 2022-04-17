@@ -25,8 +25,9 @@ if (isset($_POST["addBook"])) {
     if(in_array($fileActualExt, $allowed)) {
         if($fileError === 0) {
             if($fileSize < 500000) {
-                $fileNameNew = uniqid('', true).".".$fileActualExt;
-                $fileDestination = '../covers/'.$fileNameNew; //FIX MAYBE
+                // $fileNameNew = uniqid('', true).".".$fileActualExt;
+                $fileDestination = '../covers/'.$_POST["bookid"].'.'.$fileActualExt;
+                // $fileDestination = '../covers/'.$fileNameNew; //FIX MAYBE
                 move_uploaded_file($fileTmpName, $fileDestination);
             }
             else {
@@ -42,7 +43,8 @@ if (isset($_POST["addBook"])) {
         header("Location: ../addbook.php?error=filetype");
         exit();
     }
-    $Cover = 'covers/'.$fileNameNew;
+    // $Cover = 'covers/'.$fileNameNew;
+    $Cover = 'covers/'.$_POST["bookid"].'.'.$fileActualExt;
     $Genre = $_POST["genre"];
     $AgeGroup = $_POST["ageG"];
     $Fiction = $_POST["isFict"];

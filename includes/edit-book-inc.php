@@ -5,7 +5,6 @@
         $BookID = $_POST["bookIDD"];
         $Title = $_POST["title"];
         $Author = $_POST["author"];
-        // $fileDestination = '../covers/'.$_POST["bookIDD"].'.'.$fileActualExt;
         
         $fileDestination = "";
         $fileName = $_FILES['cover']['name'];
@@ -13,19 +12,20 @@
         $fileSize = $_FILES['cover']['size'];
         $fileError = $_FILES['cover']['error'];
         $fileType = $_FILES['cover']['type'];
-    
+        
         $fileExt = explode('.', $fileName);
         $fileActualExt = strtolower(end($fileExt));
         
         $allowed = array('jpg', 'png', 'gif', 'jpeg');
-    
+        
         if(in_array($fileActualExt, $allowed)) {
             if($fileError === 0) {
                 if($fileSize < 500000) {
-                    $fileNameNew = uniqid('', true).".".$fileActualExt;
-                    $fileDestination = '../covers/'.$fileNameNew; //FIX MAYBE
-                    // copy($fileTmpName, $fileDestination);
-                    copy($_FILES[$file][$fileTmpName], $fileDestination);
+                    // $fileNameNew = uniqid('', true).".".$fileActualExt;
+                    $fileDestination = '../covers/'.$_POST["bookIDD"].'.'.$fileActualExt;
+                    // $fileDestination = '../covers/'.$fileNameNew; //FIX MAYBE
+                    copy($fileTmpName, $fileDestination);
+                    // copy($_FILES[$file][$fileTmpName], $fileDestination);
                 }
                 else {
                     header("Location: ../addbook.php?error=filesize");
@@ -41,8 +41,8 @@
             exit();
         }
 
-        $Cover = 'covers/'.$fileNameNew;
-        //$Cover = 'covers/'.$_POST["bookIDD"].'.'.$fileActualExt;
+        // $Cover = 'covers/'.$fileNameNew;
+        $Cover = 'covers/'.$_POST["bookIDD"].'.'.$fileActualExt;
         $Genre = $_POST["genre"];
         $AgeGroup = $_POST["ageG"];
         $Fiction = $_POST["isFict"];
