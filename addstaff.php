@@ -6,7 +6,7 @@
         <div class="signup-form-form">
             <form action="includes/addStaff-inc.php" method="post">
                 <h3>Staff ID:</h3>
-                <input type="text" name="staffid" placeholder="-"><br><br>
+                <input oninput="this.value=this.value.slice(0,this.maxLength)" type="number" maxlength="8" name="staffid" placeholder="-"><br><br>
                 <h3>Password:</h3>
                 <input type="password" name="pwd" placeholder="-"><br><br>
                 <h3>First Name:</h3>

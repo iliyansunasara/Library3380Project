@@ -14,7 +14,7 @@
             $Fiction;
             $Condition;
     ?>
-        <div class = "forms">
+        <div class = "signup-form-form">
             <form action="includes/edit-book-inc.php" method="post">
                 <?php
                     $sql = "SELECT * FROM BOOK WHERE Book_id = $BookID;";

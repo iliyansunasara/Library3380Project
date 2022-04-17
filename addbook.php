@@ -6,7 +6,7 @@
         <div class="signup-form-form">
             <form action="includes/addBook-inc.php" method="post" enctype="multipart/form-data">
                 <h3>Book ID:</h3>
-                <input type="text" name="bookid" placeholder="Book ID..."><br><br>
+                <input oninput="this.value=this.value.slice(0,this.maxLength)" type="number" maxlength="12" name="bookid" placeholder="Book ID..."><br><br>
                 <h3>Title:</h3>
                 <input type="text" name="title" placeholder="Title..."><br><br>
                 <h3>Author:</h3>

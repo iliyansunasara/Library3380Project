@@ -6,7 +6,7 @@
         <div class="signup-form-form">
             <form action="includes/addItem-inc.php" method="post">
                 <h3>Item ID:</h3>
-                <input type="text" name="itemid" placeholder="Item ID..."><br><br>
+                <input oninput="this.value=this.value.slice(0,this.maxLength)" type="number" maxlength="12" name="itemid" placeholder="Item ID..."><br><br>
                 <h3>Item Type:</h3>
                 <select name="type" id="type">
                     <option value=>-</option>

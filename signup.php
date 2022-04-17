@@ -6,7 +6,7 @@
         <div class="signup-form-form">
             <form action="includes/signup-inc.php" method="post">
                 <h3>*University ID:</h3>
-                <input type="text" name="uni" placeholder="University ID..."><br><br>
+                <input oninput="this.value=this.value.slice(0,this.maxLength)" type="number" maxlength="7" name="uni" placeholder="University ID..."><br><br>
                 <h3>*Password: </h3>
                 <input type="password" name="pwd" placeholder="Password..."><br><br>
                 <h3>*First Name: </h3>
