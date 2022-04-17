@@ -36,12 +36,35 @@
 <?php
     }
 ?>
-    
-    <div class="request-form">
-        <form action="checkouts.php" method="POST">
-            <button type="submit" name="search-submit">Request Book</button>
+
+
+<?php
+    $sql = "SELECT * FROM check_out_book WHERE check_out_book.Book_id = '$bookID' ";
+    $result = mysqli_query($conn, $sql);
+    $q_results = mysqli_num_rows($result);
+    if($q_results > 0 && isset($_SESSION["University_id"])) {
+?>
+    <div class="checkout-request-form">
+        <form action="includes/user-req-inc.php" method="POST">
+            <input type="hidden" name="bookID" value="<?php echo $bookID; ?>">
+            <button type="submit" name="req-form-">Request Book</button>
         </form>
     </div>
+<?php
+    }
+    else {
+?>
+    <div class="checkout-request-form">
+        <form action="includes/user-check-inc.php" method="POST">
+            <input type="hidden" name="bookID" value="<?php echo $bookID; ?>">
+            <button type="submit" name="check-form-">Checkout Book</button>
+        </form>
+    </div>
+
+<?php
+    }
+?>
+
 
 <?php
     include_once 'footer.php';
