@@ -849,8 +849,8 @@
         mysqli_stmt_close($stmt);
     }
 
-    function addBook($conn, $BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $CreatedBy, $LastUpdatedBy) {
-        $sql = "INSERT INTO `book`(`Book_id`, `Title`, `Author`, `Cover`, `Genre`, `Age_group`, `Fiction`, `Condition`, `Created_at`, `Last_updated`, `Created_by`, `Last_updated_by`) VALUES ('$BookID','$Title','$Author',NULL,'$Genre','$AgeGroup', '$Fiction' ,'$Condition',now(),now(),'$CreatedBy','$LastUpdatedBy');";
+    function addBook($conn, $BookID, $Title, $Author, $Cover, $Genre, $AgeGroup, $Fiction, $Condition, $CreatedBy, $LastUpdatedBy) {
+        $sql = "INSERT INTO `book`(`Book_id`, `Title`, `Author`, `Cover`, `Genre`, `Age_group`, `Fiction`, `Condition`, `Created_at`, `Last_updated`, `Created_by`, `Last_updated_by`) VALUES ('$BookID','$Title','$Author','$Cover','$Genre','$AgeGroup', '$Fiction' ,'$Condition',now(),now(),'$CreatedBy','$LastUpdatedBy');";
         $conn->query($sql);
         header("location: ../addbook.php?error=none");
         exit();
@@ -958,8 +958,8 @@
         return $result;
     }
 
-    function updateBook($conn, $BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $LastUpdatedBy) {
-        $sql = "UPDATE `book` SET `Title`='$Title', `Author`='$Author', `Genre`='$Genre', `Age_group`='$AgeGroup', `Fiction`='$Fiction', `Condition`='$Condition', `Last_updated`=now(), `Last_updated_by`='$LastUpdatedBy' WHERE `Book_id`='$BookID';";
+    function updateBook($conn, $BookID, $Title, $Author, $Cover, $Genre, $AgeGroup, $Fiction, $Condition, $LastUpdatedBy) {
+        $sql = "UPDATE `book` SET `Title`='$Title', `Author`='$Author', `Cover`='$Cover', `Genre`='$Genre', `Age_group`='$AgeGroup', `Fiction`='$Fiction', `Condition`='$Condition', `Last_updated`=now(), `Last_updated_by`='$LastUpdatedBy' WHERE `Book_id`='$BookID';";
         $conn->query($sql);
         header("location: ../editbook.php?error=none");
         exit();

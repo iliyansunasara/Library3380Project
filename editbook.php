@@ -8,14 +8,14 @@
             $BookID = $_POST["bookID"];
             $Title;
             $Author;
-            // $Cover;
+            $Cover;
             $Genre;
             $AgeGroup;
             $Fiction;
             $Condition;
     ?>
         <div class = "signup-form-form">
-            <form action="includes/edit-book-inc.php" method="post">
+            <form action="includes/edit-book-inc.php" method="post" enctype="multipart/form-data">
                 <?php
                     $sql = "SELECT * FROM BOOK WHERE Book_id = $BookID;";
 
@@ -26,6 +26,7 @@
                             $Title = $row['Title'];
                             $Author = $row['Author'];
                             $Genre = $row['Genre'];
+                            $Cover = $row['Cover'];
                             $AgeGroup = $row['Age_group'];
                             $Fiction = $row['Fiction'];
                             $Condition = $row['Condition'];
@@ -36,6 +37,8 @@
                 <input type="text" name="title" value="<?php echo $Title;?>"><br><br>
                 <h3>Author:</h3>
                 <input type="text" name="author" value="<?php echo $Author;?>"><br><br>
+                <h3>Cover:</h3>
+                <input type="file" name="cover"><br><br> 
                 <h3>Genre:</h3>
                 <select name="genre">
                     <option value="<?php echo $Genre;?>"><?php echo $Genre;?></option>
@@ -155,6 +158,15 @@
             }
             else if($_GET["error"] == "sql") {
                 echo '<script>alert("Error occurred! Please try again!")</script>';
+            }
+            else if($_GET["error"] == "filesize") {
+                echo '<script>alert("File size error!")</script>';
+            }
+            else if($_GET["error"] == "filetype") {
+                echo '<script>alert("File type not supported!")</script>';
+            }
+            else if($_GET["error"] == "fileupload") {
+                echo '<script>alert("File not uploaded!")</script>';
             }
         }
     ?>

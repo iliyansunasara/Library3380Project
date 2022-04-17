@@ -307,24 +307,25 @@ nav ul li ul li a:hover{
 }
 
 .book {
-    width: 100%;
+    /* width: 100%;
     float: left;
-    padding-left: 50px;
-    /* margin-left: 46px;
+    padding-left: 50px; */
+    margin-left: 74px;
     margin-right: 0px;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
+    margin-bottom: 100px;
     float:left;
     display: block;
     width: 100%;
     border: 3px solid black;
     background-color: lightgray;
-    padding: 14px 14px;
+    /* padding: 14px 14px; */
     font-size: 15px;
     cursor: pointer;
     text-align: center;
 
     height: 220px;
-    width: 170px; */
+    width: 170px;
 
 }
 
