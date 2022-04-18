@@ -551,7 +551,7 @@
                         <th colspan="9"><h2>Users Books Checked Out</h2></th>
                     </tr>
                     <t>
-                        <th>Univeristy ID </th>
+                        <th>University ID </th>
                         <th>Status </th>
                         <th>First Name </th>
                         <th>Last name </th>
@@ -607,7 +607,7 @@
                         <th colspan="8"><h2>Users Items Checked Out</h2></th>
                     </tr>
                     <t>
-                        <th>Univeristy ID </th>
+                        <th>University ID </th>
                         <th>Status </th>
                         <th>First Name </th>
                         <th>Last name </th>
@@ -664,7 +664,7 @@
                             <th colspan="9"><h2>Users Requested Books</h2></th>
                         </tr>
                         <t>
-                            <th>Univeristy ID </th>
+                            <th>University ID </th>
                             <th>Status </th>
                             <th>First Name </th>
                             <th>Last name </th>
@@ -720,7 +720,7 @@
                         <th colspan="9"><h2>Users Requested Items</h2></th>
                     </tr>
                     <t>
-                        <th>Univeristy ID </th>
+                        <th>University ID </th>
                         <th>Status </th>
                         <th>First Name </th>
                         <th>Last name </th>
@@ -776,7 +776,7 @@
                             <th colspan="5"><h2>Users Fines</h2></th>
                         </tr>
                         <t>
-                            <th>Univeristy ID</th>
+                            <th>University ID</th>
                             <th>Status </th>
                             <th>First Name </th>
                             <th>Last name </th>
@@ -1032,7 +1032,7 @@
                         </tr>
                         <t>
                             <th>Staff ID </th>
-                            <th>Univeristy ID </th>
+                            <th>University ID </th>
                             <th>Book ID</th>
                             <th>Checked out</th>
                         </t>
@@ -1057,7 +1057,7 @@
                         </tr>
                         <t>
                             <th>Staff ID </th>
-                            <th>Univeristy ID </th>
+                            <th>University ID </th>
                             <th>Item ID</th>
                             <th>Checked out</th>
                         </t>
@@ -1091,7 +1091,7 @@
                         </tr>
                         <t>
                             <th>Staff ID </th>
-                            <th>Univeristy ID </th>
+                            <th>University ID </th>
                             <th>Book ID</th>
                             <th>Checked out</th>
                         </t>
@@ -1131,7 +1131,7 @@
                     </tr>
                     <t>
                         <th>Staff ID </th>
-                        <th>Univeristy ID </th>
+                        <th>University ID </th>
                         <th>Item ID</th>
                         <th>Checked out</th>
                     </t>

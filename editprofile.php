@@ -79,7 +79,7 @@
                 <input type="tel" name="tele" value="<?php echo $Telephone;?>"> <br><br>
                 <h3>Address:</h3>
                 <input type="text" name="addy" value="<?php echo $Address;?>"> <br><br>
-                <button type="submit" name="submit">Sumbit Changes</button>
+                <button type="submit" name="submit">Submit Changes</button>
             </form>
         </div>
         <?php
