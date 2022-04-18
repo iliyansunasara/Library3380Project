@@ -10,7 +10,46 @@
         <button type="submit" name="search-submit">Search</button>
     </form>
 </div>
+    <?php
+        if (isset($_SESSION['University_id']) && ($_SESSION['logged'] == 0)) {
+            $_SESSION['logged'] = 1;
+            $UnivID = $_SESSION['University_id'];
+            $uidExists = uidExists($conn, $UnivID);
+            $All_COD = array();
+            $totalFines = 0;
+            $sql = "SELECT * FROM CHECK_OUT_BOOK AS COB
+                WHERE COB.University_id = $UnivID;";
+            $result = $conn->query($sql);
+            if($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    array_push($All_COD, $row['Checked_out_date']);
+                }
+            }
+            //else {}
+            $status = $uidExists["Status"];
+            if ($status == "S") {
+                for($i=0; $i<sizeof($All_COD); $i++) {
+                    $COD = $All_COD[$i];
+                    $today = strtotime("today");
+                    if ((dateDiffInDays($COD, $today)) > 7) {
+                        $totalFines += (dateDiffInDays($COD, $today) - 7);
+                    }
+                }
+            }
+            else if ($status == "F") {
+                for($i=0; $i<sizeof($All_COD); $i++) {
+                    $COD = $All_COD[$i];
+                    $today = strtotime('today');
+                    if ((dateDiffInDays($COD, $today)) > 14) {
+                        $totalFines += (dateDiffInDays($COD, $today) - 14);
+                    }
+                }
+            }
+            updateFines($conn, $UnivID, $totalFines);
+        }
 
+
+    ?>
 <div class="books-container">
     <?php
         if(isset($_GET['search-submit'])) {
@@ -143,29 +182,6 @@
     }
 ?>
 
-    <?php
-        /*
-        require_once 'includes/dbh-inc.php';
-
-        $sql = "SELECT * FROM BOOK WHERE available = '1';";
-        $result = $conn->query($sql) or die($conn->error);
-
-        while ($data = $result->fetch_assoc()) {
-            echo "<img src='$data['cover']' width='40%' height='40%'>";
-            echo "<h2>$data['Title']</h2>";
-            echo "<h2>$data['Author']</h2>";
-        }
-
-
-        $sql = "SELECT * FROM ITEM WHERE available = '1';";
-        $result = $conn->query($sql) or die($conn->error);
-
-        while ($data = $result->fetch_assoc()) {
-            echo "<h2>$data['name']</h2>";
-        }
-
-        */
-    ?>
 <?php
     include_once 'footer.php';
 ?>

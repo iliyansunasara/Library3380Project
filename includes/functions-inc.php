@@ -1,5 +1,8 @@
 <?php
-
+    function dateDiffInDays($date1, $date2) {
+        $diff = $date2 - strtotime($date1);
+        return abs(round($diff / 86400));
+    }
     function checkCondition($temp) {
         if ($temp == "E") {
             $cond = "Excellent";
@@ -236,6 +239,7 @@
         else if ($checkPwd === true && $role === "user"){
             session_start();
             $_SESSION["University_id"] = $uidExists["University_id"];
+            $_SESSION['logged'] = 0;
             header("location: ../index.php");
             exit();
         }
@@ -1146,4 +1150,15 @@
             }
         }
     }
+    function updateFines($conn, $UnivID, $Fines) {
+        $sql = "UPDATE `users` SET `Fines`='$Fines' WHERE `University_id`= $UnivID;";
+        if (mysqli_query($conn, $sql)) {
+            header("location: index.php?error=none");
+            exit();
+        }
+        else {
+            header("location: index.php?error=sql");
+            exit();
+        } 
+    } 
 ?>
