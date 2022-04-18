@@ -18,7 +18,7 @@
             $uidExists = uidExists($conn, $UnivID);
             $All_COD = array();
             $totalFines = 0;
-            /*
+            
             $sql = "SELECT * FROM CHECK_OUT_BOOK AS COB
                 WHERE COB.University_id = $UnivID;";
             $result = $conn->query($sql);
@@ -47,6 +47,7 @@
                     }
                 }
             }
+            /*
             updateFines($conn, $UnivID, $totalFines);
             */
         }
