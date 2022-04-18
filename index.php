@@ -46,6 +46,14 @@
                 }
             }
             updateFines($conn, $UnivID, $totalFines);
+            if ($totalFines > 0) {
+                header("location: index.php?error=finesadded");
+                exit();
+            }
+            else {
+                header("location: index.php?error=nofines");
+                exit();
+            }
         }
 
 
@@ -179,6 +187,13 @@
         else if($_GET["error"] == "request_error2") {
             echo '<script>alert("You have already requested this book!")</script>';
         }
+        else if($_GET["error"] == "finesadded") {
+            echo '<script>alert("You had fines added to your account! Please return your overdue items!")</script>';
+        }
+        else if($_GET["error"] == "nofines") {
+            echo '<script>alert("You have no fines!")</script>';
+        }
+        
     }
 ?>
 
