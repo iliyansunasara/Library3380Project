@@ -50,7 +50,8 @@
             VALUES ('$uniID','$bookID', '$date')";
             $result = mysqli_query($conn, $sql);
 
-            echo "Your checkout is ready for pickup!"; //send to their checkouts profile?
+            header("location: ../checkouts.php"); //send to their checkouts profile?
+            exit();
             
         }
         else {

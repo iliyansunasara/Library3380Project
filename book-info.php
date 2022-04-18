@@ -37,6 +37,20 @@
     }
 ?>
 
+<?php
+    if(isset($_SESSION["Admin_id"]) || isset($_SESSION["Staff_id"])) {
+?>
+    <div class="checkout-request-form">
+        <form action="returns-inc.php" method="POST">
+            <input type="hidden" name="bookID" value="<?php echo $bookID;?>">
+            <button type="submit" name="return">Turn in</button>
+        </form>
+    </div>
+<?php
+    }
+?>
+
+
 
 <?php
     $sql = "SELECT * FROM check_out_book WHERE check_out_book.Book_id = '$bookID' ";
@@ -61,6 +75,7 @@
         </form>
     </div>
 
+
 <?php
     }
     else {
@@ -68,6 +83,8 @@
         exit();
     }
 ?>
+
+
 
 
 <?php

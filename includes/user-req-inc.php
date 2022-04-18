@@ -79,7 +79,9 @@
             $requests = $data['University_id']; 
             $queue_num = $q_results_curr_queue_num;
             
-            echo "You've been placed in a queue. Position number: '$queue_num'"; //send to their request profile?
+            //echo "You've been placed in a queue. Position number: '$queue_num'"; //send to their request profile?
+            header("location: ../checkouts.php"); //send to their checkouts profile?
+            exit();
         }
         else {
             header("location: ../login.php?error=notloggedin");

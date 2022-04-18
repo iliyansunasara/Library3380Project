@@ -189,6 +189,9 @@
         else if($_GET["error"] == "finesupdates") {
             echo '<script>alert("Fines was updated!")</script>';
         }
+        else if($_GET["error"] == "returning") {
+            echo '<script>alert("This book has not been checked out!")</script>';
+        }
         
     }
 ?>
