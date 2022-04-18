@@ -29,7 +29,7 @@
                                 $result = $conn->query($sql);
                                 $row = $result->fetch_assoc();
                                 //echo "<p>Hello there, ". $_SESSION['University_id'] .".</p>";
-                                echo "Hello there, " . $row["Fname"]. " " . $row["Lname"] . "<br>";
+                                echo "Hello, " . $row["Fname"]. " " . $row["Lname"] . "<br>";
                             }
                             else if (isset($_SESSION["Staff_id"])) {
                                 $UserID = $_SESSION["Staff_id"];
@@ -38,7 +38,7 @@
                                 $result = $conn->query($sql);
                                 $row = $result->fetch_assoc();
                                 //echo "<p>Hello there, ". $_SESSION['Staff_id'] .".</p>";
-                                echo "Hello there, " . $row["Fname"]. " " . $row["Lname"] . "<br>";
+                                echo "Hello, " . $row["Fname"]. " " . $row["Lname"] . "<br>";
                             }
                             else if (isset($_SESSION["Admin_id"])) {
                                 $UserID = $_SESSION["Admin_id"];
@@ -47,7 +47,7 @@
                                 $result = $conn->query($sql);
                                 $row = $result->fetch_assoc();
                                 //echo "<p>Hello there, ". $_SESSION['Staff_id'] .".</p>";
-                                echo "Hello there, " . $row["Fname"]. " " . $row["Lname"] . "<br>";
+                                echo "Hello, " . $row["Fname"]. " " . $row["Lname"] . "<br>";
                             }
                         ?>
                     </div>
