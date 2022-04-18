@@ -21,6 +21,11 @@
                 exit();
             }
 
+            //deletes from row
+            $sql = "DELETE FROM check_out_book 
+                    WHERE check_out_book.University_id = '$returner';";
+            $result = mysqli_query($conn, $sql);
+
             $date = date('Y-m-d');
             //decrement the user's num of books
             $sql = "UPDATE users SET users.Num_of_books = users.Num_of_books - 1, Last_updated = '$date'
