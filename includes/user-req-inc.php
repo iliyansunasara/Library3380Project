@@ -80,7 +80,7 @@
             $queue_num = $q_results_curr_queue_num;
             
             //echo "You've been placed in a queue. Position number: '$queue_num'"; //send to their request profile?
-            header("location: ../checkouts.php"); //send to their checkouts profile?
+            header("location: ../requests.php"); //send to their checkouts profile?
             exit();
         }
         else {
