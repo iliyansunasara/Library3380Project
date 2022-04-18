@@ -9,7 +9,7 @@
                 <input type="date" name="start"><br><br>
                 <h3>End date:</h3>
                 <input type="date" name="end"><br><br>
-                <button name="staffReport" class="staffReport">Run Report</button>
+                <button onclick=" window.open('http://google.com','_blank') name="submit" class="submit">Run Report</button>
             </form>
         </div>
 </section>

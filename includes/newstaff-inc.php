@@ -1,27 +1,20 @@
 <?php
-    include_once 'header.php';
-?>
-
-    <?php
-        if(isset($_POST['staffReport']) && isset($_SESSION['Admin_id'])){
-            require_once 'dbh-inc.php';
-            require_once 'functions-inc.php';
-            $start = $_POST['start'];
-            $end = $_POST['end'];
-            if (checkDatesGood($start, $end)) {
-                createNewStaffTable($conn, $start, $end);
-            }
-            else {
-                header("Location: newstaff.php?error=startdatebig");
-                exit();
-            } 
+    start_session();
+    if(isset($_POST['submit']) && isset($_SESSION['Admin_id'])){
+        require_once 'dbh-inc.php';
+        require_once 'functions-inc.php';
+        $start = $_POST['start'];
+        $end = $_POST['end'];
+        if (checkDatesGood($start, $end)) {
+            createNewStaffTable($conn, $start, $end);
         }
         else {
-            header("Location: login.php?error=loginpls");
+            header("Location: newstaff.php?error=startdatebig");
             exit();
-        }
-    ?>
-
-<?php
-    include_once 'footer.php';
+        } 
+    }
+    else {
+        header("Location: login.php?error=loginpls");
+        exit();
+    }
 ?>
