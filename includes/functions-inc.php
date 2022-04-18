@@ -1,4 +1,60 @@
 <?php
+    function checkDatesGood($date1, $date2) {
+        if ($date1 > $date2) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    function createNewStaffTable($conn, $start, $end) {
+        $sql = "SELECT * FROM STAFF WHERE Created_at > '$start' AND  Created_at < '$end';";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0) {
+        ?>
+            <div class="COtable">
+                <table border="px" style="width:1000px; line-height:30px;">
+                    <tr>
+                        <th colspan="8"><h2>Books</h2></th>
+                    </tr>
+                    <t>
+                    <th>Staff ID</th>
+                    <th>First Name</th>
+                    <th>Middle Initial</th>
+                    <th>Last Name</th>
+                    <th>Birth Date</th>
+                    <th>Email</th>
+                    <th>Salary</th>
+                    <th>Hired</th>
+                </t>
+            <?php
+            while($row = $result->fetch_assoc()) {
+            ?> 
+                <tr>
+                    <td><?php echo $row['Staff_id']; ?></td>
+                    <td><?php echo $row['Fname']; ?></td>
+                    <td><?php echo $row['Minit']; ?></td>
+                    <td><?php echo $row['Lname']; ?></td>
+                    <td><?php echo $row['BDate']; ?></td>
+                    <td><?php echo $row['Email']; ?></td>
+                    <td><?php echo $row['Salary']; ?></td>
+                    <td><?php echo $row['Created_at']; ?></td>
+                </tr>
+        <?php
+            }
+        }
+        else {
+        ?>
+            <div class="noCO">
+                <p>No staff hired in the specified time period!</p>
+            </div>
+        <?php
+        }
+        ?>
+                </table>
+            </div>
+    <?php
+    }
     function dateDiffInDays($date1, $date2) {
         $diff = $date2 - strtotime($date1);
         return abs(round($diff / 86400));
