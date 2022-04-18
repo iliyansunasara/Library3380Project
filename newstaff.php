@@ -4,7 +4,7 @@
 <section class="signup-form">
         <h2>To generate table fill out the fields below:</h2>
         <div class="signup-form-form">
-            <form action="includes/newstaff-inc.php" method="post">
+            <form action="" method="post"> <!--includes/newstaff-inc.php-->
                 <h3>Start date:</h3>
                 <input type="date" name="start"><br><br>
                 <h3>End date:</h3>
@@ -13,6 +13,27 @@
             </form>
         </div>
 </section>
+    <?php
+        if(isset($_POST['staffReport']) && isset($_SESSION['Admin_id'])){
+            require_once 'includes/dbh-inc.php';
+            require_once 'includesfunctions-inc.php';
+            $start = $_POST['start'];
+            $end = $_POST['end'];
+            if (checkDatesGood($start, $end)) {
+                createNewStaffTable($conn, $start, $end);
+            }
+            else {
+                header("Location: newstaff.php?error=startdatebig");
+                exit();
+            } 
+        }
+        else {
+            header("Location: login.php?error=loginpls");
+            exit();
+        }
+    ?>
+
+
 <?php
     include_once 'footer.php';
 ?>
