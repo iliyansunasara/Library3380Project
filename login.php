@@ -27,6 +27,10 @@
                 //echo "<p class=\"message\">Incorrect StaffID or Password!</p>";
                 echo '<script>alert("You must log in to check out a book!")</script>';
             }
+            else if($_GET["error"] == "loginpls") {
+                //echo "<p class=\"message\">Incorrect StaffID or Password!</p>";
+                echo '<script>alert("You must log in to check out a book!")</script>';
+            }
         }
     ?>
 <?php
