@@ -11,6 +11,7 @@
     </form>
 </div>
     <?php
+    /*
         if (isset($_SESSION['University_id']) && ($_SESSION['logged'] == 0)) {
             $_SESSION['logged'] = 1;
             $UnivID = $_SESSION['University_id'];
@@ -47,7 +48,7 @@
             }
             updateFines($conn, $UnivID, $totalFines);
         }
-
+*/
 
     ?>
 <div class="books-container">
