@@ -46,14 +46,6 @@
                 }
             }
             updateFines($conn, $UnivID, $totalFines);
-            if ($totalFines > 0) {
-                header("location: index.php?error=finesadded");
-                exit();
-            }
-            else {
-                header("location: index.php?error=nofines");
-                exit();
-            }
         }
 
 
