@@ -49,6 +49,12 @@
                 VALUES ('$requester','$bookID', '$date')";
                 $result = mysqli_query($conn, $sql);
 
+                //incrementing new user's num of books
+                $sql = "UPDATE users SET users.Num_of_books = users.Num_of_books + 1, Last_updated = '$date'
+                WHERE University_id = '$requester';";
+                $result = mysqli_query($conn, $sql);
+
+
                 header("location: ../index.php");
                 exit();
 
