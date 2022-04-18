@@ -29,6 +29,7 @@
                 }
                 else {
                     header("Location: ../addbook.php?error=filesize");
+                    exit();
                 }
             }
             else {
