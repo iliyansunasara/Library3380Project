@@ -14,7 +14,7 @@
         </div>
 </section>
     <?php
-        if(isset($_GET['staffReport']) && isset($_SESSION['Admin_id'])){
+        if(isset($_GET['start'])){
             require_once 'includes/dbh-inc.php';
             require_once 'includesfunctions-inc.php';
             $start = $_GET['start'];
