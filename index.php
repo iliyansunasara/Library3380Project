@@ -13,7 +13,7 @@
     <?php
     
         if (isset($_SESSION['University_id']) && ($_SESSION['logged'] == 0)) {
-            date_default_timezone_set('America/Houston');
+            date_default_timezone_set('America/Chicago');
             $_SESSION['logged'] = 1;
             $UnivID = $_SESSION['University_id'];
             $uidExists = uidExists($conn, $UnivID);
