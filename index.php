@@ -13,12 +13,12 @@
     <?php
     
         if (isset($_SESSION['University_id']) && ($_SESSION['logged'] == 0)) {
-            date_default_timezone_set('America/Chicago');
             $_SESSION['logged'] = 1;
             $UnivID = $_SESSION['University_id'];
             $uidExists = uidExists($conn, $UnivID);
             $All_COD = array();
             $totalFines = 0;
+            /*
             $sql = "SELECT * FROM CHECK_OUT_BOOK AS COB
                 WHERE COB.University_id = $UnivID;";
             $result = $conn->query($sql);
@@ -48,6 +48,7 @@
                 }
             }
             updateFines($conn, $UnivID, $totalFines);
+            */
         }
     ?>
 <div class="books-container">
