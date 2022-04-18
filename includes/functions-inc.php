@@ -1151,12 +1151,8 @@
         }
     }
     function updateFines($conn, $UnivID, $Fines) {
-        $sql = "UPDATE users SET Fines=$Fines WHERE University_id= $UnivID;";
-        if ($Fines == 0) {
-            header("location: index.php?error=nofines");
-            exit();
-        }
-        else if (mysqli_query($conn, $sql)) {
+        $sql = "UPDATE users SET Fines= '$Fines' WHERE University_id = '$UnivID';";
+        if (mysqli_query($conn, $sql)) {
             header("location: index.php?error=finesadded");
             exit();
         }
