@@ -1151,7 +1151,7 @@
         }
     }
     function updateFines($conn, $UnivID, $Fines) {
-        $sql = "UPDATE `users` SET `Fines`='$Fines' WHERE `University_id`= $UnivID;";
+        $sql = "UPDATE users SET Fines=$Fines WHERE University_id= $UnivID;";
         if ($Fines == 0) {
             header("location: index.php?error=nofines");
             exit();

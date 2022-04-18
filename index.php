@@ -47,9 +47,7 @@
                     }
                 }
             }
-            /*
             updateFines($conn, $UnivID, $totalFines);
-            */
         }
     ?>
 <div class="books-container">
