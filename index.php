@@ -2,6 +2,9 @@
     include_once 'header.php';
     include_once 'includes/dbh-inc.php';
     include_once 'includes/functions-inc.php'
+?>
+ <?php
+    
     if (isset($_SESSION['University_id']) && ($_SESSION['logged'] == 0)) {
         $_SESSION['logged'] = 1;
         $UnivID = $_SESSION['University_id'];
@@ -47,14 +50,13 @@
         //updateFines($conn, $UnivID, $totalFines);
     }
 ?>
-
 <div class="search-form">
     <form>
         <input type = 'text' name = 'search' placeholder="Book Search...">
         <button type="submit" name="search-submit">Search</button>
     </form>
 </div>
-    
+   
 <div class="books-container">
     <?php
         if(isset($_GET['search-submit'])) {
