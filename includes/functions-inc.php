@@ -82,7 +82,7 @@
     }
     
     function emptyInputSignup($UnivID, $Pass, $First, $Last, $Stat, $Email, $DOB, $Tele, $Addr) {
-        $result;
+        $result= "";
         if(empty($UnivID) || empty($Pass) || empty($First) || empty($Last) || empty($Stat) || empty($Email)
         || empty($DOB) || empty($Tele)|| empty($Addr) || $Stat === 'N') {
             $result = true;
@@ -94,7 +94,7 @@
     }
 
     function invalidUid($UnivID) {
-        $result;
+        $result= "";
         if(!(preg_match("/^[0-9]*$/", $UnivID) || !(strlen($UnivID)==7))) {
             $result = true;
         }
@@ -105,7 +105,7 @@
     }
 
     function invalidEmail($Email) {
-        $result;
+        $result= "";
         if(!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
             $result = true;
         }
@@ -177,7 +177,7 @@
     }
 
     function emptyInputLogin($UnivID, $Pass) {
-        $result;
+        $result= "";
         if(empty($UnivID) || empty($Pass)) {
             $result = true;
         }
@@ -188,7 +188,7 @@
     }
 
     function emptyInputUpdateProfile($First, $Last, $Email, $Tele, $Addr) {
-        $result;
+        $result= "";
         if(empty($First) || empty($Last) || empty($Email) 
             || empty($Tele)|| empty($Addr)) {
             $result = true;
@@ -809,7 +809,7 @@
     }
 
     function emptyInputAddbook($BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $CreatedBy, $LastUpdatedBy) {
-        $result;
+        $result= "";
         if(empty($BookID) || empty($Title) || empty($Author) || empty($Genre) || empty($AgeGroup) || ($Fiction !== "0" && $Fiction !== "1")
         || empty($Condition) || empty($CreatedBy) || empty($LastUpdatedBy)) {
             $result = true;
@@ -821,7 +821,7 @@
     }
 
     function invalidBookID($BookID) {
-        $result;
+        $result= "";
         if(!(preg_match("/^[0-9]*$/", $BookID) || !(strlen($BookID) == 12))) {
             $result = true;
         }
@@ -861,7 +861,7 @@
     }
 
     function emptyInputAdditem($ItemID, $Type, $Condition, $CreatedBy, $LastUpdatedBy) {
-        $result;
+        $result= "";
         if(empty($ItemID) || empty($Type) || empty($Condition) || empty($CreatedBy) || empty($LastUpdatedBy)) {
             $result = true;
         }
@@ -872,7 +872,7 @@
     }
 
     function invalidItemID($ItemID) {
-        $result;
+        $result= "";
         if(!(preg_match("/^[0-9]*$/", $ItemID) || !(strlen($ItemID) == 12))) {
             $result = true;
         }
@@ -912,7 +912,7 @@
     }
 
     function invalidSid($StaffID) {
-        $result;
+        $result= "";
         if(!(preg_match("/^[0-9]*$/", $StaffID) || !(strlen($StaffID)==8))) {
             $result = true;
         }
@@ -923,7 +923,7 @@
     }
 
     function emptyInputAddStaff($StaffID, $Pass, $First, $Last, $DOB, $Salary, $Email, $Tele, $Addr, $Stat) {
-        $result;
+        $result= "";
         if(empty($StaffID) || empty($Pass) || empty($First) || empty($Last) || empty($DOB) || ($Stat !== "0" && $Stat !== "1")
         || empty($Salary) || empty($Email) || empty($Tele) || empty($Addr)) {
             $result = true;
@@ -952,7 +952,7 @@
     }
 
     function emptyInputUpdateBook($Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $LastUpdatedBy) {
-        $result;
+        $result= "";
         if(empty($Title) || empty($Author) || empty($Genre) || empty($AgeGroup) || ($Fiction !== "0" && $Fiction !== "1") || empty($Condition) || empty($LastUpdatedBy)) {
             $result = true;
         }
