@@ -35,7 +35,7 @@
                 exit();
             }
 
-            //checking if user has requested this book already
+            //checking if user has checked out this book already
             $bookID = mysqli_real_escape_string($conn, $_POST['bookID']);
             $sql = "SELECT * 
             FROM check_out_book
@@ -49,7 +49,6 @@
             }
 
             //checking if user has requested this book already
-            $bookID = mysqli_real_escape_string($conn, $_POST['bookID']);
             $sql = "SELECT * 
             FROM request_book
             WHERE request_book.Book_id = '$bookID' AND request_book.University_id = '$uniID'";
@@ -65,6 +64,13 @@
             $date = date('Y-m-d');
             $sql = "INSERT INTO request_book (University_id, Book_id, Request_date)
             VALUES ('$uniID','$bookID', '$date')";
+            $result = mysqli_query($conn, $sql);
+
+            //incrementing user's num of books
+            $num_of_books += 1;
+            $sql = "UPDATE users
+            SET Last_updated = '$date', Num_of_books = '$num_of_books' 
+            WHERE University_id = '$uniID';";
             $result = mysqli_query($conn, $sql);
 
             //ordering the specific bookID requests by date
