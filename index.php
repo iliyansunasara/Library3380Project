@@ -47,7 +47,14 @@
                     }
                 }
             }
-            updateFines($conn, $UnivID, $totalFines);
+            $sql = "UPDATE users SET Fines = '$totalFines' WHERE University_id = $UnivID;";
+            if (mysqli_query($conn, $sql)) {
+                header("location: index.php?error=finesupdated");
+            }
+            else {
+                header("location: index.php?error=sql");
+            } 
+            //updateFines($conn, $UnivID, $totalFines);
         }
     ?>
 <div class="books-container">

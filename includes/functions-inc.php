@@ -1153,10 +1153,10 @@
     function updateFines($conn, $UnivID, $Fines) {
         $sql = "UPDATE users SET Fines = '$Fines' WHERE University_id = $UnivID;";
         if (mysqli_query($conn, $sql)) {
-            header("location: ~?error=finesupdated");
+            header("location: index.php?error=finesupdated");
         }
         else {
-            header("location: ~?error=sql");
+            header("location: index.php?error=sql");
         } 
     } 
 ?>
