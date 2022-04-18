@@ -1159,4 +1159,9 @@
             header("location: index.php?error=sql");
         } 
     } 
+    function deleteMessageRow($conn, $id) {
+        $sql = "DELETE FROM `new_messages` WHERE `Message_id` = $id;";
+        $conn->query($sql);
+        header("location: ../index.php?error=none");
+    }
 ?>

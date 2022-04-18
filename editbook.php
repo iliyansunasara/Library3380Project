@@ -153,7 +153,8 @@
         if(isset($_GET["error"])) 
         {
             if($_GET["error"] == "none") {
-                echo '<script>alert("Book Updated Successfully!")</script>';
+                //echo '<script>alert("Book Updated Successfully!")</script>';
+                header("location:index.php?error=bookUpdated");
             }
             else if($_GET["error"] == "noneDeleted") {
                 echo '<script>alert("Book Deleted Successfully!")</script>';

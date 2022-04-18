@@ -49,6 +49,23 @@
         } 
         //updateFines($conn, $UnivID, $totalFines);
     }
+
+    if(isset($_SESSION["University_id"])) {
+        include_once 'email.php';
+        $sql = "SELECT * FROM new_messages WHERE University_id = '".$_SESSION["University_id"]."'";
+        $result = mysqli_query($conn, $sql);
+        $q_results = mysqli_num_rows($result);
+        $UnivID = $_SESSION['University_id'];
+        $uidExists = uidExists($conn, $UnivID);
+        $email = $uidExists["Email"];
+        if($q_results > 0) {
+            $data = mysqli_fetch_assoc($result);
+            $message = $data['Message'];
+            $messageid = $data['Message_id'];
+            sendEmail($email, $message);
+            deleteMessageRow($conn, $messageid);
+        }
+    }   
 ?>
 <div class="search-form">
     <form>
@@ -192,7 +209,12 @@
         else if($_GET["error"] == "returning") {
             echo '<script>alert("This book has not been checked out!")</script>';
         }
-        
+        else if($_GET["error"] == "bookUpdated") {
+            echo '<script>alert("Book Successfully Updated!")</script>';
+        }
+        else if($_GET["error"] == "none") {
+            //echo '<script>alert("Book Successfully Updated!")</script>';
+        }
     }
 ?>
 
