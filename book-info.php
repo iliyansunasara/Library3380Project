@@ -41,9 +41,9 @@
     if(isset($_SESSION["Admin_id"]) || isset($_SESSION["Staff_id"])) {
 ?>
     <div class="checkout-request-form">
-        <form action="returns-inc.php" method="POST">
+        <form action="includes/returns-inc.php" method="POST">
             <input type="hidden" name="bookID" value="<?php echo $bookID;?>">
-            <button type="submit" name="return">Turn in</button>
+            <button type="submit" name="return">Return</button>
         </form>
     </div>
 <?php
