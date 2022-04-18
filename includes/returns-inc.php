@@ -23,7 +23,7 @@
 
             //deletes from row
             $sql = "DELETE FROM check_out_book 
-                    WHERE check_out_book.University_id = '$returner';";
+                    WHERE check_out_book.University_id = '$returner' AND check_out_book.Book_id = '$bookID";
             $result = mysqli_query($conn, $sql);
 
             $date = date('Y-m-d');
