@@ -1,5 +1,6 @@
 <?php
     function dateDiffInDays($date1, $date2) {
+        date_default_timezone_set('America/Houston');
         $diff = $date2 - strtotime($date1);
         return abs(round($diff / 86400));
     }

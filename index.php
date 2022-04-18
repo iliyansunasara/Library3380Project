@@ -11,8 +11,9 @@
     </form>
 </div>
     <?php
-    /*
+    
         if (isset($_SESSION['University_id']) && ($_SESSION['logged'] == 0)) {
+            date_default_timezone_set('America/Houston');
             $_SESSION['logged'] = 1;
             $UnivID = $_SESSION['University_id'];
             $uidExists = uidExists($conn, $UnivID);
@@ -48,8 +49,6 @@
             }
             updateFines($conn, $UnivID, $totalFines);
         }
-*/
-
     ?>
 <div class="books-container">
     <?php
