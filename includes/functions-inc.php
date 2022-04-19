@@ -61,54 +61,15 @@
             }
         }
     }
-    function createNewStaffTable($conn, $startHire, $endHire, $StaffID, $Fname, $Mid, $Lname, $startDOB, $endDOB, $Email, $PhoneNum, $startSal, $endSal, $startEdit, $endEdit) {
-        if (empty($startHire)) {
-            $startHire = "19000101";
-        }
-        if (empty($endHire)) {
-            $endHire = "99991231";
-        }
-        if (empty($startDOB)) {
-            $startDOB = "19000101";
-        }
-        if (empty($endDOB)) {
-            $endDOB = "99991231";
-        }
-        if (empty($startSal)) {
-            $startSal = "-100000000";
-        }
-        if (empty($endSal)) {
-            $endSal = "100000000";
-        }
-        if (empty($startEdit)) {
-            $startEdit = "19000101";
-        }
-        if (empty($endEdit)) {
-            $endEdit = "99991231";
-        }
-        $sql = "SELECT * 
-                FROM STAFF
-                WHERE Created_at >= '$startHire'
-                    AND Created_at <= '$endHire'
-                    AND Staff_id LIKE '%$StaffID%'
-                    AND Fname LIKE '%$Fname%'
-                    AND Minit LIKE '%$Mid%'
-                    AND Lname LIKE '%$Lname%'
-                    AND BDate >= '$startDOB'
-                    AND BDate <=  '$endDOB'
-                    AND Email LIKE '%$Email%'
-                    AND Phone_num LIKE '%$PhoneNum%'
-                    AND Salary >= '$startSal'
-                    AND Salary <=  '$endSal'
-                    AND Last_updated >= '$startEdit'
-                    AND Last_updated <= '$endEdit';";
+    function createNewStaffTable($conn, $start, $end) {
+        $sql = "SELECT * FROM STAFF WHERE Created_at > '$start' AND  Created_at < '$end';";
         $result = $conn->query($sql);
         if($result->num_rows > 0) {
         ?>
             <div class="COtable">
-                <table border="1px" style="width:1000px; line-height:25px;">
+                <table border="px" style="width:1000px; line-height:30px;">
                     <tr>
-                        <th colspan="10"><h2>Staff Report</h2></th>
+                        <th colspan="8"><h2>Books</h2></th>
                     </tr>
                     <t>
                     <th>Staff ID</th>
@@ -117,9 +78,7 @@
                     <th>Last Name</th>
                     <th>Birth Date</th>
                     <th>Email</th>
-                    <th>Phone #</th>
                     <th>Salary</th>
-                    <th>Profile Updated</th>
                     <th>Hired</th>
                 </t>
             <?php
@@ -132,9 +91,7 @@
                     <td><?php echo $row['Lname']; ?></td>
                     <td><?php echo $row['BDate']; ?></td>
                     <td><?php echo $row['Email']; ?></td>
-                    <td><?php echo $row['Phone_num']; ?></td>
                     <td><?php echo $row['Salary']; ?></td>
-                    <td><?php echo $row['Last_updated']; ?></td>
                     <td><?php echo $row['Created_at']; ?></td>
                 </tr>
         <?php
@@ -580,6 +537,23 @@
             </div>
     <?php
     }
+    
+    function getQueuePos($conn, $bookID, $UnivID) {
+        $sql = "SELECT *
+        FROM request_book
+        WHERE request_book.Book_id = '$bookID'
+        ORDER BY Request_date ASC;";
+        $result = $conn->query($sql);
+        $tot_rows = $result->num_rows;
+        $queue_num = 0;
+        if($tot_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $queue_num +=1;
+            }
+        }
+        else{
+            return;
+        }
 
     function getQueuePos($conn, $bookID, $UnivID) {
         $sql = "SELECT *
@@ -677,6 +651,7 @@
                 </table>
             </div>
     <?php
+    
     }
 
     function createItemReqTable($conn, $UnivID){
