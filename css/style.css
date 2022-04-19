@@ -93,6 +93,43 @@
     float:right;
     width: 210px;
 }
+.editpass-form {
+    padding-top: 50px;
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.editpass-form-form {
+    padding-top: 30px;
+    width: 425px;
+    margin: auto;
+}
+
+.editpass-form-form input, label, button{
+    height: fit-content;
+    width:200px;
+    display: block;
+    margin: auto;
+    padding: 3px;
+    float: right;
+}
+
+.editpass-form-form h3{
+    float: left;
+}
+
+.editpass-form-form button{
+    width: 425px;
+}
+
+.editpass-form-form select{
+    float:right;
+    width: 210px;
+}
+
+
+
 
 .message {
     padding-top: 100px;

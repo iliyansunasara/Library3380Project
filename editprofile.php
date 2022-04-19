@@ -82,6 +82,11 @@
                 <button type="submit" name="submit">Submit Changes</button>
             </form>
         </div>
+        <div class = "signup-form-form">
+            <form action="edit-password.php" method="post">
+                <button type="submit" name="submit">Change Password</button>
+            </form>
+        </div>
         <?php
         }
         else if (isset($_SESSION["Staff_id"])) {
@@ -164,6 +169,11 @@
                 <button type="submit" name="submit">Sumbit Changes</button>
             </form>
         </div>
+        <div class = "signup-form-form">
+            <form action="edit-password.php" method="post">
+                <button type="submit" name="submit">Change Password</button>
+            </form>
+        </div>
         <?php
         }
         else if (isset($_SESSION["Admin_id"])) {
@@ -244,6 +254,11 @@
                 <h3>Address:</h3>
                 <input type="text" name="addy" value="<?php echo $Address;?>"> <br><br>
                 <button type="submit" name="submit">Sumbit Changes</button>
+            </form>
+        </div>
+        <div class = "signup-form-form">
+            <form action="edit-password.php" method="post">
+                <button type="submit" name="submit">Change Password</button>
             </form>
         </div>
         <?php

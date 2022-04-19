@@ -7,6 +7,60 @@
             return true;
         }
     }
+    function emptyInputUpdatePass($Old, $New, $Confirm) {
+        $result= "";
+        if(empty($Old) || empty($New) || empty($Confirm)) {
+            $result = true;
+        }
+        else {
+            $result = false;
+        }
+        return $result;
+    }
+    function updatePass($conn, $table, $ID, $Old, $New) {
+        if ($table == "USERS") {
+            $uidExists = uidExists($conn, $ID);
+            $pwdHashed = $uidExists["Password"];
+            $checkPwd = password_verify($Old, $pwdHashed);
+            if($checkPwd === false) {
+                header("location: ../edit-password.php?error=oldbad");
+                exit(); 
+            }
+            else if ($checkPwd === true){
+                $hashedPwd = password_hash($New, PASSWORD_DEFAULT);
+                $sql = "UPDATE `users` SET `Password`='$hashedPwd' WHERE `University_id`= '$ID';";
+                if (mysqli_query($conn, $sql)) {
+                    header("location: ../edit-password.php?error=none");
+                    exit();
+                }  
+                else {
+                    header("location: ../edit-password.php?error=sql");
+                    exit();
+                }
+            }
+        }
+        else if ($table == "STAFF"){
+            $sidExists = sidExists($conn, $ID);
+            $pwdHashed = $sidExists["Password"];
+            $checkPwd = password_verify($Old, $pwdHashed);
+            if($checkPwd === false) {
+                header("location: ../edit-password.php?error=oldbad");
+                exit(); 
+            }
+            else if ($checkPwd === true){
+                $hashedPwd = password_hash($New, PASSWORD_DEFAULT);
+                $sql = "UPDATE `staff` SET `Password`='$hashedPwd' WHERE `Staff_id`= '$ID';";
+                if (mysqli_query($conn, $sql)) {
+                    header("location: ../edit-password.php?error=none");
+                    exit();
+                }  
+                else {
+                    header("location: ../edit-password.php?error=sql");
+                    exit();
+                }
+            }
+        }
+    }
     function createNewStaffTable($conn, $start, $end) {
         $sql = "SELECT * FROM STAFF WHERE Created_at > '$start' AND  Created_at < '$end';";
         $result = $conn->query($sql);
