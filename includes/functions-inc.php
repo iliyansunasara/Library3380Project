@@ -581,7 +581,41 @@
     <?php
     }
 
-    function createBookReqTable($conn, $UnivID){
+    function getQueuePos($conn, $bookID, $UnivID) {
+        $sql = "SELECT *
+        FROM request_book
+        WHERE request_book.Book_id = '$bookID'
+        ORDER BY Request_date ASC;";
+        $result = $conn->query($sql);
+        $tot_rows = $result->num_rows;
+        $queue_num = 0;
+        if($tot_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $queue_num +=1;
+            }
+        }
+        else{
+            return;
+        }
+
+        return $queue_num;
+    }
+
+    function createBookReqTable($conn, $UnivID){ 
+        $books = array();
+        $positions = array();
+        $sql_b = "SELECT DISTINCT Book_id
+                  FROM REQUEST_BOOK;";
+        $result_b = $conn->query($sql_b);
+        if($result_b->num_rows > 0) {
+            while($row = $result_b->fetch_assoc()) {
+                array_push($books, $row['Book_id']);
+            }
+            foreach($books as $bookID) {
+                array_push($positions, getQueuePos($conn, $bookID, $UnivID));
+            }
+        }
+        
         $sql = "SELECT *
                 FROM REQUEST_BOOK AS RB, BOOK AS B
                 WHERE RB.University_id = $UnivID
@@ -592,7 +626,7 @@
             <div class="COtable">
                 <table border="1px">
                     <tr>
-                        <th colspan="8"><h2>Requested Books</h2></th>
+                        <th colspan="9"><h2>Requested Books</h2></th>
                     </tr>
                     <t>
                     <th>Book ID </th>
@@ -603,8 +637,10 @@
                     <th>Fiction?</th>
                     <th>Condition</th>
                     <th>Request Date</th>
+                    <th>Waitlist</th>
                 </t>
             <?php
+            $i = 0;
             while($row = $result->fetch_assoc()) {
             ?> 
                 <tr>
@@ -625,6 +661,7 @@
                     ?>
                     <td><?php echo $cond; ?></td>
                     <td><?php echo $row['Request_date']; ?></td>
+                    <td><?php echo $positions[$i++]; ?></td>
                 </tr>
         <?php
             }
