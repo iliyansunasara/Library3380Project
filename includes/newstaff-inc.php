@@ -17,10 +17,16 @@
         $endEdit = $_POST['endEdit'];
         $startHire = $_POST['startHire'];
         $endHire = $_POST['endHire'];
-        if (checkDatesGood($startHire, $endHire)) {
-            createNewStaffTable($conn, $startHire, $endHire, $StaffID, $Fname,
-            $Mid, $Lname, $startDOB, $endDOB, $Email, $PhoneNum,
-            $startSal, $endSal,$startEdit, $endEdit);
+        if (checkDatesGood($startHire, $endHire) && checkDatesGood($startDOB, $endDOB) && checkDatesGood($startEdit, $endEdit)) {
+            if (checkDatesGood($startSal, $endSal)) {
+                createNewStaffTable($conn, $startHire, $endHire, $StaffID, $Fname,
+                $Mid, $Lname, $startDOB, $endDOB, $Email, $PhoneNum,
+                $startSal, $endSal,$startEdit, $endEdit);
+            }
+            else {
+                header("Location: ../newstaff.php?error=startsalarybig");
+                exit();
+            }
         }
         else {
             header("Location: ../newstaff.php?error=startdatebig");

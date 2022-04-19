@@ -65,6 +65,16 @@
             </form>
         </div>
 </section>
+    <?php
+        if(isset($_GET["error"])) {
+            if($_GET["error"] == "startsalarybig") {
+                echo '<script>alert("Start salary is larger than end salary!")</script>';
+            }
+            else if($_GET["error"] == "startdatebig") {
+                echo '<script>alert("A start date is larger than an end date!")</script>';
+            }
+        }
+    ?>
 <?php
     include_once 'footer.php';
 ?>
