@@ -129,7 +129,43 @@
 }
 
 
+.repusers-form {
+    padding-top: 30px;
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+.repusers-form-form {
+    width: 635px;
+    margin: auto;
+}
 
+
+.repusers-form-form input, label, button{
+    height: fit-content;
+    width:200px;
+    display: block;
+    margin: auto;
+    padding: 3px;
+    float: right;
+}
+
+.repusers-form-form input{
+    float: right;
+}
+
+.repusers-form-form h3{
+    float: left;
+}
+
+.repusers-form-form button{
+    width: 635px;
+}
+
+.repusers-form-form select{
+    float: right;
+    width: 210px;
+}
 
 .message {
     padding-top: 100px;
