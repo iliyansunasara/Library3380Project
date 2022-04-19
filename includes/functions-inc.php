@@ -106,18 +106,19 @@
         if($result->num_rows > 0) {
         ?>
             <div class="COtable">
-                <table border="1px" style="width:1000px; line-height:25px;">
+                <table border="1px" style="width:100%; line-height:25px;">
                     <tr>
-                        <th colspan="10"><h2>Staff Report</h2></th>
+                        <th colspan="11"><h2>Staff Report</h2></th>
                     </tr>
                     <t>
                     <th>Staff ID</th>
                     <th>First Name</th>
-                    <th>Middle Initial</th>
+                    <th>Middle</th>
                     <th>Last Name</th>
                     <th>Birth Date</th>
                     <th>Email</th>
                     <th>Phone #</th>
+                    <th>Address #</th>
                     <th>Salary</th>
                     <th>Profile Updated</th>
                     <th>Hired</th>
@@ -133,6 +134,7 @@
                     <td><?php echo $row['BDate']; ?></td>
                     <td><?php echo $row['Email']; ?></td>
                     <td><?php echo $row['Phone_num']; ?></td>
+                    <td><?php echo $row['Address']; ?></td>
                     <td><?php echo $row['Salary']; ?></td>
                     <td><?php echo $row['Last_updated']; ?></td>
                     <td><?php echo $row['Created_at']; ?></td>
@@ -143,7 +145,149 @@
         else {
         ?>
             <div class="noCO">
-                <p>No staff hired in the specified time period!</p>
+                <p>No staff member meets the criteria!</p>
+            </div>
+        <?php
+        }
+        ?>
+                </table>
+            </div>
+    <?php
+    }
+    function createReportUsersTable($conn, $UnivID, $Fname, $Mid, $Lname, $Stat, $Email, $PhoneNum, $Address, $startDOB, $endDOB,
+    $startFines, $endFines, $startBooks, $endBooks, $startCalc, $endCalc, $startLap, $endLap, $startHead, $endHead, 
+    $startEdit, $endEdit, $startJoin, $endJoin) {
+        if (empty($startDOB)) {
+            $startDOB = "19000101";
+        }
+        if (empty($endDOB)) {
+            $endDOB = "99991231";
+        }
+        if (empty($startFines)) {
+            $startFines = "-100000000";
+        }
+        if (empty($endFines)) {
+            $endFines = "100000000";
+        }
+        if (empty($startBooks)) {
+            $startBooks = "-100000000";
+        }
+        if (empty($endBooks)) {
+            $endBooks = "100000000";
+        }
+        if (empty($startCalc)) {
+            $startCalc = "-100000000";
+        }
+        if (empty($endCalc)) {
+            $endCalc = "100000000";
+        }
+        if (empty($startLap)) {
+            $startLap = "-100000000";
+        }
+        if (empty($endLap)) {
+            $endLap = "100000000";
+        }
+        if (empty($startHead)) {
+            $startHead = "-100000000";
+        }
+        if (empty($endHead)) {
+            $endHead = "100000000";
+        }
+        if (empty($startEdit)) {
+            $startEdit = "19000101";
+        }
+        if (empty($endEdit)) {
+            $endEdit = "99991231";
+        }
+        if (empty($startJoin)) {
+            $startJoin = "19000101";
+        }
+        if (empty($endJoin)) {
+            $endJoin = "99991231";
+        }
+        $sql = "SELECT * 
+                FROM USERS
+                WHERE University_id LIKE '%$UnivID%'
+                    AND Fname LIKE '%$Fname%'
+                    AND Minit LIKE '%$Mid%'
+                    AND Lname LIKE '%$Lname%'
+                    AND Status LIKE '%$Stat%'
+                    AND Email LIKE '%$Email%'
+                    AND Phone_num LIKE '%$PhoneNum%'
+                    AND Address LIKE '%$Address%'
+                    AND BDate >= '$startDOB'
+                    AND BDate <=  '$endDOB'
+                    AND Fines >= '$startFines'
+                    AND Fines <= '$endFines'
+                    AND Num_of_books >= '$startBooks'
+                    AND Num_of_books  <= '$endBooks'
+                    AND Calculator_count >= '$startCalc'
+                    AND Calculator_count <= '$endCalc'
+                    AND Laptop_count >= '$startLap'
+                    AND Laptop_count <= '$endLap'
+                    AND Headphone_count >= '$startHead'
+                    AND Headphone_count <= '$endHead'
+                    AND Last_updated >= '$startEdit'
+                    AND Last_updated <= '$endEdit'
+                    AND Created_at >= '$startJoin'
+                    AND Created_at <= '$endJoin';";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0) {
+        ?>
+            <div class="COtable">
+                <table border="1px" style="width:100%; line-height:30px;">
+                    <tr>
+                        <th colspan="16"><h2>USERS Report</h2></th>
+                    </tr>
+                    <t>
+                    <th>Uni ID</th>
+                    <th>Status</th>
+                    <th>First</th>
+                    <th>Mid</th>
+                    <th>Last</th>
+                    <th>Born</th>
+                    <th>Email</th>
+                    <th>Phone #</th>
+                    <th>Address</th>
+                    <th>Fines</th>
+                    <th>Book</th>
+                    <th>Calculator</th>
+                    <th>Laptop</th>
+                    <th>Headphone</th>
+                    <th>Updated</th>
+                    <th>Joined</th>
+                </t>
+            <?php
+            while($row = $result->fetch_assoc()) {
+            ?> 
+                <tr>
+                    <td><?php echo $row['University_id']; ?></td>
+                    <?php
+                    $newStat = checkStatus($row['Status']);
+                    ?>
+                    <td><?php echo $newStat; ?></td>
+                    <td><?php echo $row['Fname']; ?></td>
+                    <td><?php echo $row['Minit']; ?></td>
+                    <td><?php echo $row['Lname']; ?></td>
+                    <td><?php echo $row['BDate']; ?></td>
+                    <td><?php echo $row['Email']; ?></td>
+                    <td><?php echo $row['Phone_num']; ?></td>
+                    <td><?php echo $row['Address']; ?></td>
+                    <td><?php echo $row['Fines']; ?></td>
+                    <td><?php echo $row['Num_of_books']; ?></td>
+                    <td><?php echo $row['Calculator_count']; ?></td>
+                    <td><?php echo $row['Laptop_count']; ?></td>
+                    <td><?php echo $row['Headphone_count']; ?></td>
+                    <td><?php echo $row['Last_updated']; ?></td>
+                    <td><?php echo $row['Created_at']; ?></td>
+                </tr>
+        <?php
+            }
+        }
+        else {
+        ?>
+            <div class="noCO">
+                <p>No user meets the criteria!</p>
             </div>
         <?php
         }
@@ -155,6 +299,18 @@
     function dateDiffInDays($date1, $date2) {
         $diff = $date2 - strtotime($date1);
         return abs(round($diff / 86400));
+    }
+    function checkStatus($temp) {
+        if ($temp == "S") {
+            $stat = "Student";
+        }
+        else if ($temp == "F") {
+            $stat = "Faculty";
+        }
+        else {
+            $stat = "Unknown";
+        }
+        return $stat;
     }
     function checkCondition($temp) {
         if ($temp == "E") {
