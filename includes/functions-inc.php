@@ -1330,4 +1330,9 @@
         $result = $conn->query($sql);
         return $result;
     }
+    function deleteQueue($conn, $bookID) {
+        $sql = "DELETE FROM `request_book` WHERE `Book_id` = $bookID;";
+        $conn->query($sql);
+        header("location: ../index.php?error=none");
+    }
 ?>
