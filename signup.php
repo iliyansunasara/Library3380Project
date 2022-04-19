@@ -68,22 +68,27 @@
     <?php
         if(isset($_GET["error"])) {
             if($_GET["error"] == "emptyinput") {
-                echo "<p class=\"message\">Fill in all required fields!</p>";
+                echo "<script>alert('Fill in all required fields!');</script>";
+                echo "<script>history.back();</script>";
             }
             else if($_GET["error"] == "invaliduid") {
-                echo "<p class=\"message\">Enter a proper University ID!</p>";
+                echo "<script>alert('Enter a proper University ID!');</script>";
+                echo "<script>history.back();</script>";
             }
             else if($_GET["error"] == "invalidemail") {
-                echo "<p class=\"message\">Enter a proper Email!</p>";
+                echo "<script>alert('Enter a proper Email!');</script>";
+                echo "<script>history.back();</script>";
             }
             else if($_GET["error"] == "uidtaken") {
-                echo "<p class=\"message\">University ID already Exists!</p>";
+                echo "<script>alert('University ID already Exists!');</script>";
+                echo "<script>history.back();</script>";
             }
             else if($_GET["error"] == "stmtfailed") {
-                echo "<p class=\"message\">Something went wrong, please try again!</p>";
+                echo "<script>alert('Something went wrong, please try again!');</script>";
+                echo "<script>history.back();</script>";
             }
             else if($_GET["error"] == "none") {
-                echo "<p class=\"message\">You have successfully signed up!</p>";
+                echo "<script>alert('You have successfully signed up!');</script>";
             }
         }
     ?>
