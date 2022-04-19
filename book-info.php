@@ -38,7 +38,7 @@
 ?>
 
 <?php
-    if(isset($_SESSION["Admin_id"]) || isset($_SESSION["Staff_id"])) {
+    if((isset($_SESSION["Admin_id"]) || isset($_SESSION["Staff_id"])) && getResult($conn, $bookID)->num_rows > 0) {
 ?>
     <div class="checkout-request-form">
         <form action="includes/returns-inc.php" method="POST">

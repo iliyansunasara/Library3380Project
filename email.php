@@ -48,10 +48,11 @@ try {
     $mail->AltBody = 'Plain text message body for non-HTML email client. Gmail SMTP email body.';
 
     $mail->send();
-    //echo '<script>alert("Reminder Email has been Sent, Please Check Your Inbox!");</script>';
-    echo "Email message sent.";
+    echo '<script>alert("Reminder Email has been Sent, Please Check Your Inbox!");</script>';
+    //echo "Email message sent.";
 } catch (Exception $e) {
-    echo "Error in sending email. Mailer Error: {$mail->ErrorInfo}";
+    echo'<script>alert("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");</script>';
+    //echo "Error in sending email. Mailer Error: {$mail->ErrorInfo}";
 }
 }
 

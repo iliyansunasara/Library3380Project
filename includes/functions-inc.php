@@ -1274,4 +1274,17 @@
         $conn->query($sql);
         header("location: ../index.php?error=none");
     }
+    function returnBook($conn, $bookID) {
+        // $sql = "SELECT * FROM check_out_book WHERE check_out_book.Book_id = '$bookID';";
+        $sql = "DELETE FROM `check_out_book` WHERE (`Book_id` = $bookID);";
+        // $sql = "DELETE FROM `library`.`check_out_book` WHERE (`University_id` = '5431189') and (`Book_id` = '000000000001');";
+        $conn->query($sql);
+        header("location: ../index.php?error=none");
+    }
+    function getResult($conn, $bookID) {
+        //$sql = "SELECT * FROM check_out_book WHERE check_out_book.Book_id = '$bookID'";
+        $sql = "SELECT * FROM check_out_book WHERE check_out_book.Book_id = $bookID";
+        $result = $conn->query($sql);
+        return $result;
+    }
 ?>

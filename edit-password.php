@@ -24,8 +24,8 @@
             else if($_GET["error"] == "oldbad") {
                 echo "<script>alert('Old password incorrect, please try again!');</script>";
             }
-            else if($_GET["error"] == "match") {
-                echo "<script>alert('New Password doesn't match confirmed password, please try again!');</script>";
+            else if($_GET["error"] == "doesNotMatch") {
+                echo "<script>alert('New password doesn\'t match old password, please try again!');</script>";
             }
             else if($_GET["error"] == "stmtfailed" || $_GET["error"] == "sql") {
                 echo "<script>alert('Something went wrong, please try again!');</script>";

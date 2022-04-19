@@ -15,7 +15,7 @@
                 exit();
             }
             else if ($New != $Confirm) {
-                header("location: ../edit-password.php?error=match");
+                header("location: ../edit-password.php?error=doesNotMatch");
                 exit();
             }
             updatePass($conn,'USERS', $UnivID, $Old, $New);
@@ -39,7 +39,7 @@
                 exit();
             }
             else if ($New != $Confirm) {
-                header("location: ../edit-password.php?error=match");
+                header("location: ../edit-password.php?error=doesNotMatch");
                 exit();
             }
             updatePass($conn,'STAFF', $StaffID, $Old, $New);
