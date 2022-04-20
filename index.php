@@ -168,6 +168,7 @@
                 }
                 echo "</div></a>";
             }
+        }
             else {
                 //echo "<p class='noresult'>No items matched your search!</p>";
             }
@@ -244,6 +245,9 @@
         }
         else if($_GET["error"] == "bookUpdated") {
             echo '<script>alert("Book Successfully Updated!")</script>';
+        }
+        else if($_GET["error"] == "bookDeleted") {
+            echo '<script>alert("Book Deleted Successfully!")</script>';
         }
         else if($_GET["error"] == "none") {
             //echo '<script>alert("Book Successfully Updated!")</script>';
