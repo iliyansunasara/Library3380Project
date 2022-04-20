@@ -296,6 +296,85 @@
             </div>
     <?php
     }
+    function createReportCOBTable($conn, $StaffID, $UnivID, $BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $startCOB, $endCOB) {
+        if (empty($startCOB)) {
+            $startCOB = "19000101";
+        }
+        if (empty($endCOB)) {
+            $endCOB = "99991231";
+        }
+        $sql = "SELECT * 
+                FROM CHECK_OUT_BOOK AS COB JOIN BOOK AS B ON COB.Book_id = B.Book_id
+                WHERE COB.Staff_id LIKE '%$StaffID%'
+                    AND COB.University_id LIKE '%$UnivID%'
+                    AND COB.Book_id LIKE '%$BookID%'
+                    AND B.Title LIKE '%$Title%'
+                    AND B.Author LIKE '%$Author%'
+                    AND B.Genre LIKE '%$Genre%'
+                    AND B.Fiction LIKE '%$Fiction%'
+                    AND B.Age_group LIKE '%$AgeGroup%'
+                    AND B.Condition LIKE '%$Condition%'
+                    AND COB.Checked_out_date >= '$startCOB'
+                    AND COB.Checked_out_date <= '$endCOB';";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0) {
+        ?>
+            <div class="COtable">
+                <table border="1px" style="width:100%; line-height:25px;">
+                    <tr>
+                        <th colspan="10"><h2>Checked Out Book Report</h2></th>
+                    </tr>
+                    <t>
+                    <th>Staff ID</th>
+                    <th>University ID</th>
+                    <th>Book ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                    <th>Age Group</th>
+                    <th>Fiction?</th>
+                    <th>Condition</th>
+                    <th>Checked Out</th>
+                </t>
+            <?php
+            while($row = $result->fetch_assoc()) {
+            ?> 
+                <tr>
+                    <td><?php echo $row['Staff_id']; ?></td>
+                    <td><?php echo $row['University_id']; ?></td>
+                    <td><?php echo $row['Book_id']; ?></td>
+                    <td><?php echo $row['Title']; ?></td>
+                    <td><?php echo $row['Author']; ?></td>
+                    <td><?php echo $row['Genre']; ?></td>
+                    <?php
+                        $age = checkAgeGroup($row['Age_group']);
+                    ?>
+                    <td><?php echo $age; ?></td>
+                    <?php
+                        $fict = checkFiction($row['Fiction']);
+                    ?>
+                    <td><?php echo $fict; ?></td>
+                    <?php
+                        $cond = checkCondition($row['Condition']);
+                    ?>
+                    <td><?php echo $cond; ?></td>
+                    <td><?php echo $row['Checked_out_date']; ?></td>
+                </tr>
+        <?php
+            }
+        }
+        else {
+        ?>
+            <div class="noCO">
+                <p>No checkout meets the criteria!</p>
+            </div>
+        <?php
+        }
+        ?>
+                </table>
+            </div>
+    <?php
+    }
     function dateDiffInDays($date1, $date2) {
         $diff = $date2 - strtotime($date1);
         return abs(round($diff / 86400));

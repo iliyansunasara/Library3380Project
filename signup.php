@@ -1,14 +1,16 @@
 <?php
     include_once 'header.php';
 ?>
-    <section class="signup-form">
+    <section class="final-signup-form"> <!--signup-form-->
         <h2>To signup fill out fields below: * indicates required fields</h2>
-        <div class="signup-form-form">
+        <div class="final-signup-form-form"> <!--signup-form-form-->
             <form action="includes/signup-inc.php" method="post">
                 <h3>*University ID:</h3>
                 <input oninput="this.value=this.value.slice(0,this.maxLength)" type="number" maxlength="7" name="uni" placeholder="University ID..."><br><br>
                 <h3>*Password: </h3>
                 <input type="password" name="pwd" placeholder="Password..."><br><br>
+                <h3>*Confirm Password: </h3>
+                <input type="password" name="confirm" placeholder="Confirm Password..."><br><br>
                 <h3>*First Name: </h3>
                 <input type="text" name="fname" placeholder="First Name..."><br><br>
                 <h3>*Last Name:</h3>
@@ -69,6 +71,10 @@
         if(isset($_GET["error"])) {
             if($_GET["error"] == "emptyinput") {
                 echo "<script>alert('Fill in all required fields!');</script>";
+                echo "<script>history.back();</script>";
+            }
+            else if($_GET["error"] == "matchpwd") {
+                echo "<script>alert('Password doesn\'t match!');</script>";
                 echo "<script>history.back();</script>";
             }
             else if($_GET["error"] == "invaliduid") {
