@@ -94,6 +94,44 @@
     width: 210px;
 }
 
+
+.final-signup-form {
+    padding-top: 60px;
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+.final-signup-form h2{
+    font-size: 25px;
+}
+
+.final-signup-form-form {
+    padding-top: 35px;
+    width: 435px;
+    margin: auto;
+}
+
+.final-signup-form-form h3{
+    float: left;
+}
+.final-signup-form-form input, label, button{
+    height: fit-content;
+    width:200px;
+    display: block;
+    margin: auto;
+    padding: 3px;
+    float: right;
+}
+
+.final-signup-form-form button{
+    width: 435px;
+}
+
+.final-signup-form-form select{
+    float:right;
+    width: 210px;
+}
+
 .editpass-form {
     padding-top: 50px;
     width: 1000px;

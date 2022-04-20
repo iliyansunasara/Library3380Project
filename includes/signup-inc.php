@@ -3,6 +3,7 @@
 if (isset($_POST["submit"])) {
     $UnivID = $_POST["uni"];
     $Pass = $_POST["pwd"];
+    $ConfirmPass = $_POST["confirm"];
     $First = $_POST["fname"];
     $Mid = $_POST["minit"];
     $Last = $_POST["lname"];
@@ -25,6 +26,10 @@ if (isset($_POST["submit"])) {
     }
     if (strlen($UnivID) != 7) {
         header("location: ../signup.php?error=invaliduid");
+        exit();
+    }
+    if ($Pass !== $ConfirmPass) {
+        header("location: ../signup.php?error=matchpwd");
         exit();
     }
     if (invalidEmail($Email) !== false) {
