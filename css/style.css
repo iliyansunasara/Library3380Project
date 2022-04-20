@@ -410,6 +410,27 @@ nav ul li ul li a:hover{
     width: 170px;
 
 }
+.bookInfoPage {
+    /* width: 100%;
+    float: left;
+    padding-left: 50px; */
+    margin-left: 50px;
+    margin-right: 0px;
+    margin-top: 50px;
+    float:left;
+    display: block;
+    width: 50%;
+    border: 4px solid black;
+    background-color: lightgray;
+    /* padding: 14px 14px; */
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+
+    height: 220px;
+    width: 170px;
+
+}
 
 .book a{
     float: left;
@@ -463,9 +484,12 @@ nav ul li ul li a:hover{
     line-height: 1.8;
     word-spacing: 5px;
     float: left;
-    width: 100%;
+    width: 50%;
     margin: auto;
-    padding: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 50px;
+    padding-bottom: 20px;
 }
 
 .checkout-request-form {

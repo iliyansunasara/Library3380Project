@@ -12,6 +12,9 @@
 
     if($q_results == 1) {
         while($data = mysqli_fetch_assoc($result)) {
+            echo "<div class='bookInfoPage'>";
+            echo "<img src = '{$data['Cover']}' width = '100%' height = '100%'><br><br>";
+            echo "</div>";
             echo "<div class='bookinfo'><h3>$data[Title]</h3>
                     <!-- $data[Cover] -->
                     <p>Author: ".$data['Author']."</p>
@@ -27,7 +30,7 @@
 <?php
     if(isset($_SESSION["Admin_id"])) {
 ?>
-    <div>
+    <div class="checkout-request-form">
         <form action="editbook.php" method="POST">
             <input type="hidden" name="bookID" value="<?php echo $bookID;?>">
             <button type="submit" name="editBook">Edit Book</button>
