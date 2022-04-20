@@ -62,7 +62,8 @@
             $data = mysqli_fetch_assoc($result);
             $message = $data['Message'];
             $messageid = $data['Message_id'];
-            sendEmail($email, $message);
+            $messagetype = $data['type'];
+            sendEmail($email, $message, $messagetype);
             deleteMessageRow($conn, $messageid);
         }
     }   

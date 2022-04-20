@@ -8,7 +8,7 @@ require_once 'vendor/phpmailer/src/Exception.php';
 require_once __DIR__ . '/vendor/phpmailer/src/PHPMailer.php';
 require_once __DIR__ . '/vendor/phpmailer/src/SMTP.php';
 
-function sendEmail($email, $message) {
+function sendEmail($email, $message, $messageType) {
 
 // passing true in constructor enables exceptions in PHPMailer
 $mail = new PHPMailer(true);
@@ -48,7 +48,13 @@ try {
     $mail->AltBody = 'Plain text message body for non-HTML email client. Gmail SMTP email body.';
 
     $mail->send();
-    echo '<script>alert("Reminder Email has been Sent, Please Check Your Inbox!");</script>';
+    if($messageType = 'b') {
+        echo '<script>alert("Alert Email has been sent!, Please Check Your Inbox");</script>';
+    }
+    elseif($messageType = 'f') {
+        echo '<script>alert("Fine added to your account. Email has been sent!, Please Check Your Inbox");</script>';
+    }
+    //echo '<script>alert("Reminder Email has been Sent, Please Check Your Inbox!");</script>';
     //echo "Email message sent.";
 } catch (Exception $e) {
     echo'<script>alert("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");</script>';
