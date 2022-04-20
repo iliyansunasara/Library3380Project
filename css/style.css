@@ -93,6 +93,7 @@
     float:right;
     width: 210px;
 }
+
 .editpass-form {
     padding-top: 50px;
     width: 1000px;
@@ -180,7 +181,7 @@
 
 .login-form {
     padding-top: 120px;
-    width: fit-content;
+    width: 250px;
     display: block;
     margin: auto;
     /*background-color: purple; width: 1000px;
@@ -195,6 +196,7 @@
     float: left;
 }
 .login-form button{
+    width: 215px;
     padding: 5px; /* 3px*/
     float: left;
 }
