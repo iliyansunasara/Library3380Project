@@ -157,7 +157,8 @@
                 header("location:index.php?error=bookUpdated");
             }
             else if($_GET["error"] == "noneDeleted") {
-                echo '<script>alert("Book Deleted Successfully!")</script>';
+                header("location:index.php?error=bookDeleted");
+                // echo '<script>alert("Book Deleted Successfully!")</script>';
             }
             else if($_GET["error"] == "emptyinput") {
                 echo '<script>alert("Empty Input!")</script>';

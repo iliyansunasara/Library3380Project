@@ -61,12 +61,14 @@
             exit();
         }
         updateBook($conn, $BookID, $Title, $Author, $Cover, $Genre, $AgeGroup, $Fiction, $Condition, $LastUpdatedBy);
+        header("location: ../editbook.php?error=none");
     }
     elseif (isset($_POST["deleteBook"])) {
         $BookID = $_POST["bookIDD"];
         require_once 'dbh-inc.php';
         require_once 'functions-inc.php';
         deleteBook($conn, $BookID);
+        header("location: ../editbook.php?error=bookDeleted");
     }
     else {
         header("location: ../editbook.php");
