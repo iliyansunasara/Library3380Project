@@ -48,10 +48,10 @@ try {
     $mail->AltBody = 'Plain text message body for non-HTML email client. Gmail SMTP email body.';
 
     $mail->send();
-    if($messageType = 'b') {
+    if($messageType == 'b') {
         echo '<script>alert("Alert Email has been sent!, Please Check Your Inbox");</script>';
     }
-    elseif($messageType = 'f') {
+    elseif($messageType == 'f') {
         echo '<script>alert("Fine added to your account. Email has been sent!, Please Check Your Inbox");</script>';
     }
     //echo '<script>alert("Reminder Email has been Sent, Please Check Your Inbox!");</script>';

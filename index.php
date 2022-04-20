@@ -141,7 +141,7 @@
             }
         }
         else {
-            echo "<h2>-------------------------------------------------------</h2><br><br>";
+            echo "<h2><pre>             ITEMS:</pre></h2><br><br>";
             $sql = "SELECT * FROM item";
             $result = mysqli_query($conn, $sql);
             $q_results = mysqli_num_rows($result);
