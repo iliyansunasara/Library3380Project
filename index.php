@@ -128,16 +128,48 @@
 
             if($q_results > 0) {
                 while($data = mysqli_fetch_assoc($result)) {
-                    echo "<a class =tobookinfo href='book-info.php?bookid=".$data['Book_id']."'>";
-                    echo "<div class='item'>";
-                    // echo "<img src = '{$data['Cover']}' width = '100%' height = '100%'><br><br>";
-                    echo "<h3>$data[Title]</h3>";
-                    echo "<p>by: ".$data['Author']."</p>";
-                    echo "</div></a>";
+                    echo "<a class =tobookinfo href='item-info.php?itemid=".$data['Item_id']."'>";
+                echo "<div class='item'>";
+                if($data['Item_type'] == 'C') {
+                    echo "<h3>Calculator</h3><br>";
+                    if($data['Condition'] == 'E') {
+                        echo "<p>Excellent</p>";
+                    }
+                    else if($data['Condition'] == 'G') {
+                        echo "<p>Good</p>";
+                    }
+                    else if($data['Condition'] == 'W') {
+                        echo "<p>Worn</p>";
+                    }
                 }
+                elseif($data['Item_type'] == 'L') {
+                    echo "<h3>Laptop</h3><br>";
+                    if($data['Condition'] == 'E') {
+                        echo "<p>Excellent</p>";
+                    }
+                    else if($data['Condition'] == 'G') {
+                        echo "<p>Good</p>";
+                    }
+                    else if($data['Condition'] == 'W') {
+                        echo "<p>Worn</p>";
+                    }
+                }
+                elseif($data['Item_type'] == 'H') {
+                    echo "<h3>Headphones</h3><br>";
+                    if($data['Condition'] == 'E') {
+                        echo "<p>Excellent</p>";
+                    }
+                    else if($data['Condition'] == 'G') {
+                        echo "<p>Good</p>";
+                    }
+                    else if($data['Condition'] == 'W') {
+                        echo "<p>Worn</p>";
+                    }
+                }
+                echo "</div></a>";
             }
             else {
-                echo "<p class='noresult'>No results matched your search!</p>";
+                //echo "<p class='noresult'>No items matched your search!</p>";
             }
         }
         else {
