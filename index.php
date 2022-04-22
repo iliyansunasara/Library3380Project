@@ -250,6 +250,12 @@
         else if($_GET["error"] == "bookDeleted") {
             echo '<script>alert("Book Deleted Successfully!")</script>';
         }
+        else if($_GET["error"] == "itemUpdated") {
+            echo '<script>alert("Item Successfully Updated!")</script>';
+        }
+        else if($_GET["error"] == "itemDeleted") {
+            echo '<script>alert("Item Deleted Successfully!")</script>';
+        }
         else if($_GET["error"] == "none") {
             //echo '<script>alert("Book Successfully Updated!")</script>';
         }

@@ -1387,6 +1387,17 @@
         return $result;
     }
 
+    function emptyInputUpdateItem($Type, $Condition, $LastUpdatedBy) {
+        $result= "";
+        if(empty($Type) || empty($Condition) || empty($LastUpdatedBy)) {
+            $result = true;
+        }
+        else {
+            $result = false;
+        }
+        return $result;
+    }
+
     function updateBook($conn, $BookID, $Title, $Author, $Cover, $Genre, $AgeGroup, $Fiction, $Condition, $LastUpdatedBy) {
         $sql = "UPDATE `book` SET `Title`='$Title', `Author`='$Author', `Cover`='$Cover', `Genre`='$Genre', `Age_group`='$AgeGroup', `Fiction`='$Fiction', `Condition`='$Condition', `Last_updated`=now(), `Last_updated_by`='$LastUpdatedBy' WHERE `Book_id`='$BookID';";
         $conn->query($sql);
@@ -1394,10 +1405,24 @@
         exit();
     }
 
+    function updateItem($conn, $ItemID, $Type, $Condition, $LastUpdatedBy) {
+        $sql = "UPDATE `item` SET `Item_type`='$Type', `Condition`='$Condition', `Last_updated`=now(), `Last_updated_by`='$LastUpdatedBy' WHERE `Item_id`='$ItemID';";
+        $conn->query($sql);
+        header("location: ../edititem.php?error=none");
+        exit();
+    }
+
     function deleteBook($conn, $BookID) {
         $sql = "DELETE FROM `book` WHERE `Book_id`='$BookID';";
         $conn->query($sql);
         header("location: ../editbook.php?error=noneDeleted");
+        exit();
+    }
+
+    function deleteItem($conn, $ItemID) {
+        $sql = "DELETE FROM `item` WHERE `Item_id`='$ItemID';";
+        $conn->query($sql);
+        header("location: ../edititem.php?error=noneDeleted");
         exit();
     }
 

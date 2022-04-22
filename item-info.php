@@ -54,18 +54,32 @@
     }
 ?>
 
-<!-- <?php
+<?php
     if(isset($_SESSION["Admin_id"])) {
 ?>
-    <div>
+    <div class="checkout-request-form">
         <form action="edititem.php" method="POST">
             <input type="hidden" name="itemID" value="<?php echo $itemID;?>">
-            <button type="submit" name="editBook">Edit Item</button>
+            <button type="submit" name="editItem">Edit Item</button>
         </form>
     </div>
 <?php
     }
-?> -->
+?>
+
+<?php
+    if((isset($_SESSION["Admin_id"]) || isset($_SESSION["Staff_id"])) && getResult($conn, $itemID)->num_rows > 0) {
+?>
+    <div class="checkout-request-form">
+        <form action="includes/returns-inc.php" method="POST">
+            <input type="hidden" name="itemID" value="<?php echo $itemID;?>">
+            <button type="submit" name="return">Return</button>
+        </form>
+    </div>
+<?php
+    }
+?>
+
 
 
 <?php
@@ -82,7 +96,7 @@
     </div>
 <?php
     }
-    else {
+    else if (isset($_SESSION["University_id"]) || isset($_SESSION["Staff_id"]) || isset($_SESSION["Admin_id"])) {
 ?>
     <div class="checkout-request-form">
         <form action="includes/user-check-inc.php" method="POST">
@@ -90,8 +104,11 @@
             <button type="submit" name="check-form-">Checkout Item</button>
         </form>
     </div>
-
 <?php
+    }
+    else {
+        header("Location: login.php?error=mustlogin");
+        exit();
     }
 ?>
 
