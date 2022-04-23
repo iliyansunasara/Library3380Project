@@ -11,8 +11,8 @@
     $q_results = mysqli_num_rows($result);
 
     if($q_results == 1) {
-        echo "<div class='bookinfo'>";
         while($data = mysqli_fetch_assoc($result)) {
+            echo "<div class='bookinfo'>";
             if($data['Item_type'] == 'C') {
                 echo "<h3>Calculator</h3>";
                 if($data['Condition'] == 'E') {
@@ -23,6 +23,9 @@
                 }
                 else if($data['Condition'] == 'W') {
                     echo "<p>Worn</p>";
+                }
+                else if($data['Condition'] == 'D') {
+                    echo "<p>Damaged</p>";
                 }
             }
             elseif($data['Item_type'] == 'L') {
@@ -36,6 +39,9 @@
                 else if($data['Condition'] == 'W') {
                     echo "<p>Worn</p>";
                 }
+                else if($data['Condition'] == 'D') {
+                    echo "<p>Damaged</p>";
+                }
             }
             elseif($data['Item_type'] == 'H') {
                 echo "<h3>Headphones</h3>";
@@ -48,8 +54,11 @@
                 else if($data['Condition'] == 'W') {
                     echo "<p>Worn</p>";
                 }
+                else if($data['Condition'] == 'D') {
+                    echo "<p>Damaged</p>";
+                }
             }
-            echo "</div></a>";
+            echo "</div></a><br><br><br>";
         }
     }
 ?>

@@ -10,7 +10,7 @@
             $Condition;
     ?>
         <div class = "signup-form-form">
-            <form action="includes/edit-item-inc.php" method="post" enctype="multipart/form-data">
+            <form action="includes/edit-item-inc.php" method="post">
                 <?php
                     $sql = "SELECT * FROM ITEM WHERE Item_id = $ItemID;";
 
@@ -25,10 +25,29 @@
                 ?>
                 <h3>Item Type:</h3>
                 <select name="type" id="type">
-                    <option value="<?php echo $Genre;?>"><?php echo $Genre;?></option>
-                    <option value="C">Calculator</option>
-                    <option value="L">Laptop</option>
-                    <option value="H">Headphones</option>
+                    <?php
+                    if($Type == "C") {
+                    ?>
+                        <option value="C"><?php echo "Calculator";?></option>;
+                        <option value="L"><?php echo "Laptop";?></option>;
+                        <option value="H"><?php echo "Headphones";?></option>;
+                    <?php
+                    }
+                    elseif($Type == "L") {
+                    ?>
+                        <option value="L"><?php echo "Laptop";?></option>;
+                        <option value="C"><?php echo "Calculator";?></option>;
+                        <option value="H"><?php echo "Headphones";?></option>;
+                    <?php
+                    }
+                    elseif($Type == "H") {
+                    ?>
+                        <option value="H"><?php echo "Headphones";?></option>;
+                        <option value="C"><?php echo "Calculator";?></option>;
+                        <option value="L"><?php echo "Laptop";?></option>;
+                    <?php
+                    }
+                    ?>
                     </select>
                 <br><br>
                 <h3>Condition:</h3>
@@ -39,6 +58,7 @@
                         <option value="E"><?php echo "Excellent";?></option>
                         <option value="G"><?php echo "Good";?></option>
                         <option value="W"><?php echo "Worn";?></option>
+                        <option value="D"><?php echo "Damaged";?></option>
                     <?php
                         }
                         else if($Condition == "G") {
@@ -46,12 +66,22 @@
                         <option value="G"><?php echo "Good";?></option>
                         <option value="W"><?php echo "Worn";?></option>
                         <option value="E"><?php echo "Excellent";?></option>
+                        <option value="D"><?php echo "Damaged";?></option>
                     <?php
                         }
                         else if($Condition == "W") {
                     ?>
                         <option value="W"><?php echo "Worn";?></option>
                         <option value="G"><?php echo "Good";?></option>
+                        <option value="E"><?php echo "Excellent";?></option>
+                        <option value="D"><?php echo "Damaged";?></option>
+                    <?php
+                        }
+                        else if($Condition == "D") {
+                    ?>
+                        <option value="D"><?php echo "Damaged";?></option>
+                        <option value="G"><?php echo "Good";?></option>
+                        <option value="W"><?php echo "Worn";?></option>
                         <option value="E"><?php echo "Excellent";?></option>
                     <?php
                         }

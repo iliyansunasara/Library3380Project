@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (isset($_POST["changeBook"])) {
+    if (isset($_POST["changeItem"])) {
         $ItemID = $_POST["itemID"];
         $Type = $_POST["type"];
         $Condition = $_POST["cond"];
@@ -13,7 +13,7 @@
             header("location: ../edititem.php?error=emptyinput");
             exit();
         }
-        updateItem($conn, $BookID, $Title, $Author, $Cover, $Genre, $AgeGroup, $Fiction, $Condition, $LastUpdatedBy);
+        updateItem($conn, $ItemID, $Type, $Condition, $LastUpdatedBy);
         header("location: ../edititem.php?error=none");
     }
     elseif (isset($_POST["deleteItem"])) {

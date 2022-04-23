@@ -118,6 +118,7 @@
                         <option value="E"><?php echo "Excellent";?></option>
                         <option value="G"><?php echo "Good";?></option>
                         <option value="W"><?php echo "Worn";?></option>
+                        <option value="D"><?php echo "Damaged";?></option>
                     <?php
                         }
                         else if($Condition == "G") {
@@ -125,12 +126,22 @@
                         <option value="G"><?php echo "Good";?></option>
                         <option value="W"><?php echo "Worn";?></option>
                         <option value="E"><?php echo "Excellent";?></option>
+                        <option value="D"><?php echo "Damaged";?></option>
                     <?php
                         }
                         else if($Condition == "W") {
                     ?>
                         <option value="W"><?php echo "Worn";?></option>
                         <option value="G"><?php echo "Good";?></option>
+                        <option value="E"><?php echo "Excellent";?></option>
+                        <option value="D"><?php echo "Damaged";?></option>
+                    <?php
+                        }
+                        elseif($Condition == "D") {
+                    ?>
+                        <option value="D"><?php echo "Damaged";?></option>
+                        <option value="G"><?php echo "Good";?></option>
+                        <option value="W"><?php echo "Worn";?></option>
                         <option value="E"><?php echo "Excellent";?></option>
                     <?php
                         }
