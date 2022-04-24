@@ -1,5 +1,9 @@
 <?php
     include_once 'header.php';
+    if(!isset($_SESSION["Admin_id"])) {
+        header("Location: login.php?error=noPermission");
+        exit();
+    }
 ?>
 <section class="repusers-form">
         <h2>To generate report fill out any fields below:</h2>

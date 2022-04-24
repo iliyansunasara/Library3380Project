@@ -31,6 +31,9 @@
                 //echo "<p class=\"message\">Incorrect StaffID or Password!</p>";
                 echo '<script>alert("You must log in to check out a book!")</script>';
             }
+            else if($_GET["error"] == "noPermission") {
+                echo '<script>alert("You don\'t have permission to visit this page!")</script>';
+            }
         }
     ?>
 <?php
