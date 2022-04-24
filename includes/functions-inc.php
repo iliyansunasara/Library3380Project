@@ -1,4 +1,9 @@
 <?php
+    function pre_r($array) {
+        echo '<pre>';
+        print_r($array);
+        echo '</pre>';
+    }
     function checkDatesGood($date1, $date2) {
         if ($date1 > $date2) {
             return false;
@@ -60,6 +65,192 @@
                 }
             }
         }
+    }
+    function emptyInputStaffUpdate($StaffID, $First, $Last, $Email, $DOB, $Tele, $Addr, $Salary) {
+        $result= "";
+        if(empty($StaffID) || empty($First) || empty($Last) || empty($Email) || empty($DOB)
+        || empty($Tele)|| empty($Addr) || empty($Salary)) {
+            $result = true;
+        }
+        else {
+            $result = false;
+        }
+        return $result;
+    }
+    function updateStaffAdmin($conn, $StaffID, $First, $Mid, $Last, $Email, $DOB, $Tele, $Addr, $Salary) {
+        $sql = "UPDATE `staff` SET `Fname`='$First',`Minit`='$Mid',`Lname`='$Last',`Email`='$Email', `BDate`='$DOB', `Phone_num`='$Tele',`Address`='$Addr',`Salary`='$Salary', `Last_updated` = now() WHERE `Staff_id`= $StaffID;";
+        if (mysqli_query($conn, $sql)) {
+            header("location: ../staff.php?error=none");
+            exit();
+        }
+        else {
+            header("location: ../staff.php?error=sql");
+            exit();
+        }
+    }
+    function createReportItemTable($conn, $BookID, $ItemType, $Condition, $Creator, $Updator, $startAdd, $endAdd, $startUp, $endUp) {
+        if (empty($startAdd)) {
+            $startAdd = "19000101";
+        }
+        if (empty($endAdd)) {
+            $endAdd = "99991231";
+        }
+        if (empty($startUp)) {
+            $startUp = "19000101";
+        }
+        if (empty($endUp)) {
+            $endUp = "99991231";
+        }
+        $sql = "SELECT * 
+                FROM ITEM AS I
+                WHERE I.Item_id LIKE '%$BookID%'
+                    AND I.Item_type LIKE '%$ItemType%'
+                    AND I.Condition LIKE '%$Condition%'
+                    AND I.Created_by LIKE '%$Creator%'
+                    AND I.Last_updated_by LIKE '%$Updator%'
+                    AND I.Created_at >= '$startAdd'
+                    AND I.Created_at <= '$endAdd'
+                    AND I.Last_updated >= '$startUp'
+                    AND I.Last_updated <= '$endUp';";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0) {
+        ?>
+            <div class="COtable">
+                <table border="1px" style="width:100%; line-height:25px;">
+                    <tr>
+                        <th colspan="11"><h2>Item Report</h2></th>
+                    </tr>
+                <t>
+                    <th>Item ID</th>
+                    <th>Item Type</th>
+                    <th>Condition</th>
+                    <th>Added by</th>
+                    <th>Last Update by</th>
+                    <th>Added</th>
+                    <th>Last Update</th>
+                </t>
+            <?php
+            while($row = $result->fetch_assoc()) {
+            ?> 
+                <tr>
+                    <td><?php echo $row['Item_id']; ?></td>
+                    <?php
+                        $type = itemType($row['Item_type']);
+                    ?>
+                    <td><?php echo $type; ?></td>
+                    <?php
+                        $cond = checkCondition($row['Condition']);
+                    ?>
+                    <td><?php echo $cond; ?></td>
+                    <td><?php echo $row['Created_by']; ?></td>
+                    <td><?php echo $row['Last_updated_by']; ?></td>
+                    <td><?php echo $row['Created_at']; ?></td>
+                    <td><?php echo $row['Last_updated']; ?></td>
+                </tr>
+        <?php
+            }
+        }
+        else {
+        ?>
+            <div class="noCO">
+                <p>No item meets the criteria!</p>
+            </div>
+        <?php
+        }
+        ?>
+                </table>
+            </div>
+    <?php
+    }
+    function createReportBookTable($conn, $BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $Creator,
+    $Updator, $startAdd, $endAdd, $startUp, $endUp) {
+        if (empty($startAdd)) {
+            $startAdd = "19000101";
+        }
+        if (empty($endAdd)) {
+            $endAdd = "99991231";
+        }
+        if (empty($startUp)) {
+            $startUp = "19000101";
+        }
+        if (empty($endUp)) {
+            $endUp = "99991231";
+        }
+        $sql = "SELECT * 
+                FROM BOOK AS B
+                WHERE B.Book_id LIKE '%$BookID%'
+                    AND B.Title LIKE '%$Title%'
+                    AND B.Author LIKE '%$Author%'
+                    AND B.Genre LIKE '%$Genre%'
+                    AND B.Fiction LIKE '%$Fiction%'
+                    AND B.Age_group LIKE '%$AgeGroup%'
+                    AND B.Condition LIKE '%$Condition%'
+                    AND B.Created_by LIKE '%$Creator%'
+                    AND B.Last_updated_by LIKE '%$Updator%'
+                    AND B.Created_at >= '$startAdd'
+                    AND B.Created_at <= '$endAdd'
+                    AND B.Last_updated >= '$startUp'
+                    AND B.Last_updated <= '$endUp';";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0) {
+        ?>
+            <div class="COtable">
+                <table border="1px" style="width:100%; line-height:25px;">
+                    <tr>
+                        <th colspan="11"><h2>Book Report</h2></th>
+                    </tr>
+                <t>
+                    <th>Book ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                    <th>Age Group</th>
+                    <th>Fiction?</th>
+                    <th>Condition</th>
+                    <th>Added by</th>
+                    <th>Last Update by</th>
+                    <th>Added</th>
+                    <th>Last Update</th>
+                </t>
+            <?php
+            while($row = $result->fetch_assoc()) {
+            ?> 
+                <tr>
+                    <td><?php echo $row['Book_id']; ?></td>
+                    <td><?php echo $row['Title']; ?></td>
+                    <td><?php echo $row['Author']; ?></td>
+                    <td><?php echo $row['Genre']; ?></td>
+                    <?php
+                        $age = checkAgeGroup($row['Age_group']);
+                    ?>
+                    <td><?php echo $age; ?></td>
+                    <?php
+                        $fict = checkFiction($row['Fiction']);
+                    ?>
+                    <td><?php echo $fict; ?></td>
+                    <?php
+                        $cond = checkCondition($row['Condition']);
+                    ?>
+                    <td><?php echo $cond; ?></td>
+                    <td><?php echo $row['Created_by']; ?></td>
+                    <td><?php echo $row['Last_updated_by']; ?></td>
+                    <td><?php echo $row['Created_at']; ?></td>
+                    <td><?php echo $row['Last_updated']; ?></td>
+                </tr>
+        <?php
+            }
+        }
+        else {
+        ?>
+            <div class="noCO">
+                <p>No book meets the criteria!</p>
+            </div>
+        <?php
+        }
+        ?>
+                </table>
+            </div>
+    <?php
     }
     function createNewStaffTable($conn, $startHire, $endHire, $StaffID, $Fname, $Mid, $Lname, $startDOB, $endDOB, $Email, $PhoneNum, $startSal, $endSal, $startEdit, $endEdit) {
         if (empty($startHire)) {
@@ -386,6 +577,9 @@
         else if ($temp == "F") {
             $stat = "Faculty";
         }
+        else if ($temp == "") {
+            $stat = "None";
+        }
         else {
             $stat = "Unknown";
         }
@@ -483,7 +677,7 @@
 
     function invalidUid($UnivID) {
         $result= "";
-        if(!(preg_match("/^[0-9]*$/", $UnivID) || !(strlen($UnivID)==7))) {
+        if(!(preg_match("/^[0-9]*$/", $UnivID)) || !(strlen($UnivID)==7)) {
             $result = true;
         }
         else {
@@ -511,6 +705,49 @@
             exit();
         }
         mysqli_stmt_bind_param($stmt, "s", $UnivID);
+        mysqli_stmt_execute($stmt);
+        
+        $resultData = mysqli_stmt_get_result($stmt);
+
+        if($row = mysqli_fetch_assoc($resultData)) {
+            return $row;
+        }
+        else {
+            $result = false;
+            return $result;
+        }
+        mysqli_stmt_close($stmt);
+    }
+
+    function iidCO($conn, $ItemID) {
+        $sql = "SELECT * FROM CHECK_OUT_ITEM WHERE Item_id = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("location: ../edititem.php?error=stmtfailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "s", $ItemID);
+        mysqli_stmt_execute($stmt);
+        
+        $resultData = mysqli_stmt_get_result($stmt);
+
+        if($row = mysqli_fetch_assoc($resultData)) {
+            return $row;
+        }
+        else {
+            $result = false;
+            return $result;
+        }
+        mysqli_stmt_close($stmt);
+    }
+    function bidCO($conn, $BookID) {
+        $sql = "SELECT * FROM CHECK_OUT_BOOK WHERE Book_id = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("location: ../edititem.php?error=stmtfailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "s", $BookID);
         mysqli_stmt_execute($stmt);
         
         $resultData = mysqli_stmt_get_result($stmt);
@@ -561,6 +798,24 @@
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         header("location: ../signup.php?error=none");
+        exit();
+    }
+
+
+    function createUserAdmin($conn, $UnivID, $Pass, $First, $Mid, $Last, $Stat, $Email, $DOB, $Tele, $Addr) {
+        $sql = "INSERT INTO USERS (University_id, Password, Fname, Minit, Lname, Status, Email, BDate, Phone_num, Address, Created_at, Last_updated, Fines, Num_of_books, Calculator_count, Laptop_count, Headphone_count) VALUES (?,?,?,?,?,?,?,?,?,?,now(),now(),0,0,0,0,0);";
+        
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("location: ../users.php?error=stmtfailed");
+            exit();
+        }
+        $hashedPwd = password_hash($Pass, PASSWORD_DEFAULT);
+
+        mysqli_stmt_bind_param($stmt, "ssssssssss", $UnivID, $hashedPwd, $First, $Mid, $Last, $Stat, $Email, $DOB, $Tele, $Addr);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        header("location: ../users.php?error=noneAdd");
         exit();
     }
 
@@ -644,7 +899,74 @@
             exit();
         }
     }
+    function uidCOI($conn, $UnivID) {
+        $sql = "SELECT * FROM CHECK_OUT_BOOK WHERE University_id = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("location: ../edititem.php?error=stmtfailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "s", $UnivID);
+        mysqli_stmt_execute($stmt);
+        
+        $resultData = mysqli_stmt_get_result($stmt);
 
+        if($row = mysqli_fetch_assoc($resultData)) {
+            return $row;
+        }
+        else {
+            $result = false;
+            return $result;
+        }
+        mysqli_stmt_close($stmt);
+    }
+    function uidCOB($conn, $UnivID) {
+        $sql = "SELECT * FROM CHECK_OUT_ITEM WHERE University_id = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("location: ../edititem.php?error=stmtfailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "s", $UnivID);
+        mysqli_stmt_execute($stmt);
+        
+        $resultData = mysqli_stmt_get_result($stmt);
+
+        if($row = mysqli_fetch_assoc($resultData)) {
+            return $row;
+        }
+        else {
+            $result = false;
+            return $result;
+        }
+        mysqli_stmt_close($stmt);
+    }
+    function deleteUser($conn, $UnivID) {
+        $sql = "DELETE FROM `USERS` WHERE `University_id`='$UnivID';";
+        $conn->query($sql);
+    }
+    function emptyInputUserUpdate($UnivID, $First, $Last, $Stat, $Email, $DOB, $Tele, $Addr, $Fine) {
+        $result= "";
+        if(empty($UnivID) || empty($First) || empty($Last) || empty($Stat) || empty($Email)
+        || empty($DOB) || empty($Tele)|| empty($Addr) || empty($Fine)) {
+            $result = true;
+        }
+        else {
+            $result = false;
+        }
+        return $result;
+    }
+    function updateUserAdmin($conn, $UnivID, $First, $Mid, $Last, $Stat, $Email, $DOB, $Tele, $Addr, $Fine) {
+        $sql = "UPDATE `users` SET `Fname`='$First',`Minit`='$Mid',`Lname`='$Last',`Email`='$Email',`Phone_num`='$Tele',`Address`='$Addr',`Fines`='$Fine', `Last_updated` = now() WHERE `University_id`= $UnivID;";
+        if (mysqli_query($conn, $sql)) {
+            header("location: ../users.php?error=none");
+            exit();
+        }
+        else {
+            header("location: ../users.php?error=sql");
+            exit();
+        }
+    }
     function updateUser($conn, $UnivID, $First, $Mid, $Last, $Email, $Tele, $Addr) {
         $sql = "UPDATE `users` SET `Fname`='$First',`Minit`='$Mid',`Lname`='$Last',`Email`='$Email',`Phone_num`='$Tele',`Address`='$Addr', `Last_updated` = now() WHERE `University_id`= $UnivID;";
         if (mysqli_query($conn, $sql)) {
@@ -1198,7 +1520,7 @@
                 <div class="COtable">
                     <table border="1px">
                         <tr>
-                            <th colspan="5"><h2>Users Fines</h2></th>
+                            <th colspan="7"><h2>Users Fines</h2></th>
                         </tr>
                         <t>
                             <th>University ID</th>
@@ -1206,19 +1528,32 @@
                             <th>First Name </th>
                             <th>Last name </th>
                             <th>Fines </th>
+                            <th>Action</th>
                         </t>
+                    
                 <?php
                 while($row = $result->fetch_assoc()) {
                 ?> 
                     <tr>
                         <td><?php echo $row['University_id']; ?></td>
-                        <td><?php echo $row['Status']; ?></td>
+                        <?php
+                            $stat = checkStatus($row['Status']);
+                        ?>
+                        <td><?php echo $stat; ?></td>
                         <td><?php echo $row['Fname']; ?></td>
                         <td><?php echo $row['Lname']; ?></td>
                         <td><?php echo $row['Fines']; ?></td>
+                        <td> <a href="fines.php?edit=<?php echo $row['University_id'] ;?>">
+                            Edit
+                         </a>
+                        </td> 
                     </tr>
             <?php
                 }
+                ?>
+                </table>
+            </div>
+            <?php
             }
             else {
             ?>
@@ -1228,11 +1563,20 @@
             <?php
             }
             ?>
-                    </table>
-                </div>
+                
         <?php
     }
-
+    function updateUserFine($conn, $UnivID, $Fine) {
+        $sql = "UPDATE `users` SET `Fines`='$Fine', `Last_updated` = now() WHERE `University_id`= $UnivID;";
+        if (mysqli_query($conn, $sql)) {
+            header("location: ../fines.php?error=updatedFines");
+            exit();
+        }
+        else {
+            header("location: ../fines.php?error=sql");
+            exit();
+        }
+    }
     function emptyInputAddbook($BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $CreatedBy, $LastUpdatedBy) {
         $result= "";
         if(empty($BookID) || empty($Title) || empty($Author) || empty($Genre) || empty($AgeGroup) || ($Fiction !== "0" && $Fiction !== "1")
@@ -1338,7 +1682,7 @@
 
     function invalidSid($StaffID) {
         $result= "";
-        if(!(preg_match("/^[0-9]*$/", $StaffID) || !(strlen($StaffID)==8))) {
+        if(!(preg_match("/^[0-9]*$/", $StaffID)) || !(strlen($StaffID)==8)) {
             $result = true;
         }
         else {
@@ -1347,9 +1691,9 @@
         return $result;
     }
 
-    function emptyInputAddStaff($StaffID, $Pass, $First, $Last, $DOB, $Salary, $Email, $Tele, $Addr, $Stat) {
+    function emptyInputAddStaff($StaffID, $Pass, $Confirm, $First, $Last, $DOB, $Salary, $Email, $Tele, $Addr, $Stat) {
         $result= "";
-        if(empty($StaffID) || empty($Pass) || empty($First) || empty($Last) || empty($DOB) || ($Stat !== "0" && $Stat !== "1")
+        if(empty($StaffID) || empty($Pass) || empty($Confirm) || empty($First) || empty($Last) || empty($DOB) || ($Stat !== "0" && $Stat !== "1")
         || empty($Salary) || empty($Email) || empty($Tele) || empty($Addr)) {
             $result = true;
         }
@@ -1372,7 +1716,7 @@
         mysqli_stmt_bind_param($stmt, "sssssssssss", $StaffID, $hashedPwd, $First, $Mid, $Last, $DOB, $Salary, $Email, $Tele, $Addr, $Stat);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
-        header("location: ../addstaff.php?error=none");
+        header("location: ../staff.php?error=noneAdd");
         exit();
     }
 
@@ -1429,15 +1773,34 @@
     function deleteStaff($conn, $StaffID) {
         $sql = "DELETE FROM `staff` WHERE `Staff_id`='$StaffID';";
         $conn->query($sql);
-        header("location: ../deletestaff.php?error=none");
-        exit();
     }
-
-    function noStaff($conn, $StaffID) {
-        $sql = "SELECT * FROM STAFF WHERE Staff_id = ?;";
+    function sidCOB($conn, $StaffID) {
+        $sql = "SELECT * FROM CHECK_OUT_BOOK WHERE Staff_id = ?;";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("location: ../login.php?error=stmtfailed");
+            header("location: ../index.php?error=stmtfailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "s", $StaffID);
+        mysqli_stmt_execute($stmt);
+        
+        $resultData = mysqli_stmt_get_result($stmt);
+
+        if($row = mysqli_fetch_assoc($resultData)) {
+            return $row;
+        }
+        else {
+            $result = false;
+            return $result;
+        }
+        mysqli_stmt_close($stmt);
+    }
+
+    function sidCOI($conn, $StaffID) {
+        $sql = "SELECT * FROM CHECK_OUT_ITEM WHERE Staff_id = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("location: ../index.php?error=stmtfailed");
             exit();
         }
         mysqli_stmt_bind_param($stmt, "s", $StaffID);
@@ -1458,17 +1821,29 @@
         if(isset($_GET['search-submit'])) {
             $search = mysqli_real_escape_string($conn, $_GET['search']);
             $sql1 = "SELECT * 
-                    FROM check_out_book AS COB
-                    WHERE COB.University_id LIKE '%$search%'
+                    FROM check_out_book AS COB, users AS U, book AS B
+                    WHERE (COB.University_id = U.University_id
+                            AND COB.Book_id = B.Book_id)
+                            AND
+                            (U.University_id LIKE '%$search%'
                             OR COB.Staff_id LIKE '%$search%'
-                            OR COB.Book_id LIKE '%$search%'
-                            OR COB.Checked_out_date LIKE '%$search%';";
+                            OR B.Book_id LIKE '%$search%'
+                            OR U.Fname LIKE '%$search%'
+                            OR U.Lname LIKE '%$search%'
+                            OR B.Title LIKE '%$search%'
+                            OR COB.Checked_out_date LIKE '%$search%');";
             $sql2 = "SELECT * 
-                    FROM check_out_item AS COI
-                    WHERE COI.University_id LIKE '%$search%'
-                        OR COI.Staff_id LIKE '%$search%'
-                        OR COI.Item_id LIKE '%$search%'
-                        OR COI.Checked_out_date LIKE '%$search%';";
+                    FROM check_out_item AS COI, users AS U, item AS I
+                    WHERE (COI.University_id = U.University_id
+                            AND COI.Item_id = I.Item_id)
+                            AND
+                            (U.University_id LIKE '%$search%'
+                            OR COI.Staff_id LIKE '%$search%'
+                            OR I.Item_id LIKE '%$search%'
+                            OR U.Fname LIKE '%$search%'
+                            OR U.Lname LIKE '%$search%'
+                            OR I.Item_type LIKE '%$search%'
+                            OR COI.Checked_out_date LIKE '%$search%');";
             $result1 = mysqli_query($conn, $sql1);
             $qb_results = mysqli_num_rows($result1);
             $result2 = mysqli_query($conn, $sql2);
@@ -1478,25 +1853,39 @@
                 <div class="COtable">
                     <table>
                         <tr>
-                            <th colspan="8"><h2>Books Checked Out</h2></th>
+                            <th colspan="5"><h2>Books Checked Out</h2></th>
                         </tr>
                         <t>
-                            <th>Staff ID </th>
-                            <th>University ID </th>
-                            <th>Book ID</th>
+                            <th>Staff ID</th>
+                            <th>User</th>
+                            <th>Title</th>
                             <th>Checked out</th>
+                            <th>Due Date</th>
                         </t>
                 <?php
                 while($row = mysqli_fetch_assoc($result1)) {
                     ?> 
                     <tr>
                         <td><?php echo $row['Staff_id']; ?></td>
-                        <td><?php echo $row['University_id']; ?></td>
-                        <td><?php echo $row['Book_id']; ?></td>
+                        <td><?php echo $row['Fname'] ." ".$row['Lname']; ?></td>
+                        <td><?php echo $row['Title']; ?></td>
                         <td><?php echo $row['Checked_out_date']; ?></td>
+                        <?php
+                        if($row['Status'] == 'F') {
+                            $DD = date("Y-m-d",strtotime($row['Checked_out_date'].' + 14 days'));
+                        }
+                        else if ($row['Status'] == 'S') {
+                            $DD = date("Y-m-d",strtotime($row['Checked_out_date'].' + 7 days'));
+                        }
+                        ?>
+                        <td><?php echo $DD; ?></td>
                     </tr>
                 <?php
                 }
+                ?>
+                    </table>
+                </div>
+                <?php
             }
             if ($qi_results > 0) {
                 ?>
@@ -1507,21 +1896,38 @@
                         </tr>
                         <t>
                             <th>Staff ID </th>
-                            <th>University ID </th>
-                            <th>Item ID</th>
+                            <th>User </th>
+                            <th>Item Type</th>
                             <th>Checked out</th>
+                            <th>Due Date</th>
                         </t>
                 <?php
                 while($row = mysqli_fetch_assoc($result2)) {
                     ?> 
                     <tr>
                         <td><?php echo $row['Staff_id']; ?></td>
-                        <td><?php echo $row['University_id']; ?></td>
-                        <td><?php echo $row['Item_id']; ?></td>
+                        <td><?php echo $row['Fname'] ." ".$row['Lname']; ?></td>
+                        <?php
+                            $type = itemType($row['Item_type']);
+                        ?>
+                        <td><?php echo $type; ?></td>
                         <td><?php echo $row['Checked_out_date']; ?></td>
+                        <?php
+                        if($row['Status'] == 'F') {
+                            $DD = date("Y-m-d",strtotime($row['Checked_out_date'].' + 14 days'));
+                        }
+                        else if ($row['Status'] == 'S') {
+                            $DD = date("Y-m-d",strtotime($row['Checked_out_date'].' + 7 days'));
+                        }
+                        ?>
+                        <td><?php echo $DD; ?></td>
                     </tr>
                 <?php
                 }
+                ?>
+                    </table>
+                </div>
+            <?php
             }
             else if ($qb_results === 0 && $qi_results === 0){
                 echo "<p class='noresult'>No results matched your search!</p>";
@@ -1529,7 +1935,9 @@
         }
         else {
             $sql1 = "SELECT *
-                FROM check_out_book";
+                FROM check_out_book AS COB, users AS U, book AS B
+                WHERE COB.University_id = U.University_id
+                            AND COB.Book_id = B.Book_id";
             $result1 = mysqli_query($conn, $sql1);
             $qb_results = mysqli_num_rows($result1);
             if($qb_results > 0) {
@@ -1537,25 +1945,39 @@
                 <div class="COtable">
                     <table>
                         <tr>
-                            <th colspan="8"><h2>Books Checked Out</h2></th>
+                            <th colspan="5"><h2>Books Checked Out</h2></th>
                         </tr>
                         <t>
                             <th>Staff ID </th>
-                            <th>University ID </th>
-                            <th>Book ID</th>
+                            <th>User </th>
+                            <th>Title</th>
                             <th>Checked out</th>
+                            <th>Due Date</th>
                         </t>
                 <?php
                 while($row = $result1->fetch_assoc()) {
                 ?> 
                     <tr>
                         <td><?php echo $row['Staff_id']; ?></td>
-                        <td><?php echo $row['University_id']; ?></td>
-                        <td><?php echo $row['Book_id']; ?></td>
-                        <td><?php echo $row['Checked_out_date']; ?></td>
+                            <td><?php echo $row['Fname'] ." ".$row['Lname']; ?></td>
+                            <td><?php echo $row['Title']; ?></td>
+                            <td><?php echo $row['Checked_out_date']; ?></td>
+                            <?php
+                            if($row['Status'] == 'F') {
+                                $DD = date("Y-m-d",strtotime($row['Checked_out_date'].' + 14 days'));
+                            }
+                            else if ($row['Status'] == 'S') {
+                                $DD = date("Y-m-d",strtotime($row['Checked_out_date'].' + 7 days'));
+                            }
+                            ?>
+                        <td><?php echo $DD; ?></td>
                     </tr>
             <?php
                 }
+            ?>
+                    </table>
+                </div>
+            <?php
             }
             else {
             ?>
@@ -1565,11 +1987,11 @@
             <?php
             }
             ?>
-                    </table>
-                </div>
         <?php
             $sql2 = "SELECT *
-                    FROM check_out_item";
+                    FROM check_out_item AS COI, users AS U, item AS I
+                    WHERE COI.University_id = U.University_id
+                            AND COI.Item_id = I.Item_id;";
             $result2 = mysqli_query($conn, $sql2);
             $qi_results = mysqli_num_rows($result2);
             if($qi_results > 0) {
@@ -1577,22 +1999,35 @@
             <div class="COtable">
                 <table>
                     <tr>
-                        <th colspan="8"><h2>Books Checked Out</h2></th>
+                        <th colspan="5"><h2>Items Checked Out</h2></th>
                     </tr>
-                    <t>
-                        <th>Staff ID </th>
-                        <th>University ID </th>
-                        <th>Item ID</th>
-                        <th>Checked out</th>
-                    </t>
+                        <t>
+                            <th>Staff ID </th>
+                            <th>User </th>
+                            <th>Item Type</th>
+                            <th>Checked out</th>
+                            <th>Due Date</th>
+                        </t>
             <?php
                 while($row = $result2->fetch_assoc()) {
             ?> 
                 <tr>
                     <td><?php echo $row['Staff_id']; ?></td>
-                    <td><?php echo $row['University_id']; ?></td>
-                    <td><?php echo $row['Item_id']; ?></td>
-                    <td><?php echo $row['Checked_out_date']; ?></td>
+                        <td><?php echo $row['Fname'] ." ".$row['Lname']; ?></td>
+                        <?php
+                            $type = itemType($row['Item_type']);
+                        ?>
+                        <td><?php echo $type; ?></td>
+                        <td><?php echo $row['Checked_out_date']; ?></td>
+                        <?php
+                        if($row['Status'] == 'F') {
+                            $DD = date("Y-m-d",strtotime($row['Checked_out_date'].' + 14 days'));
+                        }
+                        else if ($row['Status'] == 'S') {
+                            $DD = date("Y-m-d",strtotime($row['Checked_out_date'].' + 7 days'));
+                        }
+                        ?>
+                        <td><?php echo $DD; ?></td>
                 </tr>
             <?php
                 }

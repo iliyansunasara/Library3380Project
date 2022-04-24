@@ -256,6 +256,12 @@
         else if($_GET["error"] == "itemDeleted") {
             echo '<script>alert("Item Deleted Successfully!")</script>';
         }
+        else if($_GET["error"] == "itemCO") {
+            echo '<script>alert("Item is currently checked out, can\'t delete!")</script>';
+        }
+        else if($_GET["error"] == "bookCO") {
+            echo '<script>alert("Book is currently checked out, can\'t delete!")</script>';
+        }
         else if($_GET["error"] == "none") {
             //echo '<script>alert("Book Successfully Updated!")</script>';
         }

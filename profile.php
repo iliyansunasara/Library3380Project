@@ -21,8 +21,9 @@
                 echo "<li><a href='fines.php' class='buttonTwo'>Fines</a></li>";
                 echo "<li><a href='editprofile.php' class='buttonTwo'>Edit Profile</a></li>";
                 if(isset($_SESSION["Admin_id"])) {
+                    //echo "<li><a href='users.php' class='buttonTwo'>Users</a></li>";
+                    //echo "<li><a href='staff.php' class='buttonTwo'>Staff</a></li>";
                     echo "<li><a href='add-to-lib.php' class='buttonTwo'>Add to Library</a></li>";
-                    echo "<li><a href='deleteStaff.php' class='buttonTwo'>Delete Staff Member</a></li>";
                 }
             echo '</ul>';
         echo '</div>';

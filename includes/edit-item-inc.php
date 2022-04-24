@@ -20,8 +20,15 @@
         $ItemID = $_POST["itemID"];
         require_once 'dbh-inc.php';
         require_once 'functions-inc.php';
-        deleteItem($conn, $ItemID);
-        header("location: ../edititem.php?error=itemDeleted");
+        if (iidCO($conn, $ItemID) === false) {
+            deleteItem($conn, $ItemID);
+            header("location: ../edititem.php?error=itemDeleted");
+            exit();
+        }
+        else {
+            header("location: ../index.php?error=itemCO");
+            exit();
+        }
     }
     else {
         header("location: ../edititem.php");

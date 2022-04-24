@@ -603,3 +603,44 @@ nav ul li ul li a:hover{
     font-size: 15px;
     text-align: center;
 }
+
+.userTable {
+    margin: auto;
+    border-collapse: collapse;
+    width: 1000px;
+    color: black;
+    text-align: left;
+}
+.userTable td{
+    padding-top: 15px;
+}
+.userTable th{
+    background-color: black;
+    color:white;
+}
+
+.tableDiv {
+    width:1000px;
+    margin: auto;
+    padding-top: 50px;
+}
+
+.tableDiv h3 {
+    padding-bottom: 10px;
+}
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+  .addUser {
+      padding-top: 30px;
+      width: 1000px;
+      margin: auto;
+  }

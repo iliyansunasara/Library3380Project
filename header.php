@@ -93,11 +93,14 @@
                                 else if (isset($_SESSION["Admin_id"])) {
                                     echo "<li><a href='profile.php'>Profile</a>";
                                         echo "<ul>";
+                                            echo "<li><a href='users.php'>Users</a></li>";
+                                            echo "<li><a href='staff.php'>Staff</a></li>";
                                             echo "<li><a href='checkouts.php'>Checkouts</a></li>";
                                             echo "<li><a href='requests.php'>Requests</a></li>";
                                             echo "<li><a href='fines.php'>Fines</a></li>";
                                             echo "<li><a href='add-to-lib.php'>Add Data</a></li>";
                                             echo "<li><a href='reports.php'>Reports</a></li>";
+                                            
                                             echo "<li><a href='editprofile.php'>Edit Profile</a></li>";
                                         echo "</ul>";
                                     echo "</li>";

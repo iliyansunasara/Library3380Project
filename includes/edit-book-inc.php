@@ -67,8 +67,15 @@
         $BookID = $_POST["bookIDD"];
         require_once 'dbh-inc.php';
         require_once 'functions-inc.php';
-        deleteBook($conn, $BookID);
-        header("location: ../editbook.php?error=bookDeleted");
+        if (bidCO($conn, $BookID) === false) {
+            deleteBook($conn, $BookID);
+            header("location: ../editbook.php?error=bookDeleted");
+            exit();
+        }
+        else {
+            header("location: ../index.php?error=bookCO");
+            exit();
+        }
     }
     else {
         header("location: ../editbook.php");

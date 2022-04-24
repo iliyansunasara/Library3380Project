@@ -99,6 +99,7 @@
     }
     ?>
 
+
     <?php
         if(isset($_GET["error"])) 
         {
@@ -116,7 +117,6 @@
             }
         }
     ?>
-
 <?php
     include_once 'footer.php';
 ?>
