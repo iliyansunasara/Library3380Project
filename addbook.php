@@ -1,6 +1,10 @@
 <?php
     include_once 'header.php';
-?>
+    if(!isset($_SESSION["Admin_id"])) {
+        header("Location: login.php?error=noPermission");
+        exit();
+    }
+?>  
     <section class="signup-form">
         <h2>To add book fill out all fields below:</h2>
         <div class="signup-form-form">

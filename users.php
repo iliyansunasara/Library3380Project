@@ -1,5 +1,9 @@
 <?php
     include_once 'header.php';
+    if(!isset($_SESSION["Admin_id"])) {
+        header("Location: login.php?error=noPermission");
+        exit();
+    }
 ?>
     <?php
         require_once 'includes/functions-inc.php';

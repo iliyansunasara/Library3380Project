@@ -2,6 +2,10 @@
     include_once 'header.php';
     require_once 'includes/dbh-inc.php';
     require_once 'includes/functions-inc.php';
+    if(!isset($_SESSION["Admin_id"])) {
+        header("Location: login.php?error=noPermission");
+        exit();
+    }
 ?>
     <?php
         if(isset($_POST['itemID'])) {
