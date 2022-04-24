@@ -2033,6 +2033,13 @@
                 }
 
             }
+            else {
+                ?>
+                    <div class="noCO">
+                        <p>No one has checked out itms!</p>
+                    </div>
+                <?php
+            }
         }
     }
     function createAllUserReqTable($conn) {
@@ -2170,7 +2177,7 @@
             else {
             ?>
                 <div class="noCO">
-                    <p>No one has checked out books!</p>
+                    <p>No one has requested books!</p>
                 </div>
             <?php
             }
@@ -2210,6 +2217,13 @@
             <?php
                 }
 
+            }
+            else {
+                ?>
+                <div class="noCO">
+                    <p>No one has requested items!</p>
+                </div>
+            <?php
             }
         }
     }
