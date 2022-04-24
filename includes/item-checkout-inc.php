@@ -65,7 +65,7 @@ if(isset($_GET["confirm-checkout"])) {
                 VALUES ('$uniID','$itemID','$date')";
         $result = $conn->query($sql);
 
-        header("location: ../item-search.php");
+        header("location: ../checkouts.php");
         exit();
     }
     else {

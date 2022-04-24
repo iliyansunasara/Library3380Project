@@ -76,19 +76,6 @@
     }
 ?>
 
-<?php
-    if((isset($_SESSION["Admin_id"]) || isset($_SESSION["Staff_id"])) && getResult($conn, $itemID)->num_rows > 0) {
-?>
-    <div class="checkout-request-form">
-        <form action="includes/returns-inc.php" method="POST">
-            <input type="hidden" name="itemID" value="<?php echo $itemID;?>">
-            <button type="submit" name="return">Return</button>
-        </form>
-    </div>
-<?php
-    }
-?>
-
 
 
 <?php /*
@@ -114,6 +101,7 @@
             <button type="submit" name="check-form-">Checkout Item</button>
         </form>
     </div>
+
 <?php
     }
     else {
@@ -122,6 +110,24 @@
     }
 ?>
 
+<?php
+    $sql = "SELECT *
+            FROM CHECK_OUT_ITEM
+            WHERE CHECK_OUT_ITEM.Item_id = $itemID";
+            $result = $conn->query($sql);
+
+    if((isset($_SESSION["Staff_id"]) || isset($_SESSION["Admin_id"])) && $result->num_rows > 0) {
+?>
+    <div class="checkout-request-form">
+        <form action="includes/item-return-inc.php" method="POST">
+            <input type="hidden" name="itemID" value="<?php echo $itemID; ?>">
+            <button type="submit" name="item-return">Return Item</button>
+        </form>
+    </div>
+
+<?php
+    }
+?>
 
 <?php
     include_once 'footer.php';
