@@ -120,7 +120,7 @@
                     <input type="text" name="addy" value="<?php echo $sidExists['Address'];?>"> <br><br>
                     <h3>Salary:</h3>
                     <input type="text" name="salary" value="<?php echo $sidExists['Salary'];?>"> <br><br><br>
-                    <button type="submit" name="updateFine">Update</button>
+                    <button type="submit" name="submit">Update</button>
                 </form> 
             </div>
         </section>
