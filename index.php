@@ -49,7 +49,7 @@
         } 
         //updateFines($conn, $UnivID, $totalFines);
     }
-
+    
     if(isset($_SESSION["University_id"])) {
         include_once 'email.php';
         $sql = "SELECT * FROM new_messages WHERE University_id = '".$_SESSION["University_id"]."'";
@@ -275,16 +275,16 @@
 <?php
     if(isset($_GET["error"])) {
         if($_GET["error"] == "stud_exceed") {
-            echo '<script>alert("You already have 2 books checked out!")</script>';
+            echo '<script>alert("2 books checked out already!")</script>';
         }
         else if($_GET["error"] == "fac_exceed") {
-            echo '<script>alert("You already have 3 books checked out!")</script>';
+            echo '<script>alert("3 books checked out already!")</script>';
         }
         else if($_GET["error"] == "request_error1") {
-            echo '<script>alert("You already have this book!")</script>';
+            echo '<script>alert("Already have this book!")</script>';
         }
         else if($_GET["error"] == "request_error2") {
-            echo '<script>alert("You have already requested this book!")</script>';
+            echo '<script>alert("Already requested this book!")</script>';
         }
         else if($_GET["error"] == "finesupdates") {
             echo '<script>alert("Fines was updated!")</script>';

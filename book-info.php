@@ -59,7 +59,8 @@
     $sql = "SELECT * FROM check_out_book WHERE check_out_book.Book_id = '$bookID' ";
     $result = mysqli_query($conn, $sql);
     $q_results = mysqli_num_rows($result);
-    if($q_results > 0 && isset($_SESSION["University_id"])) {
+    if($q_results > 0 && (isset($_SESSION["University_id"]) || isset($_SESSION["Admin_id"]) || isset($_SESSION["Staff_id"]))) {
+        if(isset($_SESSION["University_id"])) {
 ?>
     <div class="checkout-request-form">
         <form action="includes/user-req-inc.php" method="POST">
@@ -68,8 +69,22 @@
         </form>
     </div>
 <?php
+        }
+        elseif(isset($_SESSION["Admin_id"]) || isset($_SESSION["Staff_id"])) {//for admin and staff requests
+?>
+
+    <div class="checkout-request-form">
+        <form action="admin-book-request.php" method="POST">
+            <input type="hidden" name="bookID" value="<?php echo $bookID; ?>">
+            <button type="submit" name="req-form-">Request Book</button>
+        </form>
+    </div>
+
+<?php
+        }
     }
     else if (isset($_SESSION["University_id"]) || isset($_SESSION["Staff_id"]) || isset($_SESSION["Admin_id"])) {
+        if(isset($_SESSION["University_id"])) {
 ?>
     <div class="checkout-request-form">
         <form action="includes/user-check-inc.php" method="POST">
@@ -80,6 +95,19 @@
 
 
 <?php
+        }
+        elseif(isset($_SESSION["Admin_id"]) || isset($_SESSION["Staff_id"])) {//for admin and staff checkouts
+?>
+
+    <div class="checkout-request-form">
+        <form action="admin-book-checkout.php" method="POST">
+            <input type="hidden" name="bookID" value="<?php echo $bookID; ?>">
+            <button type="submit" name="check-form-">Checkout Book</button>
+        </form>
+    </div>
+
+<?php
+        }
     }
     else {
         header("Location: login.php?error=mustlogin");
