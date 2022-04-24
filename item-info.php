@@ -1,7 +1,7 @@
 <?php
     include_once 'header.php';
     include_once 'includes/dbh-inc.php';
-    include_once 'includes/functions-inc.php'
+    include_once 'includes/functions-inc.php';
 ?>
 
 <?php
@@ -91,7 +91,7 @@
 
 
 
-<?php
+<?php /*
     $sql = "SELECT * FROM check_out_item WHERE check_out_item.Item_id = '$itemID' ";
     $result = mysqli_query($conn, $sql);
     $q_results = mysqli_num_rows($result);
@@ -104,11 +104,12 @@
         </form>
     </div>
 <?php
-    }
-    else if (isset($_SESSION["University_id"]) || isset($_SESSION["Staff_id"]) || isset($_SESSION["Admin_id"])) {
+    }*/
+    
+    /*else*/if(isset($_SESSION["Staff_id"]) || isset($_SESSION["Admin_id"])) {
 ?>
     <div class="checkout-request-form">
-        <form action="includes/user-check-inc.php" method="POST">
+        <form action="item-checkout.php" method="POST">
             <input type="hidden" name="itemID" value="<?php echo $itemID; ?>">
             <button type="submit" name="check-form-">Checkout Item</button>
         </form>

@@ -1,7 +1,7 @@
 <?php
     include_once 'header.php';
     include_once 'includes/dbh-inc.php';
-    include_once 'includes/functions-inc.php'
+    include_once 'includes/functions-inc.php';
 ?>
  <?php
     
@@ -68,13 +68,60 @@
         }
     }   
 ?>
+
+<?php
+/*
+    if(isset($_SESSION['University_id'])) {
+        $UnivID = $_SESSION['University_id'];
+        $sql = "SELECT * 
+                FROM USERS
+                WHERE USERS.University_id = $UnivID;";
+        $result = $conn->query($sql);
+        $data = $result->fetch_assoc();
+        echo "<form id='user-item-form' action='includes/item-request-inc.php' method=GET>";
+        if(!$data['Calculator_count'] > 0) {
+            $calc_bool = TRUE;
+            echo "<input type='hidden' name='calc' value='$calc_bool'>
+            <button type='submit' name='calc-submit'>Request Calculator</button>
+            <br><br>";
+        }
+        if(!$data['Headphone_count'] > 0) {
+            $headphone_bool = TRUE;
+            echo "<input type='hidden' name='headphone' value='$headphone_bool'>
+                <button type='submit' name='headphone-submit'>Request Headphones</button>
+                <br><br>";
+        }
+        if(!$data['Laptop_count'] > 0) {
+            $laptop_bool = TRUE;
+            echo "<input type='hidden' name='laptop' value='$laptop_bool'>
+            <button type='submit' name='laptop-submit'>Request Laptop</button>";
+        }
+
+        echo "</form>";
+        */
+
+?>
+
+<?php
+    
+    /*else*/if(isset($_SESSION['Admin_id']) || isset($_SESSION['Staff_id'])) {
+?>
+
+<form>
+    <button formaction="item-search.php">Item Search</button>
+</form>
+
+<?php
+    }
+?>
+
 <div class="search-form">
     <form>
         <input type = 'text' name = 'search' placeholder="Book Search...">
         <button type="submit" name="search-submit">Search</button>
     </form>
 </div>
-   
+
 <div class="books-container">
     <?php
         if(isset($_GET['search-submit'])) {
@@ -117,9 +164,9 @@
         }
     ?>
 </div>
-
+<!--
 <div class="items-container">
-    <?php
+    <?php /*
         if(isset($_GET['search-submit'])) {
             $search = mysqli_real_escape_string($conn, $_GET['search']);
             echo "<h2><pre>             ITEMS:</pre></h2><br><br>";
@@ -221,9 +268,10 @@
                 echo "</div></a>";
             }
         }
+        */
     ?>
 </div>
-
+    -->
 <?php
     if(isset($_GET["error"])) {
         if($_GET["error"] == "stud_exceed") {
