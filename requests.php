@@ -17,8 +17,15 @@
         else if(isset($_SESSION["Admin_id"])) {
             require_once 'includes/dbh-inc.php';
             require_once 'includes/functions-inc.php';
-            createUserBookReqTable($conn, $_SESSION["Admin_id"]);
-            createUserItemReqTable($conn, $_SESSION["Admin_id"]);
+            ?>
+            <div class="search-form">
+                <form>
+                    <input type = 'text' name = 'search' placeholder="Request Search...">
+                    <button type="submit" name="search-submit">Search</button>
+                </form>
+            </div>
+            <?php
+            createAllUserReqTable($conn);
         }
         else {
             header("location: login.php");

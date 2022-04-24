@@ -2035,6 +2035,184 @@
             }
         }
     }
+    function createAllUserReqTable($conn) {
+        if(isset($_GET['search-submit'])) {
+            $search = mysqli_real_escape_string($conn, $_GET['search']);
+            $sql1 = "SELECT * 
+                    FROM request_book AS RB, users AS U, book AS B
+                    WHERE (RB.University_id = U.University_id
+                            AND RB.Book_id = B.Book_id)
+                            AND
+                            (U.University_id LIKE '%$search%'
+                            OR RB.Staff_id LIKE '%$search%'
+                            OR B.Book_id LIKE '%$search%'
+                            OR U.Fname LIKE '%$search%'
+                            OR U.Lname LIKE '%$search%'
+                            OR B.Title LIKE '%$search%'
+                            OR RB.Request_date LIKE '%$search%');";
+            $sql2 = "SELECT * 
+                    FROM request_item AS RI, users AS U, item AS I
+                    WHERE (RI.University_id = U.University_id
+                            AND RI.Item_id = I.Item_id)
+                            AND
+                            (U.University_id LIKE '%$search%'
+                            OR RI.Staff_id LIKE '%$search%'
+                            OR I.Item_id LIKE '%$search%'
+                            OR U.Fname LIKE '%$search%'
+                            OR U.Lname LIKE '%$search%'
+                            OR I.Item_type LIKE '%$search%'
+                            OR RI.Request_date LIKE '%$search%');";
+            $result1 = mysqli_query($conn, $sql1);
+            $qb_results = mysqli_num_rows($result1);
+            $result2 = mysqli_query($conn, $sql2);
+            $qi_results = mysqli_num_rows($result2);
+            if($qb_results > 0) {
+                ?>
+                <div class="COtable">
+                    <table>
+                        <tr>
+                            <th colspan="4"><h2>Books Requested</h2></th>
+                        </tr>
+                        <t>
+                            <th>Staff ID</th>
+                            <th>User</th>
+                            <th>Title</th>
+                            <th>Requested</th>
+                        </t>
+                <?php
+                while($row = mysqli_fetch_assoc($result1)) {
+                    ?> 
+                    <tr>
+                        <td><?php echo $row['Staff_id']; ?></td>
+                        <td><?php echo $row['Fname'] ." ".$row['Lname']; ?></td>
+                        <td><?php echo $row['Title']; ?></td>
+                        <td><?php echo $row['Request_date']; ?></td>
+                    </tr>
+                <?php
+                }
+                ?>
+                    </table>
+                </div>
+                <?php
+            }
+            if ($qi_results > 0) {
+                ?>
+                <div class="COtable">
+                    <table>
+                        <tr>
+                            <th colspan="4"><h2>Items Requested</h2></th>
+                        </tr>
+                        <t>
+                            <th>Staff ID </th>
+                            <th>User </th>
+                            <th>Item Type</th>
+                            <th>Checked out</th>
+                        </t>
+                <?php
+                while($row = mysqli_fetch_assoc($result2)) {
+                    ?> 
+                    <tr>
+                        <td><?php echo $row['Staff_id']; ?></td>
+                        <td><?php echo $row['Fname'] ." ".$row['Lname']; ?></td>
+                        <?php
+                            $type = itemType($row['Item_type']);
+                        ?>
+                        <td><?php echo $type; ?></td>
+                        <td><?php echo $row['Request_date']; ?></td>
+                    </tr>
+                <?php
+                }
+                ?>
+                    </table>
+                </div>
+            <?php
+            }
+            else if ($qb_results === 0 && $qi_results === 0){
+                echo "<p class='noresult'>No results matched your search!</p>";
+            }
+        }
+        else {
+            $sql1 = "SELECT *
+                FROM request_book AS RB, users AS U, book AS B
+                WHERE RB.University_id = U.University_id
+                            AND RB.Book_id = B.Book_id";
+            $result1 = mysqli_query($conn, $sql1);
+            $qb_results = mysqli_num_rows($result1);
+            if($qb_results > 0) {
+            ?>
+                <div class="COtable">
+                    <table>
+                        <tr>
+                            <th colspan="4"><h2>Books Requested</h2></th>
+                        </tr>
+                        <t>
+                            <th>Staff ID </th>
+                            <th>User </th>
+                            <th>Title</th>
+                            <th>Requested</th>
+                        </t>
+                <?php
+                while($row = $result1->fetch_assoc()) {
+                ?> 
+                    <tr>
+                        <td><?php echo $row['Staff_id']; ?></td>
+                            <td><?php echo $row['Fname'] ." ".$row['Lname']; ?></td>
+                            <td><?php echo $row['Title']; ?></td>
+                            <td><?php echo $row['Request_date']; ?></td>
+                    </tr>
+            <?php
+                }
+            ?>
+                    </table>
+                </div>
+            <?php
+            }
+            else {
+            ?>
+                <div class="noCO">
+                    <p>No one has checked out books!</p>
+                </div>
+            <?php
+            }
+            ?>
+        <?php
+            $sql2 = "SELECT *
+                    FROM request_item AS RI, users AS U, item AS I
+                    WHERE RI.University_id = U.University_id
+                            AND RI.Item_id = I.Item_id;";
+            $result2 = mysqli_query($conn, $sql2);
+            $qi_results = mysqli_num_rows($result2);
+            if($qi_results > 0) {
+            ?>
+            <div class="COtable">
+                <table>
+                    <tr>
+                        <th colspan="4"><h2>Items Requested</h2></th>
+                    </tr>
+                        <t>
+                            <th>Staff ID </th>
+                            <th>User </th>
+                            <th>Item Type</th>
+                            <th>Requested</th>
+                        </t>
+            <?php
+                while($row = $result2->fetch_assoc()) {
+            ?> 
+                <tr>
+                    <td><?php echo $row['Staff_id']; ?></td>
+                        <td><?php echo $row['Fname'] ." ".$row['Lname']; ?></td>
+                        <?php
+                            $type = itemType($row['Item_type']);
+                        ?>
+                        <td><?php echo $type; ?></td>
+                        <td><?php echo $row['Request_date']; ?></td>
+                </tr>
+            <?php
+                }
+
+            }
+        }
+    }
     function updateFines($conn, $UnivID, $Fines) {
         $sql = "UPDATE users SET Fines = '$Fines' WHERE University_id = $UnivID;";
         if (mysqli_query($conn, $sql)) {
