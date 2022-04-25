@@ -24,6 +24,7 @@
                     <button type="submit" name="search-submit">Search</button>
                 </form>
             </div>
+            <br>
             <?php
             createAllUserReqTable($conn);
         }

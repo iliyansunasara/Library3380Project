@@ -61,7 +61,8 @@
             exit();
         }
         updateBook($conn, $BookID, $Title, $Author, $Cover, $Genre, $AgeGroup, $Fiction, $Condition, $LastUpdatedBy);
-        header("location: ../editbook.php?error=none");
+        // header("location: ../editbook.php?error=none");
+        header("location: ../index.php?error=bookUpdated");
     }
     elseif (isset($_POST["deleteBook"])) {
         $BookID = $_POST["bookIDD"];
@@ -69,7 +70,8 @@
         require_once 'functions-inc.php';
         if (bidCO($conn, $BookID) === false) {
             deleteBook($conn, $BookID);
-            header("location: ../editbook.php?error=bookDeleted");
+            // header("location: ../editbook.php?error=bookDeleted");
+            header("location: ../index.php?error=bookDeleted");
             exit();
         }
         else {

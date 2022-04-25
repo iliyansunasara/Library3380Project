@@ -14,7 +14,8 @@
             exit();
         }
         updateItem($conn, $ItemID, $Type, $Condition, $LastUpdatedBy);
-        header("location: ../edititem.php?error=none");
+        // header("location: ../edititem.php?error=none");
+        header("location: ../index.php?error=itemUpdated");
     }
     elseif (isset($_POST["deleteItem"])) {
         $ItemID = $_POST["itemID"];
@@ -22,7 +23,8 @@
         require_once 'functions-inc.php';
         if (iidCO($conn, $ItemID) === false) {
             deleteItem($conn, $ItemID);
-            header("location: ../edititem.php?error=itemDeleted");
+            // header("location: ../edititem.php?error=itemDeleted");
+            header("location: ../index.php?error=itemDeleted");
             exit();
         }
         else {
