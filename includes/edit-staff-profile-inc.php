@@ -1,7 +1,13 @@
 <?php
     session_start();
     if (isset($_POST["submit"])) {
-        $StaffID = $_SESSION["Staff_id"];
+        $StaffID = "";
+        if (isset($_SESSION["Staff_id"])) {
+            $StaffID = $_SESSION["Staff_id"];
+        }
+        else if (isset($_SESSION["Admin_id"])) {
+            $StaffID = $_SESSION["Admin_id"];
+        }
         $First = $_POST["fname"];
         $Mid = $_POST["minit"];
         $Last = $_POST["lname"];
