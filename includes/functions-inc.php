@@ -147,8 +147,12 @@
                     <td><?php echo $row['Created_at']; ?></td>
                     <td><?php echo $row['Last_updated']; ?></td>
                 </tr>
-        <?php
+            <?php
             }
+            ?>
+                </table>
+            </div>
+            <?php
         }
         else {
         ?>
@@ -157,10 +161,6 @@
             </div>
         <?php
         }
-        ?>
-                </table>
-            </div>
-    <?php
     }
     function createReportBookTable($conn, $BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $Creator,
     $Updator, $startAdd, $endAdd, $startUp, $endUp) {
@@ -239,6 +239,10 @@
                 </tr>
         <?php
             }
+            ?>
+                </table>
+            </div>
+            <?php
         }
         else {
         ?>
@@ -247,10 +251,6 @@
             </div>
         <?php
         }
-        ?>
-                </table>
-            </div>
-    <?php
     }
     function createNewStaffTable($conn, $startHire, $endHire, $StaffID, $Fname, $Mid, $Lname, $startDOB, $endDOB, $Email, $PhoneNum, $startSal, $endSal, $startEdit, $endEdit) {
         if (empty($startHire)) {
@@ -332,6 +332,10 @@
                 </tr>
         <?php
             }
+            ?>
+                </table>
+            </div>
+            <?php
         }
         else {
         ?>
@@ -340,10 +344,6 @@
             </div>
         <?php
         }
-        ?>
-                </table>
-            </div>
-    <?php
     }
     function createReportUsersTable($conn, $UnivID, $Fname, $Mid, $Lname, $Stat, $Email, $PhoneNum, $Address, $startDOB, $endDOB,
     $startFines, $endFines, $startBooks, $endBooks, $startCalc, $endCalc, $startLap, $endLap, $startHead, $endHead, 
@@ -474,6 +474,10 @@
                 </tr>
         <?php
             }
+            ?>
+                </table>
+            </div>
+            <?php
         }
         else {
         ?>
@@ -482,10 +486,6 @@
             </div>
         <?php
         }
-        ?>
-                </table>
-            </div>
-    <?php
     }
     function createReportCOBTable($conn, $StaffID, $UnivID, $BookID, $Title, $Author, $Genre, $AgeGroup, $Fiction, $Condition, $startCOB, $endCOB) {
         if (empty($startCOB)) {
@@ -553,6 +553,10 @@
                 </tr>
         <?php
             }
+            ?>
+                </table>
+            </div>
+            <?php
         }
         else {
         ?>
@@ -561,10 +565,6 @@
             </div>
         <?php
         }
-        ?>
-                </table>
-            </div>
-    <?php
     }
     function dateDiffInDays($date1, $date2) {
         $diff = $date2 - strtotime($date1);
@@ -1038,6 +1038,10 @@
                 </tr>
         <?php
             }
+            ?>
+                </table>
+            </div>
+            <?php
         }
         else {
         ?>
@@ -1046,10 +1050,6 @@
             </div>
         <?php
         }
-        ?>
-                </table>
-            </div>
-    <?php
     }
 
     function createItemTable($conn, $UnivID){
@@ -1088,6 +1088,10 @@
                 </tr>
         <?php
             }
+            ?>
+                </table>
+            </div>
+            <?php
         }
         else {
         ?>
@@ -1096,10 +1100,6 @@
             </div>
         <?php
         }
-        ?>
-                </table>
-            </div>
-    <?php
     }
 
 
@@ -1123,6 +1123,8 @@
                 <tr>
                     <td><?php echo '$'.$row['Fines']; ?></td>
                 </tr>
+                </table>
+            </div>
         <?php
         }
         else {
@@ -1132,10 +1134,7 @@
             </div>
         <?php
         }
-        ?>
-                </table>
-            </div>
-    <?php
+        
     }
 
     function getQueuePos($conn, $bookID, $UnivID) {
@@ -1223,10 +1222,12 @@
                     <td> <a href="includes/requests-inc.php?deleteBook=<?php echo $row['Book_id']; ?>&user=<?php echo $_SESSION['University_id'];?>">Delete</a>
                     </td> 
                 </tr>
-                </table>
-            </div>
         <?php
             }
+            ?>
+                </table>
+            </div>
+            <?php
         }
         else {
         ?>
@@ -1289,10 +1290,12 @@
                     <td> <a href="includes/requests-inc.php?deleteItem=<?php echo $row['Item_id']; ?>&user=<?php echo $_SESSION['University_id'];?>">Delete</a>
                     </td> 
                 </tr>
-                </table>
-            </div>
         <?php
             }
+            ?>
+                </table>
+            </div>
+            <?php
         }
         else {
         ?>
@@ -1346,6 +1349,10 @@
                 </tr>
         <?php
             }
+            ?>
+                </table>
+            </div>
+            <?php
         }
         else {
         ?>
@@ -1354,10 +1361,6 @@
             </div>
         <?php
         }
-        ?>
-                </table>
-            </div>
-    <?php
     }
 
     function createUserItemTable($conn, $StaffID){
@@ -1403,6 +1406,10 @@
                 </tr>
         <?php
             }
+            ?>
+                </table>
+            </div>
+            <?php
         }
         else {
         ?>
@@ -1411,10 +1418,6 @@
             </div>
         <?php
         }
-        ?>
-                </table>
-            </div>
-    <?php
     }
     function createUserBookReqTable($conn, $StaffID){
         $sql = "SELECT *
@@ -1457,8 +1460,12 @@
                         <td><?php echo $cond; ?></td>
                         <td><?php echo $row['Request_date']; ?></td>
                     </tr>
-            <?php
+                <?php
                 }
+                ?>
+                    </table>
+                </div>
+            <?php
             }
             else {
             ?>
@@ -1467,10 +1474,6 @@
                 </div>
             <?php
             }
-            ?>
-                    </table>
-                </div>
-        <?php
     }
     function createUserItemReqTable($conn, $StaffID){
         $sql = "SELECT *
@@ -1516,6 +1519,10 @@
                 </tr>
             <?php
             }
+            ?>
+                </table>
+            </div>
+            <?php
         }
         else {
         ?>
@@ -1524,10 +1531,6 @@
             </div>
         <?php
         }
-        ?>
-                </table>
-            </div>
-    <?php
     }
     function createUsersFineTable($conn){
         $sql = "SELECT *
