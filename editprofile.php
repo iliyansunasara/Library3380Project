@@ -271,16 +271,20 @@
         <?php
             if(isset($_GET["error"])) {
             if($_GET["error"] == "none") {
-                echo "<p class=\"updategood\">Successfully Updated Profile!</p>";
+                echo '<script>alert("Successfully Updated Profile!")</script>';
+                //echo "<p class=\"updategood\">Successfully Updated Profile!</p>";
             }
             else if($_GET["error"] == "emptyinput") {
-                echo "<p class=\"updatebad\">Empty Input!</p>";
+                echo '<script>alert("Empty Input!")</script>';
+                //echo "<p class=\"updatebad\">Empty Input!</p>";
             }
             else if($_GET["error"] == "invalidemail") {
-                echo "<p class=\"updatebad\">Invalid Email!</p>";
+                echo '<script>alert("Invalid Email!")</script>';
+                //echo "<p class=\"updatebad\">Invalid Email!</p>";
             }
             else if($_GET["error"] == "sql") {
-                echo "<p class=\"updatebad\">Error occurred! Please try again!</p>";
+                echo '<script>alert("Error occurred! Please try again!")</script>';
+                //echo "<p class=\"updatebad\">Error occurred! Please try again!</p>";
             }
         }
         ?>
