@@ -61,9 +61,23 @@ if(isset($_GET["confirm-checkout"])) {
         $data = $result->fetch_assoc();
         $type = $data['Item_type'];
 
-        $sql = "INSERT INTO CHECK_OUT_ITEM (University_id, Item_id, Checked_out_date)
-                VALUES ('$uniID','$itemID','$date')";
-        $result = $conn->query($sql);
+        if(isset($_SESSION["Staff_id"])) {
+            $staffID = mysqli_real_escape_string($conn, $_SESSION['Staff_id']);
+        }
+        elseif(isset($_SESSION["Admin_id"])) {
+            $adminID = mysqli_real_escape_string($conn, $_SESSION['Admin_id']);
+        }
+
+        if(isset($_SESSION['Staff_id'])) {
+            $sql = "INSERT INTO CHECK_OUT_ITEM (Staff_id, University_id, Item_id, Checked_out_date)
+                    VALUES ('$staffID','$uniID','$itemID','$date')";
+            $result = $conn->query($sql);
+        }
+        elseif(isset($_SESSION["Admin_id"])) {
+            $sql = "INSERT INTO CHECK_OUT_ITEM (Staff_id, University_id, Item_id, Checked_out_date)
+                    VALUES ('$adminID','$uniID','$itemID','$date')";
+            $result = $conn->query($sql);
+        }
 
         header("location: ../checkouts.php");
         exit();
