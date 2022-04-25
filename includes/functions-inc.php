@@ -1223,7 +1223,6 @@
                     <td> <a href="includes/requests-inc.php?deleteBook=<?php echo $row['Book_id']; ?>&user=<?php echo $_SESSION['University_id'];?>">Delete</a>
                     </td> 
                 </tr>
-                ?>
                 </table>
             </div>
         <?php
@@ -1290,6 +1289,8 @@
                     <td> <a href="includes/requests-inc.php?deleteItem=<?php echo $row['Item_id']; ?>&user=<?php echo $_SESSION['University_id'];?>">Delete</a>
                     </td> 
                 </tr>
+                </table>
+            </div>
         <?php
             }
         }
@@ -1301,8 +1302,6 @@
         <?php
         }
         ?>
-                </table>
-            </div>
     <?php
     }
     function createUserBookTable($conn, $StaffID){
