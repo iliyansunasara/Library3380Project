@@ -93,7 +93,7 @@
 <?php
     }*/
     
-    /*else*/if(isset($_SESSION["Staff_id"]) || isset($_SESSION["Admin_id"])) {
+    /*elseif(isset($_SESSION["Staff_id"]) || isset($_SESSION["Admin_id"])) {
 ?>
     <div class="checkout-request-form">
         <form action="item-checkout.php" method="POST">
@@ -108,6 +108,7 @@
         header("Location: login.php?error=mustlogin");
         exit();
     }
+    */
 ?>
 
 <?php
@@ -126,6 +127,22 @@
     </div>
 
 <?php
+    }
+    elseif(isset($_SESSION["Staff_id"]) || isset($_SESSION["Admin_id"])) {
+?>
+
+    <div class="checkout-request-form">
+        <form action="item-checkout.php" method="POST">
+            <input type="hidden" name="itemID" value="<?php echo $itemID; ?>">
+            <button type="submit" name="check-form-">Checkout Item</button>
+        </form>
+    </div>
+
+<?php
+    }
+    else {
+        header("Location: login.php?error=mustlogin");
+        exit();
     }
 ?>
 
