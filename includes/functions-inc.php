@@ -1183,7 +1183,7 @@
             <div class="COtable">
                 <table border="1px">
                     <tr>
-                        <th colspan="9"><h2>Requested Books</h2></th>
+                        <th colspan="10"><h2>Requested Books</h2></th>
                     </tr>
                     <t>
                     <th>Book ID </th>
@@ -1195,6 +1195,7 @@
                     <th>Condition</th>
                     <th>Request Date</th>
                     <th>Waitlist</th>
+                    <th>Action</th>
                 </t>
             <?php
             $i = 0;
@@ -1219,7 +1220,12 @@
                     <td><?php echo $cond; ?></td>
                     <td><?php echo $row['Request_date']; ?></td>
                     <td><?php echo $positions[$i++]; ?></td>
+                    <td> <a href="includes/requests-inc.php?deleteBook=<?php echo $row['Book_id']; ?>&user=<?php echo $_SESSION['University_id'];?>">Delete</a>
+                    </td> 
                 </tr>
+                ?>
+                </table>
+            </div>
         <?php
             }
         }
@@ -1230,12 +1236,23 @@
             </div>
         <?php
         }
-        ?>
-                </table>
-            </div>
-    <?php
+    }
+    function deleteUserBookReq($conn, $UnivID, $BookID) {
+        $sql = "DELETE FROM `request_book` WHERE `Book_id`='$BookID' AND `University_id`='$UnivID';";
+        $conn->query($sql);
+        updateUserBooks($conn, $UnivID, 'decr');
     }
 
+    
+    function deleteUserItemReq($conn, $UnivID, $ItemID) {
+        $sql = "SELECT * FROM ITEM WHERE Item_id = $ItemID;";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $sql1 = "DELETE FROM `request_item` WHERE `Item_id`='$ItemID' AND `University_id`='$UnivID';";
+        $conn->query($sql1);
+        $temp = $row['Item_type'];
+        updateUserItems($conn, $UnivID, 'decr', $temp);
+    }
     function createItemReqTable($conn, $UnivID){
         $sql = "SELECT *
                 FROM REQUEST_ITEM AS RI, ITEM AS I
@@ -1247,13 +1264,14 @@
             <div class="COtable">
                 <table border="1px">
                     <tr>
-                        <th colspan="4"><h2>Requested Items</h2></th>
+                        <th colspan="5"><h2>Requested Items</h2></th>
                     </tr>
                     <t>
                     <th>Item ID</th>
                     <th>Item Type</th>
                     <th>Condition</th>
                     <th>Request Date</th>
+                    <th>Action</th>
                 </t>
             <?php
             while($row = $result->fetch_assoc()) {
@@ -1269,6 +1287,8 @@
                     ?>
                     <td><?php echo $cond; ?></td>
                     <td><?php echo $row['Request_date']; ?></td>
+                    <td> <a href="includes/requests-inc.php?deleteItem=<?php echo $row['Item_id']; ?>&user=<?php echo $_SESSION['University_id'];?>">Delete</a>
+                    </td> 
                 </tr>
         <?php
             }
@@ -1565,6 +1585,68 @@
             ?>
                 
         <?php
+    }
+    function updateUserBooks($conn, $UnivID, $temp) {
+        $uidExists = uidExists($conn, $UnivID);
+        if ($temp == 'decr') {
+            $value = $uidExists['Num_of_books'];
+            $value -= 1;
+            $sql = "UPDATE `users` SET `Num_of_books`='$value', `Last_updated` = now() WHERE `University_id`= $UnivID;";
+            mysqli_query($conn, $sql);
+        }
+        else if ($temp == 'incr') {
+            $value = $uidExists['Num_of_books'];
+            $value += 1;
+            $sql = "UPDATE `users` SET `Num_of_books`='$value', `Last_updated` = now() WHERE `University_id`= $UnivID;";
+            mysqli_query($conn, $sql);
+        }
+        
+    }
+
+    function  updateUserItems($conn, $UnivID, $temp, $type) {
+        $uidExists = uidExists($conn, $UnivID);
+        $column = '';
+        $value = '';
+        if ($temp == 'decr') {
+            if ($type == 'H') {
+                $column = 'Headphone_count';
+                $value = $uidExists['Headphone_count'];
+                $value -= 1;
+            }
+            else if ($type == 'L') {
+                $column = 'Laptop_count';
+                $value = $uidExists['Laptop_count'];
+                $value -= 1;
+            }
+            else if ($type == 'C') {
+                $column = 'Calculator_count';
+                $value = $uidExists['Calculator_count'];
+                $value -= 1;
+
+            }
+            $sql = "UPDATE `users` SET `$column`='$value', `Last_updated` = now() WHERE `University_id`= $UnivID;";
+            mysqli_query($conn, $sql);
+        }
+        else if ($temp == 'incr') {
+            if ($type == 'H') {
+                $column = 'Headphone_count';
+                $value = $uidExists['Headphone_count'];
+                $value += 1;
+            }
+            else if ($type == 'L') {
+                $column = 'Laptop_count';
+                $value = $uidExists['Laptop_count'];
+                $value += 1;
+            }
+            else if ($type == 'C') {
+                $column = 'Calculator_count';
+                $value = $uidExists['Calculator_count'];
+                $value += 1;
+
+            }
+            $sql = "UPDATE `users` SET `$column`='$value', `Last_updated` = now() WHERE `University_id`= $UnivID;";
+            mysqli_query($conn, $sql);
+        }
     }
     function updateUserFine($conn, $UnivID, $Fine) {
         $sql = "UPDATE `users` SET `Fines`='$Fine', `Last_updated` = now() WHERE `University_id`= $UnivID;";
