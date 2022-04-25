@@ -310,6 +310,9 @@
         else if($_GET["error"] == "bookCO") {
             echo '<script>alert("Book is currently checked out, can\'t delete!")</script>';
         }
+        else if($_GET["error"] == "wrongID") {
+            echo '<script>alert("Invalid University Id!")</script>';
+        }
         else if($_GET["error"] == "none") {
             //echo '<script>alert("Book Successfully Updated!")</script>';
         }

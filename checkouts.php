@@ -6,12 +6,14 @@
         if(isset($_SESSION["University_id"])) {
             require_once 'includes/dbh-inc.php';
             require_once 'includes/functions-inc.php';
+            ?><br><?php
             createBookTable($conn, $_SESSION["University_id"]);
             createItemTable($conn, $_SESSION["University_id"]);
         }
         else if(isset($_SESSION["Staff_id"])) {
             require_once 'includes/dbh-inc.php';
             require_once 'includes/functions-inc.php';
+            ?><br><?php
             createUserBookTable($conn, $_SESSION["Staff_id"]);
             createUserItemTable($conn, $_SESSION["Staff_id"]);
         }

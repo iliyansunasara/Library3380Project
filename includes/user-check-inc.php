@@ -55,7 +55,8 @@
         }
         elseif(isset($_SESSION["Admin_id"]) || isset($_SESSION["Staff_id"])) {
             require_once 'dbh-inc.php';
-
+            require_once 'functions-inc.php';
+            
             if(isset($_SESSION["Staff_id"])) {
                 $staffID = mysqli_real_escape_string($conn, $_SESSION['Staff_id']);
             }
@@ -63,8 +64,21 @@
                 $adminID = mysqli_real_escape_string($conn, $_SESSION['Admin_id']);
             }
 
+
             //checking if student or faculty member & get current number of books
             $uniID = mysqli_real_escape_string($conn, $_GET['uni']);
+
+            $sql_u = "SELECT *
+            FROM USERS
+            WHERE USERS.University_id = '$uniID'";
+            $result = $conn->query($sql_u);
+
+            if (!($result->num_rows > 0)) {
+                header("location: ../index.php?error=wrongID");
+                exit();
+            }
+
+
             $sql = "SELECT *
             FROM users
             WHERE users.University_id = '$uniID'";

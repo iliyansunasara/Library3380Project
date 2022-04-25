@@ -5,12 +5,14 @@
         if(isset($_SESSION["University_id"])) {
             require_once 'includes/dbh-inc.php';
             require_once 'includes/functions-inc.php';
+            ?><br><?php
             createBookReqTable($conn, $_SESSION["University_id"]);
             createItemReqTable($conn, $_SESSION["University_id"]);
         }
         else if(isset($_SESSION["Staff_id"])) {
             require_once 'includes/dbh-inc.php';
             require_once 'includes/functions-inc.php';
+            ?><br><?php
             createUserBookReqTable($conn, $_SESSION["Staff_id"]);
             createUserItemReqTable($conn, $_SESSION["Staff_id"]);
         }
